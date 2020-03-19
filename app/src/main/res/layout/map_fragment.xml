@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.map.MapFragment">
+    tools:context="solutus.coronawatch.ui.map.mapFragment"
+    android:id="@+id/mapFragment">
 
-    <TextView
+
+<TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:text="Map" />
 
 </FrameLayout>

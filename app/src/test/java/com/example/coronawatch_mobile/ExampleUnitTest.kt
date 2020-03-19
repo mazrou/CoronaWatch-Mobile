@@ -1,4 +1,4 @@
-package solutus.coronawatch
+package com.example.coronawatch_mobile
 
 import org.junit.Test
 

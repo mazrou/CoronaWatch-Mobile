@@ -7,12 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import solutus.coronawatch.R
+import com.example.coronawatch_mobile.R
 
-class MapFragment : Fragment() {
+class mapFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MapFragment()
+        fun newInstance() = mapFragment()
     }
 
     private lateinit var viewModel: MapViewModel
