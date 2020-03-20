@@ -8,13 +8,9 @@
     android:orientation="vertical"
     tools:context="com.example.coronawtch_mobile.MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
+    <include
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?colorPrimary"
-        android:theme="@style/ToolbarTheme" />
-
+        layout="@layout/toolbar"/>
     <fragment
         android:id="@+id/nav_host_fragment"
         android:layout_width="match_parent"
@@ -28,6 +24,7 @@
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/bottom_nav"/>
+        android:background="@mipmap/ic_menu_background"
+        app:menu="@menu/bottom_nav" />
 
 </LinearLayout>
