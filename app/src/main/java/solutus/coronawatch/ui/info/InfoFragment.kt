@@ -7,12 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import solutus.coronawatch.R
+import com.example.coronawatch_mobile.R
 
-class InfoFragment : Fragment() {
+class infoFragment : Fragment() {
 
     companion object {
-        fun newInstance() = InfoFragment()
+        fun newInstance() = infoFragment()
     }
 
     private lateinit var viewModel: InfoViewModel

@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.health.HealthFragment">
+    tools:context="solutus.coronawatch.ui.health.healthFragment"
+    android:id="@+id/healthFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:text="Health" />
 
 </FrameLayout>
