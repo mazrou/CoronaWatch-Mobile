@@ -12,20 +12,17 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar"/>
 
-    <fragment
+    <FrameLayout
         android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="616dp"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/mobile_navigation" />
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@mipmap/ic_menu_background"
-        app:menu="@menu/bottom_nav" />
+        app:menu="@menu/bottom_nav"/>
 
 </LinearLayout>
