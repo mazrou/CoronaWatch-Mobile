@@ -10,11 +10,11 @@ import solutus.coronawatch.ui.home.novelties.NouveltiesFragment
 import solutus.coronawatch.ui.home.videos.VideosFragment
 
 
-/**
- * A simple [Fragment] subclass.
- */
 class HomeFragment : Fragment() {
 
+    companion object {
+        fun newInstance() = HomeFragment()
+    }
 
      private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
         item -> when (item?.itemId) {
