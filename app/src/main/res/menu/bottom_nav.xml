@@ -9,6 +9,10 @@
         android:id="@+id/infoFragment"
         android:icon="@mipmap/ic_info"
         android:title="@string/info"/>
+   <item
+        android:id="@+id/mapFragment"
+        android:icon="@mipmap/ic_map"
+        android:title="@string/map" />
 
     <item
         android:id="@+id/userFragment"
@@ -19,11 +23,6 @@
         android:id="@+id/healthFragment"
         android:icon="@mipmap/ic_heart"
         android:title="@string/health"/>
-
-    <item
-        android:id="@+id/mapFragment"
-        android:icon="@mipmap/ic_map"
-        android:title="@string/map"/>
 
 
 
