@@ -1,9 +1,7 @@
 package com.example.coronawtch_mobile
 
 import android.os.Bundle
-import android.text.Layout
-import android.text.SpannableString
-import android.text.style.AlignmentSpan
+import androidx.fragment.app.Fragment
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -11,13 +9,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.coronawatch_mobile.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-
+import solutus.coronawatch.ui.health.healthFragment
+import solutus.coronawatch.ui.home.homeFragment
+import solutus.coronawatch.ui.info.infoFragment
+import solutus.coronawatch.ui.map.mapFragment
+import solutus.coronawatch.ui.user.userFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController:NavController
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
             item -> when(item.itemId){
         R.id.healthFragment ->{
-           replaceFragment(HealthFragment)
+           replaceFragment(healthFragment)
             return@OnNavigationItemSelectedListener true
         }
         R.id.mapFragment ->{
