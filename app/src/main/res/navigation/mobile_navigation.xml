@@ -18,22 +18,27 @@
         android:label="Health"
         tools:layout="@layout/health_fragment"
         />
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="solutus.coronawatch.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/home_fragment"
+        />
+
+
     <fragment
         android:id="@+id/mapFragment"
         android:name="solutus.coronawatch.ui.map.mapFragment"
         android:label="Map"
         tools:layout="@layout/map_fragment"
-        />
+        >
+    </fragment>
     <fragment
         android:id="@+id/infoFragment"
         android:name="solutus.coronawatch.ui.info.infoFragment"
         android:label="Info"
         tools:layout="@layout/info_fragment"
         />
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="solutus.coronawatch.ui.home.homeFragment"
-        android:label="Home"
-        tools:layout="@layout/home_fragment"
-        />
+    <include app:graph="@navigation/home_navigation" />
 </navigation>
