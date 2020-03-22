@@ -3,9 +3,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="user">User</string>
-    <string name="health">Health</string>
-    <string name="map">Map</string>
-    <string name="info">Info</string>
-    <string name="home">Home</string>
+    <string name="user">بياناتك</string>
+    <string name="health">صحة</string>
+    <string name="map">الخريطة</string>
+    <string name="info">إستفسارات</string>
+    <string name="home">الرئيسية</string>
+    <string name="notifications">الإشعارات</string>
+    <string name="settings">الإعدادات</string>
+    <string name="help">المساعدة</string>
+    <string name="logout">تسجيل الخروج</string>
 </resources>
