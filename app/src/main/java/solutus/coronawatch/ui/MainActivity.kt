@@ -14,11 +14,12 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.coronawatch_mobile.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-import solutus.coronawatch.ui.health.healthFragment
-import solutus.coronawatch.ui.home.homeFragment
-import solutus.coronawatch.ui.info.infoFragment
-import solutus.coronawatch.ui.map.mapFragment
-import solutus.coronawatch.ui.user.userFragment
+import kotlinx.android.synthetic.main.map_fragment.*
+import solutus.coronawatch.ui.health.HealthFragment
+import solutus.coronawatch.ui.home.HomeFragment
+import solutus.coronawatch.ui.info.InfoFragment
+import solutus.coronawatch.ui.map.MapFragment
+import solutus.coronawatch.ui.user.UserFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController:NavController
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
             item -> when(item.itemId){
         R.id.healthFragment ->{
-           replaceFragment(healthFragment)
+            replaceFragment(HealthFragment())
             return@OnNavigationItemSelectedListener true
         }
         R.id.mapFragment ->{
@@ -55,10 +56,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setTitle(R.string.app_name)
         supportActionBar?.setLogo(R.mipmap.ic_logo_corona_blanc)
-
-        bottom_nav.setupWithNavController(navController)
-        NavigationUI.setupActionBarWithNavController(this,navController) */
-        replaceFragment(HomeFragment())
+        replaceFragment(MapFragment())
         bottom_nav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 

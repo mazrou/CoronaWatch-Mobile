@@ -9,10 +9,10 @@ import android.view.ViewGroup
 
 import com.example.coronawatch_mobile.R
 
-class mapFragment : Fragment() {
+class MapFragment : Fragment() {
 
     companion object {
-        fun newInstance() = mapFragment()
+        fun newInstance() = MapFragment()
     }
 
     private lateinit var viewModel: MapViewModel

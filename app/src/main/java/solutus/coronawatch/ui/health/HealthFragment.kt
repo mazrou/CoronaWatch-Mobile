@@ -9,10 +9,12 @@ import android.view.ViewGroup
 
 import com.example.coronawatch_mobile.R
 
-class healthFragment : Fragment() {
+
+
+class HealthFragment : Fragment() {
 
     companion object {
-        fun newInstance() = healthFragment()
+        fun newInstance() = HealthFragment()
     }
 
     private lateinit var viewModel: HealthViewModel
@@ -23,6 +25,7 @@ class healthFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.health_fragment, container, false)
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

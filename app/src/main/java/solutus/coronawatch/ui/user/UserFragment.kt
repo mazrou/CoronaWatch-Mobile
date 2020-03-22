@@ -9,10 +9,10 @@ import android.view.ViewGroup
 
 import com.example.coronawatch_mobile.R
 
-class userFragment : Fragment() {
+class UserFragment : Fragment() {
 
     companion object {
-        fun newInstance() = userFragment()
+        fun newInstance() = UserFragment()
     }
 
     private lateinit var viewModel: UserViewModel
