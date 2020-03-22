@@ -9,10 +9,10 @@ import android.view.ViewGroup
 
 import com.example.coronawatch_mobile.R
 
-class infoFragment : Fragment() {
+class InfoFragment : Fragment() {
 
     companion object {
-        fun newInstance() = infoFragment()
+        fun newInstance() = InfoFragment()
     }
 
     private lateinit var viewModel: InfoViewModel

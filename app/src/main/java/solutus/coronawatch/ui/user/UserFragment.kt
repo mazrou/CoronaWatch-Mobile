@@ -1,18 +1,17 @@
 package solutus.coronawatch.ui.user
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.example.coronawatch_mobile.R
 
-class userFragment : Fragment() {
+class UserFragment : Fragment() {
 
     companion object {
-        fun newInstance() = userFragment()
+        fun newInstance() = UserFragment()
     }
 
     private lateinit var viewModel: UserViewModel
@@ -29,5 +28,4 @@ class userFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(UserViewModel::class.java)
         // TODO: Use the ViewModel
     }
-
 }

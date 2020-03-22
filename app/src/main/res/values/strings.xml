@@ -8,4 +8,9 @@
     <string name="map">Map</string>
     <string name="info">Info</string>
     <string name="home">Home</string>
+
+    <string name="videos">فيديوهات</string>
+    <string name="news">الأخبار</string>
+    <string name="novelties">المستجدات</string>
+
 </resources>
