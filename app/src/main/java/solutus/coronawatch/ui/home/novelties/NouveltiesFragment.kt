@@ -1,4 +1,4 @@
-package solutus.coronawatch.ui.map
+package solutus.coronawatch.ui.home.novelties
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -9,25 +9,24 @@ import android.view.ViewGroup
 
 import com.example.coronawatch_mobile.R
 
-class MapFragment : Fragment() {
+class NouveltiesFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MapFragment()
+        fun newInstance() = NouveltiesFragment()
     }
 
-
-    private lateinit var viewModel: MapViewModel
+    private lateinit var viewModel: NouveltiesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.map_fragment, container, false)
+        return inflater.inflate(R.layout.nouvelties_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MapViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(NouveltiesViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

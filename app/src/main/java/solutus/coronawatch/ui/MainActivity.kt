@@ -22,51 +22,58 @@ import solutus.coronawatch.ui.map.MapFragment
 import solutus.coronawatch.ui.user.UserFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var navController:NavController
+
+    // Decladring the ToolBar
     private lateinit var toolbar: Toolbar
+  
+    // Declaring the on Navigation Item Selected Listener for the Bottom Navigation View
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
             item -> when(item.itemId){
-        R.id.healthFragment ->{
-            replaceFragment(HealthFragment())
-            return@OnNavigationItemSelectedListener true
-        }
-        R.id.mapFragment ->{
-            replaceFragment(MapFragment())
-            return@OnNavigationItemSelectedListener true
-        }
-        R.id.userFragment ->{
-            replaceFragment(UserFragment())
-            return@OnNavigationItemSelectedListener true
-        }
-        R.id.infoFragment ->{
-            replaceFragment(InfoFragment())
-            return@OnNavigationItemSelectedListener true
-        }
-        R.id.homeFragment ->{
-            replaceFragment(HomeFragment())
-            return@OnNavigationItemSelectedListener true
-        }
-    }
-        return@OnNavigationItemSelectedListener false
-    }
+                              R.id.healthFragment ->{
+                                  replaceFragment(HealthFragment())
+                                  return@OnNavigationItemSelectedListener true
+                              }
+                              R.id.mapFragment ->{
+                                  replaceFragment(MapFragment())
+                                  return@OnNavigationItemSelectedListener true
+                              }
+                              R.id.userFragment ->{
+                                  replaceFragment(UserFragment())
+                                  return@OnNavigationItemSelectedListener true
+                              }
+                              R.id.infoFragment ->{
+                                  replaceFragment(InfoFragment())
+                                  return@OnNavigationItemSelectedListener true
+                              }
+                              R.id.homeFragment ->{
+                                  replaceFragment(HomeFragment())
+                                  return@OnNavigationItemSelectedListener true
+                              }
+                      }
+                     return@OnNavigationItemSelectedListener false
+           }
+
+
+  
     override fun onCreate(savedInstanceState: Bundle?) {
+      
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+      
+      // set the toolbar and her options
         toolbar=findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setTitle(R.string.app_name)
         supportActionBar?.setLogo(R.mipmap.ic_logo_corona_blanc)
-        replaceFragment(MapFragment())
+      
+      // put the Home Fragment as default 
+        replaceFragment(HomeFragment())
+      
+      // set the OnNavigationItemSelectedListener to the bottom_nav ( the ID of the Bottom navigation view ) 
         bottom_nav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
 
-    private fun replaceFragment (fragment: Fragment){
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.nav_host_fragment , fragment)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
-    }
-
+  
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         var inflater :MenuInflater = menuInflater
         inflater.inflate(R.menu.top_nav,menu)
@@ -74,6 +81,9 @@ class MainActivity : AppCompatActivity() {
         switchOnOffItem?.setActionView(R.layout.switch_layout)
         return true
     }
+  
+  
+  
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.notification_item -> {
@@ -96,6 +106,15 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
+  }
+ /*
+ * This methode make us replacting the fragment on the nav_host_fragment
+ */
+   private fun replaceFragment (fragment: Fragment){
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.nav_host_fragment , fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+    }
 
 }

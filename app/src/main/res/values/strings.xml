@@ -12,4 +12,10 @@
     <string name="settings">الإعدادات</string>
     <string name="help">المساعدة</string>
     <string name="logout">تسجيل الخروج</string>
+
+    <string name="videos">فيديوهات</string>
+    <string name="news">الأخبار</string>
+    <string name="novelties">المستجدات</string>
+
+
 </resources>

@@ -13,6 +13,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "com.example.coronawatch_mobile"
         minSdkVersion 19
         targetSdkVersion 29
