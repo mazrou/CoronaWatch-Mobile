@@ -1,18 +1,39 @@
 package solutus.coronawatch.ui.home.videos
 
-import androidx.lifecycle.LiveData
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.example.coronawatch_mobile.R
 import com.example.coronawatch_mobile.databinding.VideoRecyclerviewBinding
-import com.xwray.groupie.databinding.BindableItem
 import solutus.coronawatch.data.entity.Video
 
 
-class VideoItem (var video :LiveData<List<Video>>): BindableItem<VideoRecyclerviewBinding>()  {
+class VideoAdapter (
+    private val videoList : List<Video>
+): RecyclerView.Adapter<VideoAdapter.VideoViewHolder>() {
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): VideoAdapter.VideoViewHolder
+            = VideoViewHolder(DataBindingUtil
+        .inflate(LayoutInflater
+            .from(parent.context),
+            R.layout.video_recyclerview,
+            parent,
+            false
+        ))
 
 
-    override fun getLayout() = R.layout.video_recyclerview
+    override fun getItemCount() = videoList.size
 
-    override fun bind(viewBinding: VideoRecyclerviewBinding, position: Int) {
-            viewBinding.video = video.value!![position]
+    override fun onBindViewHolder(holder: VideoAdapter.VideoViewHolder, position: Int) {
+        holder.videoRecyclerviewBinding.video = videoList[position]
     }
+
+    inner class VideoViewHolder(
+        val videoRecyclerviewBinding : VideoRecyclerviewBinding
+    )  :
+        RecyclerView.ViewHolder(videoRecyclerviewBinding.root)
 }

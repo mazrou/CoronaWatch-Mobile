@@ -1,4 +1,4 @@
-package com.example.coronawatch_mobile
+package com.example.coronawatch_mobile.repository
 
 import org.junit.Assert
 import org.junit.Test

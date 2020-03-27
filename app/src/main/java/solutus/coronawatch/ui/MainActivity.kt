@@ -1,4 +1,4 @@
-package com.example.coronawtch_mobile
+package solutus.coronawatch.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -19,7 +19,7 @@ import solutus.coronawatch.ui.user.UserFragment
 
 class MainActivity : AppCompatActivity() {
 
-    // Decladring the ToolBar
+    // Declaring the ToolBar
     private lateinit var toolbar: Toolbar
   
     // Declaring the on Navigation Item Selected Listener for the Bottom Navigation View
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
       // set the toolbar and her options
         toolbar=findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        
+
       // put the Home Fragment as default
         replaceFragment(HomeFragment())
       
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
  /*
- * This methode make us replacting the fragment on the nav_host_fragment
+ * This method make us replacing the fragment on the nav_host_fragment
  */
    private fun replaceFragment (fragment: Fragment){
         val fragmentTransaction = supportFragmentManager.beginTransaction()
