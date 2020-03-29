@@ -5,6 +5,9 @@
     <color name="colorAccent">#D81B60</color>
     <color name="fontColorPrimary">#E4E4E4</color>
     <color name="fontColorSecondary">#FFFFFF</color>
+    <color name="textPrimary">#31363b</color>
+    <color name="textSecondary">#5C5C5C</color>
+
 
 
 </resources>

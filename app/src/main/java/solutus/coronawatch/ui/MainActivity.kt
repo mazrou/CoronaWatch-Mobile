@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         toolbar=findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+
       // put the Home Fragment as default
         replaceFragment(HomeFragment())
       

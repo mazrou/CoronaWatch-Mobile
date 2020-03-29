@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coronawatch_mobile.R
 import com.example.coronawatch_mobile.databinding.VideoRecyclerviewBinding
-import solutus.coronawatch.data.entity.Video
+import solutus.coronawatch.data.db.entity.Video
 
 
 class VideoAdapter (
@@ -30,6 +30,14 @@ class VideoAdapter (
 
     override fun onBindViewHolder(holder: VideoAdapter.VideoViewHolder, position: Int) {
         holder.videoRecyclerviewBinding.video = videoList[position]
+      // I don't know how to put the videos yet 
+        val videoUrl = videoList[position].url
+        val youtubeUrl= "https://www.youtube.com/watch?v=$videoUrl"
+        holder.videoRecyclerviewBinding.videoView.loadUrl(youtubeUrl)
+        holder.videoRecyclerviewBinding.videoView.settings.javaScriptEnabled = true
+
+
+
     }
 
     inner class VideoViewHolder(

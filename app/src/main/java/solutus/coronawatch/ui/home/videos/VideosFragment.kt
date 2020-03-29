@@ -14,6 +14,8 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.videos_fragment.*
 import solutus.coronawatch.utilities.InjectorUtils
+import android.view.View.GONE
+import kotlinx.android.synthetic.main.video_recyclerview.*
 
 class VideosFragment : Fragment() {
 
@@ -36,6 +38,7 @@ class VideosFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initializeUi()
+
     }
 
     private fun initializeUi(){
@@ -44,17 +47,15 @@ class VideosFragment : Fragment() {
         viewModel.getVideos()
 
         viewModel.videos.observe(viewLifecycleOwner, Observer {videos->
+            group_loading.visibility = GONE
             recyclerView_videos.also {
                 it.layoutManager = LinearLayoutManager(requireContext())
                 it.setHasFixedSize(true)
                 it.adapter = VideoAdapter(videos)
+
+
             }
         })
-
-     //   val groupeAdapter = GroupAdapter<GroupieViewHolder>()
-     //   groupeAdapter.add(VideoAdapter())
-
-     //   print("hadi hiosakdlfmfd ${viewModel.getVideos().toString()}")
 
 
     }
