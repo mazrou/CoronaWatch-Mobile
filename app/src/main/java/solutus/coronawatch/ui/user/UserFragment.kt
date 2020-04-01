@@ -35,10 +35,7 @@ class UserFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //set the profile image from the server
         val avatar = activity?.findViewById<View>(R.id.profile_image) as de.hdodenhof.circleimageview.CircleImageView
-        // a programmer ulterieurement   avatar.setImageResource(url)
-
 
         val leftArc = view?.findViewById<View>(R.id.arc_left) as ImageView
         val rightArc = view?.findViewById<View>(R.id.arc_right) as ImageView

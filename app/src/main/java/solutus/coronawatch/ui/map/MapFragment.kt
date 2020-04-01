@@ -15,6 +15,7 @@ class MapFragment : Fragment() {
         fun newInstance() = MapFragment()
     }
 
+
     private lateinit var viewModel: MapViewModel
 
     override fun onCreateView(

@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import com.example.coronawatch_mobile.R
 
 
-
 class HealthFragment : Fragment() {
 
     companion object {
