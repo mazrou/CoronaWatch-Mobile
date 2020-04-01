@@ -7,7 +7,9 @@
     android:background="@color/colorPrimary"
     android:elevation="@dimen/cardview_compat_inset_shadow"
     android:theme="@style/ToolbarTheme"
-    app:popupTheme="@style/PopupStyle">
+    app:popupTheme="@style/PopupStyle"
+    app:logo="@mipmap/ic_logo_corona_blanc"
+    app:title="@string/app_name">
 
 
 </androidx.appcompat.widget.Toolbar>

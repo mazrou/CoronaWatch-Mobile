@@ -1,25 +1,25 @@
 package com.example.coronawtch_mobile
 
+import android.content.res.Configuration
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.example.coronawatch_mobile.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.map_fragment.*
 import solutus.coronawatch.ui.health.HealthFragment
 import solutus.coronawatch.ui.home.HomeFragment
 import solutus.coronawatch.ui.info.InfoFragment
 import solutus.coronawatch.ui.map.MapFragment
 import solutus.coronawatch.ui.user.UserFragment
+import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController:NavController
@@ -52,10 +52,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         toolbar=findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.setTitle(R.string.app_name)
-        supportActionBar?.setLogo(R.mipmap.ic_logo_corona_blanc)
         replaceFragment(MapFragment())
         bottom_nav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
@@ -96,6 +95,9 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+
+
 
 
 }
