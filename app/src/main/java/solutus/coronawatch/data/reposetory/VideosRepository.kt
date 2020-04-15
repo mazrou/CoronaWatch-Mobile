@@ -17,10 +17,10 @@ class VideosRepository(
       fun getVideos(): List<Video> {
       //  getApplicationContext().getPackageName();
         var listv = ArrayList<Video>()
-        listv.add(Video(id = "video_1", publisher = User("2","AYoub"), title = "أول فيديو",url = "yKeULpr9fcg", comments = null))
-        listv.add(Video(id = "video_1", publisher = User("2","AYoub"), title = "أول فيديو",url = "yKeULpr9fcg", comments = null))
-        listv.add(Video(id = "video_1", publisher = User("2","AYoub"), title = "أول فيديو",url = "yKeULpr9fcg", comments = null))
-        listv.add(Video(id = "video_1", publisher = User("2","AYoub"), title = "أول فيديو",url = "yKeULpr9fcg", comments = null))
+        listv.add(Video(id = "video_1", publisher = User("2","AYoub"), title = "أول فيديو",url = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4", comments = null ,thumbnil = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"))
+        listv.add(Video(id = "video_1", publisher = User("2","AYoub"), title = "أول فيديو",url = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4", comments = null ,thumbnil = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"))
+        listv.add(Video(id = "video_1", publisher = User("2","AYoub"), title = "أول فيديو",url = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4", comments = null ,thumbnil = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"))
+        listv.add(Video(id = "video_1", publisher = User("2","AYoub"), title = "أول فيديو",url = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4", comments = null , thumbnil = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"))
         return listv
     }
 }

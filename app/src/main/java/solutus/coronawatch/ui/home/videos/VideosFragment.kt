@@ -51,7 +51,7 @@ class VideosFragment : Fragment() {
             recyclerView_videos.also {
                 it.layoutManager = LinearLayoutManager(requireContext())
                 it.setHasFixedSize(true)
-                it.adapter = VideoAdapter(videos)
+                it.adapter = VideoAdapter(videos, requireContext())
 
 
             }
