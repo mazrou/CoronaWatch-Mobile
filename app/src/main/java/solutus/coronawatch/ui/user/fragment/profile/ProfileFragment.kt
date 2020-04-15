@@ -59,44 +59,18 @@ class ProfileFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         //modifier l'icone de l'avatar à ic_plus
         avatar = activity?.findViewById<View>(R.id.profile_image) as de.hdodenhof.circleimageview.CircleImageView
-
+        avatar.setOnClickListener{
+            showPictureDialog()
+        }
         //manipulation du Date Picker
         dateOfBirthET = view?.findViewById<EditText>(R.id.date_naissance)!!
         dateOfBirthET.inputType = InputType.TYPE_NULL;
-
-        // get fragment manager so we can launch from fragment
-        val fm: FragmentManager = (activity as AppCompatActivity?)!!.supportFragmentManager
-
-        // Using an onclick listener on the editText to show the datePicker
-        dateOfBirthET.setOnClickListener(View.OnClickListener {
-            //Change the language to Arabic
-            val locale: Locale? = Locale("ar")
-            Locale.setDefault(locale)
-            val config: Configuration? = activity?.baseContext?.resources?.configuration
-            config?.setLocale(locale)
-            config?.let { it1 -> activity?.createConfigurationContext(it1) }
-            // create the datePickerFragment
-            val newFragment: AppCompatDialogFragment =
-                DatePickerFragment()
-            // set the targetFragment to receive the results, specifying the request code
-            newFragment.setTargetFragment(this@ProfileFragment, REQUEST_CODE_DATE_PICKER)
-            //
-
-            // show the datePicker
-
-            newFragment.show(fm, "datePicker")
-
-        })
-
-        //change le photo profile
-        avatar.setOnClickListener{
-             showPictureDialog()
-         }
-
-
+        dateOfBirthET.setOnClickListener {
+            showDatePicker(this, REQUEST_CODE_DATE_PICKER)
+        }
+        //souvegarder l'état du profile
         val sauvegardBtn =  view?.findViewById<Button>(R.id.souvegarder_button)
         sauvegardBtn?.setOnClickListener{
             userName =  view?.findViewById<EditText>(R.id.user_name) as EditText
@@ -117,6 +91,18 @@ class ProfileFragment : Fragment() {
                 }
             }
         }
+    }
+    private fun showDatePicker(fragment:Fragment,requestCode: Int){
+        val fm: FragmentManager = (activity as AppCompatActivity?)!!.supportFragmentManager
+        //Change the language to Arabic
+        val locale: Locale? = Locale("ar")
+        Locale.setDefault(locale)
+        val config: Configuration? = activity?.baseContext?.resources?.configuration
+        config?.setLocale(locale)
+        config?.let { it1 -> activity?.createConfigurationContext(it1) }
+        val newFragment: AppCompatDialogFragment = DatePickerFragment()
+        newFragment.setTargetFragment(fragment,requestCode)
+        newFragment.show(fm, "datePicker")
     }
     private fun showPictureDialog() {
         val pictureDialog: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(activity,AlertDialog.THEME_HOLO_LIGHT)

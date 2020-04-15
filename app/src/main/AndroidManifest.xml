@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name="com.example.coronawtch_mobile.MainActivity">
+        <activity android:name="solutus.coronawatch.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

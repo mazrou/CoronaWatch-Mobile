@@ -72,11 +72,10 @@
                     android:duplicateParentState="true"
                     android:ems="4"
                     android:textSize="7pt"
-                    android:hint="@string/comment"
+                    android:hint="@string/add_comment"
                     android:inputType="text"
                     android:selectAllOnFocus="true"
                     android:singleLine="true"
-
                     android:autofillHints="@string/comment" />
 
             </LinearLayout>

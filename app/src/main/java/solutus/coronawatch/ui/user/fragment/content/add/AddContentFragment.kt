@@ -17,6 +17,7 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.coronawatch_mobile.R
+import kotlinx.android.synthetic.main.add_content_fragment.*
 import java.lang.Thread.sleep
 
 
@@ -29,10 +30,6 @@ class AddContentFragment : Fragment(){
             AddContentFragment()
     }
 
-    private lateinit var videoView:VideoView
-    private lateinit var uploadButton: ImageView
-    private lateinit var title: EditText
-    private lateinit var description: EditText
     var progressdialog: ProgressDialog? = null
     private var selectedVideoUri: Uri? = null
     override fun onCreateView(
@@ -44,17 +41,11 @@ class AddContentFragment : Fragment(){
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        videoView = view?.findViewById<View>(R.id.video_view) as VideoView
-        uploadButton = view?.findViewById<View>(R.id.upload) as ImageView
-        uploadButton.setOnClickListener {
+        upload.setOnClickListener {
             showPictureDialog()
         }
-
-        val shareButton = view?.findViewById<Button>(R.id.share_button)
-        shareButton?.setOnClickListener {
-            title =  view?.findViewById<EditText>(R.id.title) as EditText
-            description =  view?.findViewById<EditText>(R.id.description) as EditText
-            if(videoView.duration == -1){//VideoView ne contient pas un video
+        share_button?.setOnClickListener {
+            if(video_view.duration == -1){//VideoView ne contient pas un video
                 Toast.makeText(activity, "يجب اضافة فيديو", Toast.LENGTH_SHORT).show()
 
             }else{
@@ -104,7 +95,7 @@ class AddContentFragment : Fragment(){
     private fun uploadVideo() {//à changer
         // à coder ulterieurement
         //CreateProgressDialog
-        videoView.visibility = View.GONE
+        video_view.visibility = View.GONE
         progressdialog = ProgressDialog(activity);
         progressdialog?.setIndeterminate(false);
         progressdialog?.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -119,22 +110,21 @@ class AddContentFragment : Fragment(){
 
         //upload
         Toast.makeText(activity, ""+ title!!.text+" "+description!!.text, Toast.LENGTH_SHORT).show()
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if(resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_CODE_PICK_VIDEO_GALLERY) {
                 selectedVideoUri = data?.data
-                videoView.setVideoURI(selectedVideoUri);
-                videoView.visibility = View.VISIBLE
-                videoView.seekTo(1);
+                video_view.setVideoURI(selectedVideoUri);
+                video_view.visibility = View.VISIBLE
+                video_view.seekTo(1);
             }
             if (requestCode == REQUEST_CODE_PICK_VIDEO_CAMERA) {
                 selectedVideoUri = data?.data
-                videoView.setVideoURI(selectedVideoUri);
-                videoView.visibility = View.VISIBLE
-                videoView.seekTo(1);            }
+                video_view.setVideoURI(selectedVideoUri);
+                video_view.visibility = View.VISIBLE
+                video_view.seekTo(1);            }
         }
     }
 

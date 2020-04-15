@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.user_fragment.*
 import solutus.coronawatch.ui.user.fragment.content.add.AddContentFragment
@@ -20,7 +18,7 @@ class UserFragment : Fragment() {
     companion object {
         fun newInstance() = UserFragment()
         fun getPhotoProfile(): Int {//A changer par l'url de la photo profile
-            return R.drawable.profile_image
+            return R.mipmap.profile_image
         }
     }
     private lateinit var photoProfile:de.hdodenhof.circleimageview.CircleImageView
@@ -35,56 +33,38 @@ class UserFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val avatar = activity?.findViewById<View>(R.id.profile_image) as de.hdodenhof.circleimageview.CircleImageView
-
-        val leftArc = view?.findViewById<View>(R.id.arc_left) as ImageView
-        val rightArc = view?.findViewById<View>(R.id.arc_right) as ImageView
-        val bottomArc = view?.findViewById<View>(R.id.arc_under) as ImageView
+        //set photo profile
+        profile_image.setImageResource(getPhotoProfile())
         //set ViewContentFragment the default fragment
         replaceFragment(ViewContentFragment())
-        leftArc.visibility = View.VISIBLE
-        rightArc.visibility = View.INVISIBLE
-        bottomArc.visibility= View.INVISIBLE
+        arc_left.visibility = View.VISIBLE
+        arc_right.visibility = View.INVISIBLE
+        arc_under.visibility= View.INVISIBLE
         //navigation entre les fragments
 
-        val viewContent = view?.findViewById<View>(R.id.view_content) as ImageView
-        val addContent = view?.findViewById<View>(R.id.add_content) as ImageView
-        val editProfile = view?.findViewById<View>(R.id.edit_profile) as ImageView
-
-
-
-        viewContent.setOnClickListener {
+        view_content.setOnClickListener {
             replaceFragment(ViewContentFragment())
-            leftArc.visibility = View.VISIBLE
-            rightArc.visibility = View.INVISIBLE
-            bottomArc.visibility= View.INVISIBLE
+            arc_left.visibility = View.VISIBLE
+            arc_right.visibility = View.INVISIBLE
+            arc_under.visibility= View.INVISIBLE
         }
-        addContent.setOnClickListener {
+        add_content.setOnClickListener {
             replaceFragment(AddContentFragment())
-            leftArc.visibility = View.INVISIBLE
-            rightArc.visibility = View.INVISIBLE
-            bottomArc.visibility= View.VISIBLE
+            arc_left.visibility = View.INVISIBLE
+            arc_right.visibility = View.INVISIBLE
+            arc_under.visibility= View.VISIBLE
         }
-        editProfile.setOnClickListener {
+        edit_profile.setOnClickListener {
             replaceFragment(ProfileFragment())
-            leftArc.visibility = View.INVISIBLE
-            rightArc.visibility = View.VISIBLE
-            bottomArc.visibility= View.INVISIBLE
+            arc_left.visibility = View.INVISIBLE
+            arc_right.visibility = View.VISIBLE
+            arc_under.visibility= View.INVISIBLE
         }
-
-       //set photo profile
-        photoProfile = activity?.findViewById<View>(R.id.profile_image) as de.hdodenhof.circleimageview.CircleImageView
-        photoProfile.setImageResource(getPhotoProfile())
-
-
     }
-
     private fun replaceFragment (fragment: Fragment){
-        val fragmentTransaction = fragmentManager?.beginTransaction()
+        val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
         fragmentTransaction?.replace(R.id.user_nav_host_fragment , fragment)
         fragmentTransaction?.addToBackStack(null)
         fragmentTransaction?.commit()
     }
-
-
 }

@@ -16,7 +16,7 @@ class VideosRepository(
     //suspend fun getVideos() =  apiRequest{ coronaWatchApi.getVideos() }
       fun getVideos(): List<Video> {
       //  getApplicationContext().getPackageName();
-        var listv = ArrayList<Video>()
+        val listv = ArrayList<Video>()
         listv.add(Video(id = "video_1", publisher = User("2","AYoub"), title = "أول فيديو",url = "", comments = null))
         listv.add(Video(id = "video_1", publisher = User("2","AYoub"), title = "أول فيديو",url = "", comments = null))
         listv.add(Video(id = "video_1", publisher = User("2","AYoub"), title = "أول فيديو",url = "", comments = null))
