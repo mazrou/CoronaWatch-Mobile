@@ -6,24 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.coronawatch_mobile.R
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.user_fragment.*
+import kotlinx.android.synthetic.main.video_section.view.*
+import solutus.coronawatch.ui.MainActivity.Companion.replaceFragment
+import solutus.coronawatch.ui.MainActivity.Companion.user
 import solutus.coronawatch.ui.user.fragment.content.add.AddContentFragment
 import solutus.coronawatch.ui.user.fragment.content.view.ViewContentFragment
 import solutus.coronawatch.ui.user.fragment.profile.ProfileFragment
 
 
-@Suppress("DEPRECATION")
+
 class UserFragment : Fragment() {
 
     companion object {
         fun newInstance() = UserFragment()
-        fun getPhotoProfile(): Int {//A changer par l'url de la photo profile
-            return R.mipmap.profile_image
+        fun getPhotoProfile(): String  {
+           return user.avatar
         }
     }
-    private lateinit var photoProfile:de.hdodenhof.circleimageview.CircleImageView
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,37 +35,32 @@ class UserFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //set photo profile
-        profile_image.setImageResource(getPhotoProfile())
+        Picasso.get().load(getPhotoProfile()).into(profile_image)
         //set ViewContentFragment the default fragment
-        replaceFragment(ViewContentFragment())
+        replaceFragment(activity,R.id.user_nav_host_fragment,ViewContentFragment())
         arc_left.visibility = View.VISIBLE
         arc_right.visibility = View.INVISIBLE
         arc_under.visibility= View.INVISIBLE
         //navigation entre les fragments
 
         view_content.setOnClickListener {
-            replaceFragment(ViewContentFragment())
+            replaceFragment(activity,R.id.user_nav_host_fragment,ViewContentFragment())
             arc_left.visibility = View.VISIBLE
             arc_right.visibility = View.INVISIBLE
             arc_under.visibility= View.INVISIBLE
         }
         add_content.setOnClickListener {
-            replaceFragment(AddContentFragment())
+            replaceFragment(activity,R.id.user_nav_host_fragment,AddContentFragment())
             arc_left.visibility = View.INVISIBLE
             arc_right.visibility = View.INVISIBLE
             arc_under.visibility= View.VISIBLE
         }
         edit_profile.setOnClickListener {
-            replaceFragment(ProfileFragment())
+            replaceFragment(activity,R.id.user_nav_host_fragment,ProfileFragment())
             arc_left.visibility = View.INVISIBLE
             arc_right.visibility = View.VISIBLE
             arc_under.visibility= View.INVISIBLE
         }
     }
-    private fun replaceFragment (fragment: Fragment){
-        val fragmentTransaction = activity?.supportFragmentManager?.beginTransaction()
-        fragmentTransaction?.replace(R.id.user_nav_host_fragment , fragment)
-        fragmentTransaction?.addToBackStack(null)
-        fragmentTransaction?.commit()
-    }
+
 }

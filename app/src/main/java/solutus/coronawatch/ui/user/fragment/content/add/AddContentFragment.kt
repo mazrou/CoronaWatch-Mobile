@@ -106,10 +106,10 @@ class AddContentFragment : Fragment(){
         progressdialog?.progress = 50
         progressdialog?.progress =100
         //progressdialog?.dismiss()
-
-
         //upload
         Toast.makeText(activity, ""+ title!!.text+" "+description!!.text, Toast.LENGTH_SHORT).show()
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

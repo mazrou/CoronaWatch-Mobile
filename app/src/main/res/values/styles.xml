@@ -42,6 +42,13 @@
         <item name="android:backgroundTint" tools:targetApi="lollipop">@color/ButtonBackgroundColor</item>
 
     </style>
+    <style name="TitleStyle">
+        <item name="android:textColor">@color/layoutTextColor</item>
+        <item name="android:textSize">@dimen/title_size</item>
+        <item name="android:layout_marginTop">@dimen/layout_big_top_margin</item>
+        <item name="android:layout_marginRight">@dimen/layout_big_top_margin</item>
+        <item name="android:layout_marginLeft">@dimen/layout_big_top_margin</item>
+    </style>
 
 
 

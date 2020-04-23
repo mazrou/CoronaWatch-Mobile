@@ -1,7 +1,7 @@
 package solutus.coronawatch.ui.user.fragment.profile
 
 import android.app.Activity
-import android.app.AlertDialog;
+import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.res.Configuration
@@ -18,12 +18,13 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.coronawatch_mobile.R
-import solutus.coronawatch.date.DatePickerFragment
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.user_fragment.*
+import solutus.coronawatch.service.DatePickerFragment
 import solutus.coronawatch.ui.user.UserFragment
 import java.util.*
 
 
-@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class ProfileFragment : Fragment() {
 
     companion object {
@@ -66,7 +67,7 @@ class ProfileFragment : Fragment() {
         }
         //manipulation du Date Picker
         dateOfBirthET = view?.findViewById<EditText>(R.id.date_naissance)!!
-        dateOfBirthET.inputType = InputType.TYPE_NULL;
+        dateOfBirthET.inputType = InputType.TYPE_NULL
         dateOfBirthET.setOnClickListener {
             showDatePicker(this, REQUEST_CODE_DATE_PICKER)
         }
@@ -139,11 +140,12 @@ class ProfileFragment : Fragment() {
 
 
     private fun uploadPhotoProfile() {
-         // à coder ulterieurement
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
     private fun souvegardeProfile(){//A changer
-        Toast.makeText(activity, ""+ userName!!.text+" "+name!!.text+" "+dateNaissance!!.text+" "+password!!.text+" "+password2!!.text+" ", Toast.LENGTH_SHORT).show()
-
+        Toast.makeText(activity, ""+ userName.text+" "+name.text+" "+dateNaissance.text+" "+password.text+" "+password2.text+" ", Toast.LENGTH_SHORT).show()
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -152,7 +154,7 @@ class ProfileFragment : Fragment() {
                 // get date from string
                 selectedDate = data?.getStringExtra("selectedDate").toString()
                 // set the value of the editText
-                dateOfBirthET.setText(selectedDate);
+                dateOfBirthET.setText(selectedDate)
             }
             if (requestCode == REQUEST_CODE_PICK_IMAGE_GALLERY) {
                 imageSelected=true
@@ -162,7 +164,7 @@ class ProfileFragment : Fragment() {
             if (requestCode == REQUEST_CODE_PICK_IMAGE_CAMERA) {
                 imageSelected=true
                 photo = data?.extras?.get("data") as Bitmap
-                avatar.setImageBitmap(photo);
+                avatar.setImageBitmap(photo)
             }
         }
     }
@@ -178,7 +180,8 @@ class ProfileFragment : Fragment() {
     override fun onPause() {
         if(!buttonClicked || !imageSelected){//si le button n'est pas cliqué
             //on revene à l'image d'origine
-            avatar.setImageResource(UserFragment.getPhotoProfile())
+            Picasso.get().load(UserFragment.getPhotoProfile()).into(avatar)
+
         }
         avatar.isClickable = false
         super.onPause()

@@ -1,4 +1,4 @@
-package solutus.coronawatch.date
+package solutus.coronawatch.service
 
 import android.app.Activity
 import android.app.DatePickerDialog

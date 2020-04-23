@@ -1,7 +1,7 @@
 package solutus.coronawatch.data.db.entity
 
+
 data class Comment (
-    val  user : User,
-    val publication : Publication,
+    var publisher : User,
     var text : String?
 )
