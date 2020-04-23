@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="solutus.coronawatch.ui.user.fragment.profile.ProfileFragment">
+
+    <TextView
+        android:id="@+id/user_name_view"
+        style="@style/ProfileStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/user_name_view"
+        android:textColor="@color/fontColor" />
+
+    <EditText
+        android:id="@+id/user_name"
+        style="@style/ProfileStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_small_top_margin"
+        android:ems="10"
+        android:hint="@string/user_name"
+        android:inputType="textPersonName"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/name_view"
+        style="@style/ProfileStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_big_top_margin"
+        android:text="@string/name_view"
+        android:textColor="@color/fontColor" />
+
+    <EditText
+        android:id="@+id/name"
+        style="@style/ProfileStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_small_top_margin"
+        android:ems="10"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/date_naissance_view"
+        style="@style/ProfileStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_big_top_margin"
+        android:text="@string/naissance_view"
+        android:textColor="@color/fontColor" />
+
+    <EditText
+        android:id="@+id/date_naissance"
+        style="@style/ProfileStyle"
+        android:drawableEnd="@mipmap/ic_calander"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_small_top_margin"
+        android:ems="10"
+        android:hint="@string/date_naissance"
+        android:focusableInTouchMode="false"/>
+
+
+    <TextView
+        android:id="@+id/password_view"
+        style="@style/ProfileStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_big_top_margin"
+        android:text="@string/password"
+        android:textColor="@color/fontColor" />
+
+    <EditText
+        android:id="@+id/password"
+        style="@style/ProfileStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_small_top_margin"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/confirm_password_view"
+        style="@style/ProfileStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_big_top_margin"
+        android:text="@string/confirm_password"
+        android:textColor="@color/fontColor" />
+
+    <EditText
+        android:id="@+id/confirm_password"
+        style="@style/ProfileStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_small_top_margin"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:importantForAutofill="no" />
+
+    <Button
+        android:id="@+id/souvegarder_button"
+        style="@style/ButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/souvegader"
+        />
+
+</LinearLayout>
+

@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import com.example.coronawatch_mobile.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import solutus.coronawatch.ui.MainActivity.Companion.replaceFragment
 import solutus.coronawatch.ui.home.news.NewsFragment
 import solutus.coronawatch.ui.home.novelties.NouveltiesFragment
 import solutus.coronawatch.ui.home.videos.VideosFragment
@@ -19,15 +20,15 @@ class HomeFragment : Fragment() {
      private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
         item -> when (item?.itemId) {
                       R.id.noveltiesFragment -> {
-                             replaceFragment(NouveltiesFragment())
+                             replaceFragment(activity,R.id.nav_home_fragment,NouveltiesFragment())
                           return@OnNavigationItemSelectedListener true
                       }
                       R.id.newsFragment -> {
-                              replaceFragment(NewsFragment())
+                              replaceFragment(activity,R.id.nav_home_fragment,NewsFragment())
                           return@OnNavigationItemSelectedListener true
                       }
                       R.id.videosFragment -> {
-                               replaceFragment(VideosFragment())
+                               replaceFragment(activity,R.id.nav_home_fragment,VideosFragment())
                           return@OnNavigationItemSelectedListener true
                       }
                  }
@@ -51,15 +52,8 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
        // put the News Fragment as default fragment
-        replaceFragment(NewsFragment())
+        replaceFragment(activity,R.id.nav_home_fragment,NewsFragment())
     }
 
-    /*
-    * This function replace the fragment into the FrameLayout with the id 'nav_home_fragment' */
-    private fun replaceFragment (fragment: Fragment){
-        val fragmentTransaction = childFragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.nav_home_fragment , fragment)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
-    }
+
 }
