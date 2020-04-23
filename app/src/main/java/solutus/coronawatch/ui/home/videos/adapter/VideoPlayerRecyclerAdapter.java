@@ -1,4 +1,4 @@
-package solutus.coronawatch.ui.home.videos;
+package solutus.coronawatch.ui.home.videos.adapter;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -12,6 +12,7 @@ import com.example.coronawatch_mobile.R;
 import java.util.ArrayList;
 
 import solutus.coronawatch.data.db.entity.Video;
+import solutus.coronawatch.ui.home.videos.VideoPlayerViewHolder;
 
 public class VideoPlayerRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

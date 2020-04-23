@@ -1,4 +1,4 @@
-package solutus.coronawatch.ui.home.videos;
+package solutus.coronawatch.ui.home.videos.adapter;
 
 import android.graphics.Rect;
 import android.view.View;

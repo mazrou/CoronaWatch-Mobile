@@ -13,7 +13,7 @@ import android.os.Parcelable
 
      var title : String,
      var url : String,
-     var thumbnil : String
+     var thumbnail : String
 
  ) :
      Publication(

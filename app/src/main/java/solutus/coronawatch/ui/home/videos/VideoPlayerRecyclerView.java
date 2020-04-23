@@ -43,9 +43,9 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import solutus.coronawatch.data.db.entity.Video;
+import solutus.coronawatch.ui.home.videos.VideoPlayerViewHolder;
 
 public class VideoPlayerRecyclerView extends RecyclerView {
 
@@ -86,7 +86,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
 
     private void init(Context context){
         this.context = context.getApplicationContext();
-        Display display = ((WindowManager) Objects.requireNonNull(getContext().getSystemService(Context.WINDOW_SERVICE))).getDefaultDisplay();
+        Display display = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         Point point = new Point();
         display.getSize(point);
         videoSurfaceDefaultHeight = point.x;
@@ -288,17 +288,16 @@ public class VideoPlayerRecyclerView extends RecyclerView {
             return;
         }
 
-        VideoAdapter.VideoViewHolder holder = ( VideoAdapter.VideoViewHolder) child.getTag();
+        VideoPlayerViewHolder holder = (VideoPlayerViewHolder) child.getTag();
         if (holder == null) {
             playPosition = -1;
             return;
         }
-
-        thumbnail = holder.getVideoRecyclerviewBinding().videoThumbnil;
-        progressBar = holder.getVideoRecyclerviewBinding().progressBar;
-        volumeControl = holder.getVideoRecyclerviewBinding().volumeControl;
+        thumbnail = holder.thumbnail;
+        progressBar = holder.progressBar;
+        volumeControl = holder.volumeControl;
         viewHolderParent = holder.itemView;
-     //   requestManager = holder.;
+        requestManager = holder.requestManager;
         frameLayout = holder.itemView.findViewById(R.id.video_section);
 
         videoSurfaceView.setPlayer(videoPlayer);
@@ -308,11 +307,12 @@ public class VideoPlayerRecyclerView extends RecyclerView {
         DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(
                 context, Util.getUserAgent(context, "RecyclerView VideoPlayer"));
         String mediaUrl = mediaObjects.get(targetPosition).getUrl();
-
-        MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(Uri.parse(mediaUrl));
-        videoPlayer.prepare(videoSource);
-        videoPlayer.setPlayWhenReady(true);
+        if (mediaUrl != null) {
+            MediaSource videoSource = new ExtractorMediaSource.Factory(dataSourceFactory)
+                    .createMediaSource(Uri.parse(mediaUrl));
+            videoPlayer.prepare(videoSource);
+            videoPlayer.setPlayWhenReady(true);
+        }
     }
 
     private OnClickListener videoViewClickListener = new OnClickListener() {
@@ -439,7 +439,7 @@ public class VideoPlayerRecyclerView extends RecyclerView {
         }
     }
 
-    public void setMediaObjects(ArrayList<Video> mediaObjects){
-        this.mediaObjects = mediaObjects;
+    public void setMediaObjects(ArrayList<Video> video){
+        this.mediaObjects = video;
     }
 }
