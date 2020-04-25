@@ -1,4 +1,4 @@
-package solutus.coronawatch.ui
+package solutus.coronawatch.ui.activity
 
 import android.os.Bundle
 import android.view.Menu

@@ -24,7 +24,7 @@
         android:layout_marginTop="@dimen/layout_small_top_margin"
         android:ems="10"
         android:hint="@string/user_name"
-        android:inputType="textPersonName"
+        android:inputType="textShortMessage"
         android:importantForAutofill="no" />
 
     <TextView

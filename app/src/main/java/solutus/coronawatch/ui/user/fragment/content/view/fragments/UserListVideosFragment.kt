@@ -12,17 +12,13 @@ import com.example.coronawatch_mobile.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.list_videos_fragment.*
-import org.json.JSONArray
-import org.json.JSONException
-import org.json.JSONObject
 import solutus.coronawatch.adapter.UserVideoAdapter
 import solutus.coronawatch.data.db.entity.Comment
 import solutus.coronawatch.data.db.entity.Video
 import solutus.coronawatch.factory.VideoViewModelFactory
-import solutus.coronawatch.ui.MainActivity.Companion.replaceFragment
+import solutus.coronawatch.ui.activity.MainActivity.Companion.replaceFragment
 import solutus.coronawatch.utilities.InjectorUtils
 import solutus.coronawatch.viewModel.VideosViewModel
-import java.io.Serializable
 
 
 class UserListVideosFragment : Fragment() {

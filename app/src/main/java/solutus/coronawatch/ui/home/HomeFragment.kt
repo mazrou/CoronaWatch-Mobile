@@ -5,7 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import com.example.coronawatch_mobile.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import solutus.coronawatch.ui.MainActivity.Companion.replaceFragment
+import solutus.coronawatch.ui.activity.MainActivity.Companion.replaceFragment
 import solutus.coronawatch.ui.home.news.NewsFragment
 import solutus.coronawatch.ui.home.novelties.NouveltiesFragment
 import solutus.coronawatch.ui.home.videos.VideosFragment

@@ -8,4 +8,6 @@ data class User(
     var lastName : String,
     var birthDate : String,
     var avatar : String
-)
+){
+
+}

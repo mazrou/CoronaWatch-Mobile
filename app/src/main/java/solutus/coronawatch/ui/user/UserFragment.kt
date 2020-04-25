@@ -8,9 +8,8 @@ import androidx.fragment.app.Fragment
 import com.example.coronawatch_mobile.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.user_fragment.*
-import kotlinx.android.synthetic.main.video_section.view.*
-import solutus.coronawatch.ui.MainActivity.Companion.replaceFragment
-import solutus.coronawatch.ui.MainActivity.Companion.user
+import solutus.coronawatch.ui.activity.MainActivity.Companion.replaceFragment
+import solutus.coronawatch.ui.activity.MainActivity.Companion.user
 import solutus.coronawatch.ui.user.fragment.content.add.AddContentFragment
 import solutus.coronawatch.ui.user.fragment.content.view.ViewContentFragment
 import solutus.coronawatch.ui.user.fragment.profile.ProfileFragment

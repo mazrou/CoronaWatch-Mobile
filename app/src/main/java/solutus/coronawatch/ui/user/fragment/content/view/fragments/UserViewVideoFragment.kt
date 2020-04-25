@@ -3,21 +3,22 @@ package solutus.coronawatch.ui.user.fragment.content.view.fragments
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.View.OnTouchListener
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.MediaController
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.coronawatch_mobile.R
-import kotlinx.android.synthetic.main.view_video_fragment.*
-import solutus.coronawatch.data.db.entity.Comment
-import solutus.coronawatch.ui.MainActivity.Companion.replaceFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.view_video_fragment.*
 import solutus.coronawatch.adapter.CommentAdapter
+import solutus.coronawatch.data.db.entity.Comment
 
 
 class UserViewVideoFragment : Fragment() {
@@ -62,19 +63,34 @@ class UserViewVideoFragment : Fragment() {
             }
         }
 
-        edit_comment.setOnEditorActionListener { _, actionId,_ ->
-            comment_image.visibility = View.GONE
-            done.visibility = View.VISIBLE
+        edit_comment.setOnTouchListener(OnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                comment_image.visibility = View.GONE
+                done.visibility = View.VISIBLE
+                edit_comment.requestFocus()
+                edit_comment.isFocusableInTouchMode = true
+
+                val imm =  activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(
+                    edit_comment,
+                    InputMethodManager.SHOW_IMPLICIT
+                )
+                return@OnTouchListener true
+            }
+            false
+        })
+
+        edit_comment.setOnEditorActionListener { v, actionId, event ->
             if(actionId == EditorInfo.IME_ACTION_GO){
                 //hide keyboard
                 val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(view?.windowToken, 0)
                 true
-            }else{
+            } else {
                 false
             }
-
         }
+
         done.setOnClickListener {
             if(edit_comment.text.toString() == ""){
                 Toast.makeText(activity,"اكتب تعليقا",Toast.LENGTH_SHORT).show()

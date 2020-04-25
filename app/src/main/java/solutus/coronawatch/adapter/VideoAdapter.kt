@@ -2,16 +2,13 @@ package solutus.coronawatch.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.MediaController
 import com.squareup.picasso.Picasso
 import solutus.coronawatch.data.db.entity.Video
 import com.example.coronawatch_mobile.R.layout.video_section
-import kotlinx.android.synthetic.main.user_video_section.view.*
 import kotlinx.android.synthetic.main.video_section.view.*
 import kotlinx.android.synthetic.main.video_section.view.videoThumbnil
 import kotlinx.android.synthetic.main.video_section.view.video_title

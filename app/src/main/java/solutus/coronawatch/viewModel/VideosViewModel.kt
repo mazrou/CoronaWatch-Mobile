@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.Job
 import solutus.coronawatch.data.db.entity.Video
 import solutus.coronawatch.data.reposetory.VideosRepository
-import solutus.coronawatch.ui.MainActivity.Companion.user
+import solutus.coronawatch.ui.activity.MainActivity.Companion.user
 import solutus.coronawatch.utilities.Coroutines
 
 

@@ -27,6 +27,11 @@
     <string name="videos">فيديوهات</string>
     <string name="news">الأخبار</string>
     <string name="novelties">المستجدات</string>
+    <string name="first_image">first image</string>
+    <string name="userName">اسم المستخدم</string>
+    <string name="second_name">اللقب</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="tel">رقم الهاتف</string>
 
 
 </resources>

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.coronawatch_mobile.R
-import solutus.coronawatch.ui.MainActivity.Companion.replaceFragment
+import solutus.coronawatch.ui.activity.MainActivity.Companion.replaceFragment
 import solutus.coronawatch.ui.user.fragment.content.view.fragments.UserListVideosFragment
 
 

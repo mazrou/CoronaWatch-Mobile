@@ -2,10 +2,10 @@ package solutus.coronawatch.ui.home.videos.fragments
 
 import android.content.Context
 import android.net.Uri
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
@@ -19,8 +19,6 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.view_video_fragment.*
 import solutus.coronawatch.adapter.CommentAdapter
 import solutus.coronawatch.data.db.entity.Comment
-import solutus.coronawatch.ui.MainActivity
-import solutus.coronawatch.ui.user.fragment.content.view.fragments.UserListVideosFragment
 
 class ViewVideoFragment : Fragment() {
 
@@ -67,18 +65,33 @@ class ViewVideoFragment : Fragment() {
             }
         }
 
-        edit_comment.setOnEditorActionListener { _, actionId,_ ->
-            comment_image.visibility = View.GONE
-            done.visibility = View.VISIBLE
+        edit_comment.setOnTouchListener(View.OnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                comment_image.visibility = View.GONE
+                done.visibility = View.VISIBLE
+                edit_comment.requestFocus()
+                edit_comment.isFocusableInTouchMode = true
+
+                val imm =
+                    activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(
+                    edit_comment,
+                    InputMethodManager.SHOW_IMPLICIT
+                )
+                return@OnTouchListener true
+            }
+            false
+        })
+
+        edit_comment.setOnEditorActionListener { v, actionId, event ->
             if(actionId == EditorInfo.IME_ACTION_GO){
                 //hide keyboard
                 val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(view?.windowToken, 0)
                 true
-            }else{
+            } else {
                 false
             }
-
         }
         done.setOnClickListener {
             if(edit_comment.text.toString() == ""){
