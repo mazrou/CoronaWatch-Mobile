@@ -5,6 +5,8 @@
     android:id="@+id/profile_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/layout_big_margin"
+    android:layout_marginEnd="@dimen/layout_big_margin"
     android:orientation="vertical"
     tools:context="solutus.coronawatch.ui.user.fragment.profile.ProfileFragment">
 

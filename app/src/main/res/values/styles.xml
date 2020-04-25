@@ -23,8 +23,6 @@
 
     <style name="FragmentStyle">
         <item name="android:layout_marginTop">@dimen/fragment_margin</item>
-        <item name="android:layout_marginLeft">@dimen/layout_big_margin</item>
-        <item name="android:layout_marginRight">@dimen/layout_big_margin</item>
         <item name="android:layout_marginBottom">@dimen/fragment_margin</item>
 
     </style>
