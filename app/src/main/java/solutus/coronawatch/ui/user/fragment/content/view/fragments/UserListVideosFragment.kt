@@ -47,7 +47,7 @@ class UserListVideosFragment : Fragment() {
     private fun initializeUi(){
         viewModelFactory = (InjectorUtils.provideVideosViewModelFactory())
         viewModel= ViewModelProviders.of(this ,viewModelFactory ).get(VideosViewModel::class.java)
-        viewModel.getUserVideos()
+        /*viewModel.getUserVideos()
         viewModel.userVideos.observe(viewLifecycleOwner, Observer { videos ->
             list_video.also {
                 it.adapter = UserVideoAdapter(context!!, videos)
@@ -55,20 +55,20 @@ class UserListVideosFragment : Fragment() {
                     AdapterView.OnItemClickListener { arg0, arg1, position, arg3 ->
                         val viewVideoFragment = UserViewVideoFragment()
                         val video: Video = it.adapter.getItem(position) as Video
-                        val comments = video.comments
+                        //val comments = video.comments
                         //convert list comments to json
                         val gson = Gson()
-                        val arrayCommentType = object : TypeToken<ArrayList<Comment>>() {}.type
-                        val jsonList = gson.toJson(video.comments,arrayCommentType)
+                        //val arrayCommentType = object : TypeToken<ArrayList<Comment>>() {}.type
+                        //val jsonList = gson.toJson(video.comments,arrayCommentType)
                         /*************/
                         val bundle = Bundle()
                         bundle.putString("url", video.url)
-                        bundle.putString("listComment", jsonList.toString())
+                        //bundle.putString("listComment", jsonList.toString())
                         viewVideoFragment.arguments = bundle
                         replaceFragment(activity,R.id.video_fragment,viewVideoFragment)
                     }
             }
-        })
+        })*/
     }
 
 

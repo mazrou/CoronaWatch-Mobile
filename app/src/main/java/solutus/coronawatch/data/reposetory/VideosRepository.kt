@@ -1,69 +1,49 @@
 package solutus.coronawatch.data.reposetory
 
 import android.net.Uri
-import solutus.coronawatch.data.db.entity.Comment
-import solutus.coronawatch.data.db.entity.User
-import solutus.coronawatch.data.db.entity.Video
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import solutus.coronawatch.data.db.entity.*
 import solutus.coronawatch.data.network.CoronaWatchApi
 import solutus.coronawatch.data.network.SafeApiReaquest
+import solutus.coronawatch.data.network.UserApi
 import java.security.AccessController.getContext
 
 
 class VideosRepository(
     private val coronaWatchApi: CoronaWatchApi
 ) : SafeApiReaquest() {
-
-private fun getComments():List<Comment>{
-    val comment = ArrayList<Comment> ()
-    comment.add(
-        Comment(
-            publisher= User(1,"ourdjini2020","ga_ourdjini@esi.dz","Aymen","ourdjini","04-12-1998","https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"),
-            text="comment1")
-    )
-    comment.add(
-        Comment(
-            publisher= User(1,"ourdjini2020","ga_ourdjini@esi.dz","Aymen","ourdjini","04-12-1998","https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"),
-            text="comment1")
-    )
-    comment.add(
-        Comment(
-            publisher= User(1,"ourdjini2020","ga_ourdjini@esi.dz","Aymen","ourdjini","04-12-1998","https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"),
-            text="comment1")
-    )
-    comment.add(
-        Comment(
-            publisher= User(1,"ourdjini2020","ga_ourdjini@esi.dz","Aymen","ourdjini","04-12-1998","https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"),
-            text="comment1")
-    )
-    return comment
-}
+    private val userRepository = UserRepository(UserApi.invoke())
+    private lateinit var user : AppUser
+/*private fun getComments(post : Post,user: AppUser):List<Comment>{
+    val comments = ArrayList<Comment> ()
+    comments.add(0,Comment("saber",,))
+    return comments
+}*/
 
     //suspend fun getVideos() =  apiRequest{ coronaWatchApi.getVideos() }
-    fun getVideos(): List<Video> {
+    fun getVideos(posts : ArrayList<Post>): List<Video> {
+        println("HELLO 333")
         //  getApplicationContext().getPackageName();
-        val listv = ArrayList<Video>()
-        listv.add(
-            Video(
-                id = "video_1",
-                publisher = User(2,"ourdjini2020","ga_ourdjini@esi.dz","Aymen","ourdjini","04-12-1998","https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"),
-                title = "فيديو",
-                url = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4",
-                comments = getComments(),
-                thumbnil = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
-            )
-        )
-        listv.add(
-            Video(
-                id = "video_1",
-                publisher = User(1,"ourdjini2020","ga_ourdjini@esi.dz","Aymen","ourdjini","04-12-1998","https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"),
-                title = "أول ",
-                url = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4",
-                comments = getComments(),
-                thumbnil = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
-            )
-        )
+       val listv = ArrayList<Video>()
+         for (post in posts) {
+            CoroutineScope(IO).launch{
+               user = userRepository.getUser(post.pk)
 
+            listv.add(
+                Video(
+                    id = post.pk.toString(),
+                    publisher =user,
+                    title = post.title,
+                    url = post.file,
+                    //comments = getComments(),
+                    thumbnail = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+                )
+            )
+
+            }
+        }
         return listv
-
     }
 }

@@ -2,6 +2,7 @@ package solutus.coronawatch.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import solutus.coronawatch.data.reposetory.ContentRepository
 import solutus.coronawatch.data.reposetory.VideosRepository
 import solutus.coronawatch.viewModel.VideosViewModel
 
@@ -12,13 +13,13 @@ import solutus.coronawatch.viewModel.VideosViewModel
  */
 
 open class VideoViewModelFactory(
-    private val videosRepository: VideosRepository
+    private val contentRepository: ContentRepository
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return VideosViewModel(
-            videosRepository
+            contentRepository
         ) as T
     }
 

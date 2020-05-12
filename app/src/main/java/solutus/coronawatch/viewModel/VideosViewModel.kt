@@ -4,14 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.Job
+import solutus.coronawatch.data.db.entity.Post
 import solutus.coronawatch.data.db.entity.Video
+import solutus.coronawatch.data.reposetory.ContentRepository
 import solutus.coronawatch.data.reposetory.VideosRepository
-import solutus.coronawatch.ui.MainActivity.Companion.user
 import solutus.coronawatch.utilities.Coroutines
 
 
 open class VideosViewModel(
-    private val videosRepository: VideosRepository
+    private val contentRepository : ContentRepository
 ) : ViewModel() {
 
     private lateinit var job : Job
@@ -22,9 +23,10 @@ open class VideosViewModel(
         get() = _videos
 
 
-    fun getVideos()  {
+    fun getVideos(posts: ArrayList<Post>) {
+
         job = Coroutines.ioThMain(
-            {videosRepository.getVideos()},
+            {contentRepository.createVideos(posts)},
             {_videos.value = it}
         )
     }
@@ -32,12 +34,12 @@ open class VideosViewModel(
     val userVideos : LiveData<List<Video>>
             get() = _userVideos
 
-    fun getUserVideos(){
+    /*fun getUserVideos(){
         job = Coroutines.ioThMain(
             { videosRepository.getVideos().filter { video ->video.publisher.id == user.id }},
             {_userVideos.value = it}
         )
-    }
+    }*/
     override fun onCleared() {
         if(::job.isInitialized){
             job.cancel()

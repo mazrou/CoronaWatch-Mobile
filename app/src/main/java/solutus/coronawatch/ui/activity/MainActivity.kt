@@ -1,5 +1,6 @@
 package solutus.coronawatch.ui
 
+import android.Manifest
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -17,29 +18,39 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.Context
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import solutus.coronawatch.data.db.entity.AppUser
 import solutus.coronawatch.data.db.entity.User
+import solutus.coronawatch.data.network.UserApi
 import solutus.coronawatch.data.reposetory.UserRepository
 
 
 class MainActivity : AppCompatActivity() {
     companion object{
 
-        val user = UserRepository.user
         fun replaceFragment (activity: FragmentActivity?, layout:Int, fragment: Fragment){
                 val fragmentTransaction : FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
                 fragmentTransaction?.replace(layout , fragment)
                 fragmentTransaction?.addToBackStack(null)
                 fragmentTransaction?.commit()
         }
+
     }
     private lateinit var navController:NavController
     private lateinit var toolbar: Toolbar
+    lateinit var user : AppUser
+    lateinit var token : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        ActivityCompat.requestPermissions(this,
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            1)
+        user = intent.getSerializableExtra("user") as AppUser
+        token = intent.getStringExtra("token")
         //set the tool bar and hide the return back home
         toolbar=findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)

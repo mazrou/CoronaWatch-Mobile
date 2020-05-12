@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.example.coronawatch_mobile.R
+
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.comment_section.view.*
 import solutus.coronawatch.data.db.entity.Comment
@@ -24,9 +25,9 @@ class CommentAdapter(context: Context, private var listCommentAdapter: List<Comm
         //set comment
         view.comment.text = comment.text
         //set user name
-        view.comment_user.text= comment.publisher.userName
+       // view.comment_user.text= comment.publication.publisher.firstName+" "+comment.publication.publisher.lastName
         //set user avatar
-        Picasso.get().load(comment.publisher.avatar).into(view.user_avatar)
+        //Picasso.get().load(comment.publisher.avatar).into(view.user_avatar)
         return view
     }
 

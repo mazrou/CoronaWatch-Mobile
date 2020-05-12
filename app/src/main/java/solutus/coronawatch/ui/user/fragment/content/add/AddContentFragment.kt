@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.ClipDescription
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.icu.text.CaseMap
@@ -14,10 +15,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.add_content_fragment.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import solutus.coronawatch.data.db.entity.AppUser
+import solutus.coronawatch.data.network.ContentApi
+import solutus.coronawatch.data.network.UserApi
+import solutus.coronawatch.data.reposetory.ContentRepository
+import solutus.coronawatch.data.reposetory.UserRepository
+import solutus.coronawatch.ui.MainActivity
 import java.lang.Thread.sleep
 
 
@@ -29,7 +43,10 @@ class AddContentFragment : Fragment(){
         fun newInstance() =
             AddContentFragment()
     }
-
+    private lateinit var activity : MainActivity
+    private lateinit var token: String
+    private lateinit var user: AppUser
+    private val contentRepository = ContentRepository(ContentApi.invoke())
     var progressdialog: ProgressDialog? = null
     private var selectedVideoUri: Uri? = null
     override fun onCreateView(
@@ -41,9 +58,12 @@ class AddContentFragment : Fragment(){
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        token = "token "+activity.token
+        user = activity.user
         upload.setOnClickListener {
             showPictureDialog()
         }
+
         share_button?.setOnClickListener {
             if(video_view.duration == -1){//VideoView ne contient pas un video
                 Toast.makeText(activity, "يجب اضافة فيديو", Toast.LENGTH_SHORT).show()
@@ -96,7 +116,7 @@ class AddContentFragment : Fragment(){
         // à coder ulterieurement
         //CreateProgressDialog
         video_view.visibility = View.GONE
-        progressdialog = ProgressDialog(activity);
+        /*progressdialog = ProgressDialog(activity);
         progressdialog?.setIndeterminate(false);
         progressdialog?.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressdialog?.setCancelable(true);
@@ -107,8 +127,11 @@ class AddContentFragment : Fragment(){
         progressdialog?.progress =100
         //progressdialog?.dismiss()
         //upload
-        Toast.makeText(activity, ""+ title!!.text+" "+description!!.text, Toast.LENGTH_SHORT).show()
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+         */
+        CoroutineScope(IO).launch {
+            contentRepository.postVideo(token,title.text.toString(),description.text.toString(),selectedVideoUri as Uri,context as Context)
+        }
 
     }
 
@@ -119,6 +142,7 @@ class AddContentFragment : Fragment(){
                 video_view.setVideoURI(selectedVideoUri);
                 video_view.visibility = View.VISIBLE
                 video_view.seekTo(1);
+
             }
             if (requestCode == REQUEST_CODE_PICK_VIDEO_CAMERA) {
                 selectedVideoUri = data?.data
@@ -126,6 +150,12 @@ class AddContentFragment : Fragment(){
                 video_view.visibility = View.VISIBLE
                 video_view.seekTo(1);            }
         }
+    }
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = context as MainActivity
     }
 
 }

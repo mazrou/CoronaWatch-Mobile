@@ -29,11 +29,11 @@ class VideoAdapter(context: Context, private var listVideoAdapter: List<Video>) 
         //set video title
         view.video_title.text = video.title
         //set video thumnnil
-        Picasso.get().load(video.thumbnil).into(view.videoThumbnil)
+        Picasso.get().load(video.thumbnail).into(view.videoThumbnil)
         //set user name
-        view.video_user.text = video.publisher.userName
+        view.video_user.text = video.publisher.firstName + " "+ video.publisher.lastName
         //set user avatar
-        Picasso.get().load(video.publisher.avatar).into(view.user_avatar)
+        //Picasso.get().load(video.publisher.).into(view.user_avatar)
        return view
     }
 

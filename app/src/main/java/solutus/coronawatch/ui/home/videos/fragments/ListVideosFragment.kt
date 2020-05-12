@@ -13,9 +13,16 @@ import com.example.coronawatch_mobile.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.list_videos_fragment.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 import solutus.coronawatch.adapter.VideoAdapter
 import solutus.coronawatch.data.db.entity.Comment
+import solutus.coronawatch.data.db.entity.Post
 import solutus.coronawatch.data.db.entity.Video
+import solutus.coronawatch.data.network.ContentApi
+import solutus.coronawatch.data.reposetory.ContentRepository
 import solutus.coronawatch.factory.VideoViewModelFactory
 import solutus.coronawatch.ui.MainActivity.Companion.replaceFragment
 import solutus.coronawatch.utilities.InjectorUtils
@@ -28,6 +35,9 @@ class ListVideosFragment : Fragment() {
     }
     private lateinit var viewModelFactory: VideoViewModelFactory
     private lateinit var viewModel: VideosViewModel
+    private val contentRepository = ContentRepository(ContentApi.invoke())
+    private lateinit var posts : ArrayList<Post>
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,33 +50,40 @@ class ListVideosFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         initializeUi()
     }
-    private fun initializeUi(){
-        viewModelFactory = (InjectorUtils.provideVideosViewModelFactory())
-        viewModel= ViewModelProviders.of(this ,viewModelFactory ).get(VideosViewModel::class.java)
-        viewModel.getVideos()
-        viewModel.videos.observe(viewLifecycleOwner, Observer { videos ->
-            list_video.also {
-                it.adapter = VideoAdapter(context!!, videos)
-                it.onItemClickListener =
-                    AdapterView.OnItemClickListener { arg0, arg1, position, arg3 ->
-                        val viewVideoFragment = ViewVideoFragment()
-                        val video: Video = it.adapter.getItem(position) as Video
-                        val comments = video.comments
-                        //convert list comments to json
-                        val gson = Gson()
-                        val arrayCommentType = object : TypeToken<ArrayList<Comment>>() {}.type
-                        val jsonList = gson.toJson(video.comments,arrayCommentType)
-                        /*************/
-                        val bundle = Bundle()
-                        bundle.putString("url", video.url)
-                        bundle.putString("listComment", jsonList.toString())
-                        viewVideoFragment.arguments = bundle
-                        replaceFragment(activity,R.id.video_fragment,viewVideoFragment)
-                    }
-            }
-        })
-    }
+    private fun initializeUi() {
 
+        viewModelFactory = (InjectorUtils.provideVideosViewModelFactory())
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(VideosViewModel::class.java)
+        CoroutineScope(IO).launch {
+            var posts = contentRepository.getPosts()
+            if (posts != null) {
+                viewModel.getVideos(posts)
+            }
+        }
+
+            viewModel.videos.observe(viewLifecycleOwner, Observer { videos ->
+                list_video.also {
+                    it.adapter = VideoAdapter(context!!, videos)
+                    it.onItemClickListener =
+                        AdapterView.OnItemClickListener { arg0, arg1, position, arg3 ->
+                            val viewVideoFragment = ViewVideoFragment()
+                            val video: Video = it.adapter.getItem(position) as Video
+                            //val comments = video.comments
+                            //convert list comments to json
+                            val gson = Gson()
+                            val arrayCommentType = object : TypeToken<ArrayList<Comment>>() {}.type
+                            //val jsonList = gson.toJson(video.comments,arrayCommentType)
+                            /*************/
+                            val bundle = Bundle()
+                            bundle.putString("url", video.url)
+                            //bundle.putString("listComment", jsonList.toString())
+                            viewVideoFragment.arguments = bundle
+                            replaceFragment(activity, R.id.video_fragment, viewVideoFragment)
+                        }
+                }
+            })
+
+    }
 
 
 }

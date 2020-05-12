@@ -43,21 +43,22 @@ class ViewVideoFragment : Fragment() {
         val gson = Gson()
         val arrayCommentType = object : TypeToken<ArrayList<Comment>>() {}.type
         val bundle = arguments
-        val url : Uri = Uri.parse(bundle!!.getString("url"))
-        val jsonList = bundle.getString("listComment")
-        val listComment :  List<Comment> = gson.fromJson(jsonList,arrayCommentType)
+        var videoUrl = bundle!!.getString("url")
+        val url : Uri = Uri.parse(videoUrl)
+       // val jsonList = bundle.getString("listComment")
+        //val listComment :  List<Comment> = gson.fromJson(jsonList,arrayCommentType)
 
         //show comments
-        val adpter = CommentAdapter(context!!,listComment)
-        list_comment.adapter = adpter
+        //val adpter = CommentAdapter(context!!,listComment)
+        //list_comment.adapter = adpter
 
         //set video url
         videoView.setVideoURI(url)
         //set media controleur
+
         val mediaController = MediaController(context)
         videoView.setMediaController(mediaController)
         mediaController.setAnchorView(videoView)
-
         // set progress bar
         videoView.setOnPreparedListener { mp ->
             mp.start()

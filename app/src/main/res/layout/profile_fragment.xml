@@ -9,26 +9,23 @@
     tools:context="solutus.coronawatch.ui.user.fragment.profile.ProfileFragment">
 
     <TextView
-        android:id="@+id/user_name_view"
         style="@style/ProfileStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/user_name_view"
+        android:text="@string/email"
         android:textColor="@color/fontColor" />
 
     <EditText
-        android:id="@+id/user_name"
+        android:id="@+id/email"
         style="@style/ProfileStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_small_top_margin"
         android:ems="10"
-        android:hint="@string/user_name"
-        android:inputType="textPersonName"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/name_view"
         style="@style/ProfileStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,15 +34,32 @@
         android:textColor="@color/fontColor" />
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/firstName"
         style="@style/ProfileStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_small_top_margin"
         android:ems="10"
-        android:hint="@string/name"
-        android:inputType="textPersonName"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        android:inputType="textPersonName" />
+
+    <TextView
+        style="@style/ProfileStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_big_top_margin"
+        android:text="@string/second_name"
+        android:textColor="@color/fontColor" />
+
+    <EditText
+        android:id="@+id/lastName"
+        style="@style/ProfileStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_small_top_margin"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName" />
 
     <TextView
         android:id="@+id/date_naissance_view"
@@ -59,13 +73,12 @@
     <EditText
         android:id="@+id/date_naissance"
         style="@style/ProfileStyle"
-        android:drawableEnd="@mipmap/ic_calander"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_small_top_margin"
+        android:drawableEnd="@mipmap/ic_calander"
         android:ems="10"
-        android:hint="@string/date_naissance"
-        android:focusableInTouchMode="false"/>
+        android:focusableInTouchMode="false" />
 
 
     <TextView

@@ -7,20 +7,20 @@ import android.os.Parcelable
 
  data class Video(
 
-     override  var id : String,
-     override  var publisher : User,
-     override var comments: List<Comment>?,
-     override var title : String,
-     override var url : String,
-     var thumbnil : String
+     override  val id : String,
+     override  val publisher : AppUser,
+     //override var comments: List<Comment>?,
+
+     var title : String,
+     var url : String,
+     var thumbnail : String
 
  ) :
      Publication(
          id,
-         publisher,
-         title,
-         url,
-         comments
+         publisher
+
+         //,comments
      )
 
 

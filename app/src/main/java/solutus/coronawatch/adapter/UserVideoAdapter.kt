@@ -25,7 +25,7 @@ class UserVideoAdapter(context: Context, private var listVideoAdapter: List<Vide
         //set video title
         view.video_title.text = video.title
         //set video thumnnil
-        Picasso.get().load(video.thumbnil).into(view.videoThumbnil)
+        Picasso.get().load(video.thumbnail).into(view.videoThumbnil)
         return view
     }
 

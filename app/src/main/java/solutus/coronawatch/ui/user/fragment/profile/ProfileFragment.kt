@@ -2,6 +2,7 @@ package solutus.coronawatch.ui.user.fragment.profile
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.res.Configuration
@@ -21,6 +22,7 @@ import com.example.coronawatch_mobile.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.user_fragment.*
 import solutus.coronawatch.service.DatePickerFragment
+import solutus.coronawatch.ui.MainActivity
 import solutus.coronawatch.ui.user.UserFragment
 import java.util.*
 
@@ -35,12 +37,12 @@ class ProfileFragment : Fragment() {
         fun newInstance() =
             ProfileFragment()
     }
-
-
+    private lateinit var activity : MainActivity
     private lateinit var selectedDate: String
     private lateinit var dateOfBirthET: EditText
-    private lateinit var userName :EditText
-    private lateinit var name :EditText
+    private lateinit var email :EditText
+    private lateinit var firstName :EditText
+    private lateinit var lastName :EditText
     private lateinit var dateNaissance :EditText
     private lateinit var password :EditText
     private lateinit var password2 :EditText
@@ -60,6 +62,9 @@ class ProfileFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        var user = activity.user
+
         //modifier l'icone de l'avatar à ic_plus
         avatar = activity?.findViewById<View>(R.id.profile_image) as de.hdodenhof.circleimageview.CircleImageView
         avatar.setOnClickListener{
@@ -71,15 +76,24 @@ class ProfileFragment : Fragment() {
         dateOfBirthET.setOnClickListener {
             showDatePicker(this, REQUEST_CODE_DATE_PICKER)
         }
+        email =  view?.findViewById<EditText>(R.id.email) as EditText
+        firstName =  view?.findViewById<EditText>(R.id.firstName) as EditText
+        lastName =  view?.findViewById<EditText>(R.id.lastName) as EditText
+        dateNaissance =  view?.findViewById<EditText>(R.id.date_naissance) as EditText
+        password =  view?.findViewById<EditText>(R.id.password) as EditText
+        password2 =  view?.findViewById<EditText>(R.id.confirm_password) as EditText
+
+        email.setText(user.email)
+        firstName.setText(user.firstName)
+        lastName.setText(user.lastName)
+        dateOfBirthET.setText(user.birthDate)
+
+
         //souvegarder l'état du profile
         val sauvegardBtn =  view?.findViewById<Button>(R.id.souvegarder_button)
         sauvegardBtn?.setOnClickListener{
-            userName =  view?.findViewById<EditText>(R.id.user_name) as EditText
-            name =  view?.findViewById<EditText>(R.id.name) as EditText
-            dateNaissance =  view?.findViewById<EditText>(R.id.date_naissance) as EditText
-            password =  view?.findViewById<EditText>(R.id.password) as EditText
-            password2 =  view?.findViewById<EditText>(R.id.confirm_password) as EditText
-            if(userName?.text.toString() =="" ||name?.text.toString() ==""||dateNaissance?.text.toString() ==""||password?.text.toString() ==""||password2?.text.toString() ==""){
+
+            if(email?.text.toString() =="" ||firstName?.text.toString() ==""|| lastName?.text.toString() =="" || dateNaissance?.text.toString() ==""||password?.text.toString() ==""||password2?.text.toString() ==""){
                 Toast.makeText(activity, "يجب ملأ كل الحقول", Toast.LENGTH_SHORT).show()
 
             }else{
@@ -144,7 +158,7 @@ class ProfileFragment : Fragment() {
 
     }
     private fun souvegardeProfile(){//A changer
-        Toast.makeText(activity, ""+ userName.text+" "+name.text+" "+dateNaissance.text+" "+password.text+" "+password2.text+" ", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(activity, ""+ userName.text+" "+name.text+" "+dateNaissance.text+" "+password.text+" "+password2.text+" ", Toast.LENGTH_SHORT).show()
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -177,14 +191,10 @@ class ProfileFragment : Fragment() {
         avatar.isClickable = true
         super.onResume()
     }
-    override fun onPause() {
-        if(!buttonClicked || !imageSelected){//si le button n'est pas cliqué
-            //on revene à l'image d'origine
-            Picasso.get().load(UserFragment.getPhotoProfile()).into(avatar)
 
-        }
-        avatar.isClickable = false
-        super.onPause()
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = context as MainActivity
     }
 }
 
