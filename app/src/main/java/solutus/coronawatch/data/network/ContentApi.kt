@@ -22,12 +22,16 @@ interface ContentApi {
     suspend fun getPosts(
     ) : Response<ArrayList<Post>>
 
+    @GET("posts/user/")
+    suspend fun getUserPosts(
+        @Header("Authorization") token :String
+    ): Response<ArrayList<Post>>
+
     @Multipart
     @POST("post/create/")
     suspend fun storePost(
         @Header("Authorization") token: String,
         @Part("title") title : String,
-
         @Part("content") content : String,
         @Part file : MultipartBody.Part
 

@@ -1,5 +1,6 @@
 package solutus.coronawatch.ui.user.fragment.content.view.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +13,20 @@ import com.example.coronawatch_mobile.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.list_videos_fragment.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import solutus.coronawatch.adapter.UserVideoAdapter
 import solutus.coronawatch.data.db.entity.Comment
+import solutus.coronawatch.data.db.entity.Post
 import solutus.coronawatch.data.db.entity.Video
+import solutus.coronawatch.data.network.ContentApi
+import solutus.coronawatch.data.reposetory.ContentRepository
 import solutus.coronawatch.factory.VideoViewModelFactory
+import solutus.coronawatch.ui.MainActivity
 import solutus.coronawatch.ui.MainActivity.Companion.replaceFragment
 import solutus.coronawatch.utilities.InjectorUtils
 import solutus.coronawatch.viewModel.VideosViewModel
@@ -30,8 +38,11 @@ class UserListVideosFragment : Fragment() {
     companion object {
         fun newInstance() = UserListVideosFragment()
     }
+    private lateinit var activity : MainActivity
     private lateinit var viewModelFactory: VideoViewModelFactory
     private lateinit var viewModel: VideosViewModel
+    private val contentRepository = ContentRepository(ContentApi.invoke())
+    private lateinit var posts : ArrayList<Post>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +58,13 @@ class UserListVideosFragment : Fragment() {
     private fun initializeUi(){
         viewModelFactory = (InjectorUtils.provideVideosViewModelFactory())
         viewModel= ViewModelProviders.of(this ,viewModelFactory ).get(VideosViewModel::class.java)
-        /*viewModel.getUserVideos()
+        CoroutineScope(Dispatchers.IO).launch {
+            var posts = contentRepository.getUserPosts(activity.token)
+            if (posts != null) {
+
+                viewModel.getUserVideos(posts,activity.user)            }
+        }
+
         viewModel.userVideos.observe(viewLifecycleOwner, Observer { videos ->
             list_video.also {
                 it.adapter = UserVideoAdapter(context!!, videos)
@@ -68,8 +85,12 @@ class UserListVideosFragment : Fragment() {
                         replaceFragment(activity,R.id.video_fragment,viewVideoFragment)
                     }
             }
-        })*/
+        })
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = context as MainActivity
+    }
 
 }

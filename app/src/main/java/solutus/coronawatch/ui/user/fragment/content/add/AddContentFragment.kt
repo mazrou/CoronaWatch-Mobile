@@ -127,20 +127,19 @@ class AddContentFragment : Fragment(){
         progressdialog?.progress =100
         //progressdialog?.dismiss()
         //upload
-<<<<<<< HEAD
 
          */
         CoroutineScope(IO).launch {
-            contentRepository.postVideo(token,title.text.toString(),description.text.toString(),selectedVideoUri as Uri,context as Context)
-=======
-        CoroutineScope(IO).launch {
+            contentRepository.postVideo(
+                token,
+                title.text.toString(),
+                description.text.toString(),
+                selectedVideoUri as Uri,
+                context as Context
+            )
 
-            contentRepository.postVideo(user,token,title.text.toString(),description.text.toString(),selectedVideoUri as Uri,context as Context)
->>>>>>> 5406472db3f078c3967ad8d11275cc84aa9aa174
         }
-
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if(resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_CODE_PICK_VIDEO_GALLERY) {

@@ -40,11 +40,11 @@ class UserViewVideoFragment : Fragment() {
         val arrayCommentType = object : TypeToken<ArrayList<Comment>>() {}.type
         val bundle = arguments
         val url : Uri = Uri.parse(bundle!!.getString("url"))
-        val jsonList = bundle.getString("listComment")
-        val listComment :  List<Comment> = gson.fromJson(jsonList,arrayCommentType)
+       // val jsonList = bundle.getString("listComment")
+      //  val listComment :  List<Comment> = gson.fromJson(jsonList,arrayCommentType)
         //show comments
-        val adpter = CommentAdapter(context!!,listComment)
-        list_comment.adapter = adpter
+       // val adpter = CommentAdapter(context!!,listComment)
+     //   list_comment.adapter = adpter
 
         //set video url
         videoView.setVideoURI(url)

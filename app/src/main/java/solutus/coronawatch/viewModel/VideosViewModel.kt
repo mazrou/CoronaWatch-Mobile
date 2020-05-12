@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.Job
+import solutus.coronawatch.data.db.entity.AppUser
 import solutus.coronawatch.data.db.entity.Post
 import solutus.coronawatch.data.db.entity.Video
 import solutus.coronawatch.data.reposetory.ContentRepository
@@ -30,6 +31,15 @@ open class VideosViewModel(
             {_videos.value = it}
         )
     }
+
+    fun getUserVideos(posts: ArrayList<Post>,user: AppUser) {
+
+        job = Coroutines.ioThMain(
+            {contentRepository.createUserVideos(posts,user)},
+            {_userVideos.value = it}
+        )
+    }
+
 
     val userVideos : LiveData<List<Video>>
             get() = _userVideos

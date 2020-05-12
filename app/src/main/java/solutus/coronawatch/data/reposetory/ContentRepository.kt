@@ -47,6 +47,10 @@ class ContentRepository (
        return contentApi.getPosts().body()
     }
 
+    suspend fun getUserPosts(token: String) : ArrayList<Post>?{
+        return contentApi.getUserPosts("token "+token).body()
+    }
+
     suspend fun createVideos(posts : ArrayList<Post>) : ArrayList<Video>{
 
 
@@ -72,18 +76,22 @@ class ContentRepository (
         return listv
     }
 
-
-
-    /*suspend fun storePost(title : String , content : String ) : Post?{
-        return try{
-            apiRequest { contentApi.storePost(title,content)}
-        }catch (e :GetDataFromApiException){
-            e.message
-            e.printStackTrace()
-            null
-
+    suspend fun  createUserVideos(posts : ArrayList<Post> , user: AppUser) : ArrayList<Video>{
+        val listv = ArrayList<Video>()
+        for (post in posts ){
+            listv.add(
+                Video(
+                    id = post.pk.toString(),
+                    publisher = user,
+                    title = post.title,
+                    url = post.file,
+                    thumbnail = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+                )
+            )
         }
+        return listv
+    }
 
-    }*/
+
 
 }
