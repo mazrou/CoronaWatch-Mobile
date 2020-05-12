@@ -27,6 +27,7 @@ interface ContentApi {
     suspend fun storePost(
         @Header("Authorization") token: String,
         @Part("title") title : String,
+
         @Part("content") content : String,
         @Part file : MultipartBody.Part
 

@@ -72,7 +72,7 @@ class AddContentFragment : Fragment(){
                if(title?.text.toString() ==""||description?.text.toString() ==""){// un des champs est vide
                    Toast.makeText(activity, "يجب ملأ كل الحقول", Toast.LENGTH_SHORT).show()
                }else{
-                   uploadVideo()
+                   uploadVideo(this.user)
                }
             }
         }
@@ -112,7 +112,7 @@ class AddContentFragment : Fragment(){
     }
 
 
-    private fun uploadVideo() {//à changer
+    private fun uploadVideo(user : AppUser) {//à changer
         // à coder ulterieurement
         //CreateProgressDialog
         video_view.visibility = View.GONE
@@ -127,10 +127,16 @@ class AddContentFragment : Fragment(){
         progressdialog?.progress =100
         //progressdialog?.dismiss()
         //upload
+<<<<<<< HEAD
 
          */
         CoroutineScope(IO).launch {
             contentRepository.postVideo(token,title.text.toString(),description.text.toString(),selectedVideoUri as Uri,context as Context)
+=======
+        CoroutineScope(IO).launch {
+
+            contentRepository.postVideo(user,token,title.text.toString(),description.text.toString(),selectedVideoUri as Uri,context as Context)
+>>>>>>> 5406472db3f078c3967ad8d11275cc84aa9aa174
         }
 
     }

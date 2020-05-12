@@ -28,14 +28,18 @@ class ContentRepository (
     private val contentApi: ContentApi
 ): SafeApiRequest() {
 
+
     suspend fun postVideo(token : String , title: String ,content: String,video : Uri ,context : Context  ) {
+
         val realPath :String? = RealPathUtil.getRealPath(context,video)
         val originalFile : File = File(realPath)
         val str = context?.contentResolver?.getType(video) as String
         val file : RequestBody = RequestBody.create(str.toMediaTypeOrNull(),originalFile)
+
         val videoP : MultipartBody.Part = MultipartBody.Part.createFormData("file",originalFile.name,file )
 
         contentApi.storePost(token,title,content,videoP)
+
     }
 
 
@@ -49,6 +53,7 @@ class ContentRepository (
         val userRepository = UserRepository(UserApi.invoke())
         lateinit var user : AppUser
         val listv = ArrayList<Video>()
+
         for (post in posts) {
                 user = userRepository.getUser(post.userId)
                 listv.add(

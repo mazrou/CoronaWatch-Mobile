@@ -43,8 +43,11 @@ class ViewVideoFragment : Fragment() {
         val gson = Gson()
         val arrayCommentType = object : TypeToken<ArrayList<Comment>>() {}.type
         val bundle = arguments
+
         var videoUrl = bundle!!.getString("url")
         val url : Uri = Uri.parse(videoUrl)
+
+
        // val jsonList = bundle.getString("listComment")
         //val listComment :  List<Comment> = gson.fromJson(jsonList,arrayCommentType)
 

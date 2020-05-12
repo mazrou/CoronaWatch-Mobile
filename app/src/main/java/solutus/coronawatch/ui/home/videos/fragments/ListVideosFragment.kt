@@ -57,6 +57,7 @@ class ListVideosFragment : Fragment() {
         CoroutineScope(IO).launch {
             var posts = contentRepository.getPosts()
             if (posts != null) {
+
                 viewModel.getVideos(posts)
             }
         }
@@ -86,4 +87,7 @@ class ListVideosFragment : Fragment() {
     }
 
 
-}
+    }
+
+
+
