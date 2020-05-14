@@ -11,7 +11,7 @@ import android.os.Parcelable
      override  var publisher : User,
      override var comments: List<Comment>?,
      override var title : String,
-     override var url : String,
+     override var url : String?,
      var thumbnil : String
 
  ) :

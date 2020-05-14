@@ -4,7 +4,7 @@ import solutus.coronawatch.data.network.CoronaWatchApi
 import solutus.coronawatch.data.reposetory.VideosRepository
 import solutus.coronawatch.factory.VideoViewModelFactory
 
-object InjectorUtils {
+object VideoInjectorUtils {
 
     fun provideVideosViewModelFactory() : VideoViewModelFactory {
         val videosRepository = VideosRepository(CoronaWatchApi())

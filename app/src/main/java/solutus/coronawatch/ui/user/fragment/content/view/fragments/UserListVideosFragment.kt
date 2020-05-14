@@ -17,7 +17,7 @@ import solutus.coronawatch.data.db.entity.Comment
 import solutus.coronawatch.data.db.entity.Video
 import solutus.coronawatch.factory.VideoViewModelFactory
 import solutus.coronawatch.ui.activity.MainActivity.Companion.replaceFragment
-import solutus.coronawatch.utilities.InjectorUtils
+import solutus.coronawatch.utilities.VideoInjectorUtils
 import solutus.coronawatch.viewModel.VideosViewModel
 
 
@@ -41,14 +41,14 @@ class UserListVideosFragment : Fragment() {
         initializeUi()
     }
     private fun initializeUi(){
-        viewModelFactory = (InjectorUtils.provideVideosViewModelFactory())
+        viewModelFactory = (VideoInjectorUtils.provideVideosViewModelFactory())
         viewModel= ViewModelProviders.of(this ,viewModelFactory ).get(VideosViewModel::class.java)
         viewModel.getUserVideos()
         viewModel.userVideos.observe(viewLifecycleOwner, Observer { videos ->
             list_video.also {
                 it.adapter = UserVideoAdapter(context!!, videos)
                 it.onItemClickListener =
-                    AdapterView.OnItemClickListener { arg0, arg1, position, arg3 ->
+                    AdapterView.OnItemClickListener { _, _, position, _ ->
                         val viewVideoFragment = UserViewVideoFragment()
                         val video: Video = it.adapter.getItem(position) as Video
                         val comments = video.comments

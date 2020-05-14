@@ -1,0 +1,137 @@
+package solutus.coronawatch.data.reposetory
+
+import solutus.coronawatch.data.db.entity.Article
+import solutus.coronawatch.data.db.entity.Comment
+import solutus.coronawatch.data.db.entity.User
+import solutus.coronawatch.data.db.entity.Video
+import solutus.coronawatch.data.network.CoronaWatchApi
+import solutus.coronawatch.data.network.SafeApiReaquest
+
+class NouveltiesRepository(
+    private val coronaWatchApi: CoronaWatchApi
+) : SafeApiReaquest() {
+
+    private fun getComments(): List<Comment> {
+        val comment = ArrayList<Comment>()
+        comment.add(
+            Comment(
+                publisher = User(
+                    1,
+                    "ourdjini2020",
+                    "ga_ourdjini@esi.dz",
+                    "Aymen",
+                    "ourdjini",
+                    "04-12-1998",
+                    "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+                ),
+                text = "comment1"
+            )
+        )
+        comment.add(
+            Comment(
+                publisher = User(
+                    1,
+                    "aymen",
+                    "ga_ourdjini@esi.dz",
+                    "Aymen",
+                    "ourdjini",
+                    "04-12-1998",
+                    "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+                ),
+                text = "comment2"
+            )
+        )
+        comment.add(
+            Comment(
+                publisher = User(
+                    1,
+                    "ourdjini",
+                    "ga_ourdjini@esi.dz",
+                    "Aymen",
+                    "ourdjini",
+                    "04-12-1998",
+                    "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+                ),
+                text = "comment3"
+            )
+        )
+        comment.add(
+            Comment(
+                publisher = User(
+                    1,
+                    "ourdjini2020",
+                    "ga_ourdjini@esi.dz",
+                    "Aymen",
+                    "ourdjini",
+                    "04-12-1998",
+                    "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+                ),
+                text = "comment4"
+            )
+        )
+        return comment
+    }
+
+    //suspend fun getArticle() =  apiRequest{ coronaWatchApi.getArticle() }
+    fun getArticle(): List<Article> {
+        //  getApplicationContext().getPackageName();
+        val listArticle = ArrayList<Article>()
+        listArticle.add(
+            Article(
+                id = "article_1",
+                publisher = User(
+                    2,
+                    "ourdjini2020",
+                    "ga_ourdjini@esi.dz",
+                    "Aymen",
+                    "ourdjini",
+                    "04-12-1998",
+                    "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+                ),
+                title = "فيروس كورونا",
+                url = "https://www.google.com",
+                comments = getComments(),
+                articleContent = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.mp4"
+            )
+        )
+        listArticle.add(
+            Article(
+                id = "video_1",
+                publisher = User(
+                    1,
+                    "ourdjini2020",
+                    "ga_ourdjini@esi.dz",
+                    "Aymen",
+                    "ourdjini",
+                    "04-12-1998",
+                    "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+                ),
+                title = "فيروس كورونا",
+                url = "https://www.google.com",
+                comments = getComments(),
+                articleContent ="https://i.picsum.photos/id/611/200/300.jpg"
+            )
+        )
+        listArticle.add(
+            Article(
+                id = "video_1",
+                publisher = User(
+                    1,
+                    "ourdjini2020",
+                    "ga_ourdjini@esi.dz",
+                    "Aymen",
+                    "ourdjini",
+                    "04-12-1998",
+                    "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+                ),
+                title = "فيروس كورونا",
+                url = "https://www.google.com",
+                comments = getComments(),
+                articleContent =null
+            )
+        )
+
+        return listArticle
+
+    }
+}

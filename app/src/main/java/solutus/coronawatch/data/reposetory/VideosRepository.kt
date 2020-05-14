@@ -1,12 +1,10 @@
 package solutus.coronawatch.data.reposetory
 
-import android.net.Uri
 import solutus.coronawatch.data.db.entity.Comment
 import solutus.coronawatch.data.db.entity.User
 import solutus.coronawatch.data.db.entity.Video
 import solutus.coronawatch.data.network.CoronaWatchApi
 import solutus.coronawatch.data.network.SafeApiReaquest
-import java.security.AccessController.getContext
 
 
 class VideosRepository(

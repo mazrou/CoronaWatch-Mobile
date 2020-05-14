@@ -35,6 +35,7 @@
         android:layout_height="wrap_content"
         android:textSize="7pt"
         android:ems="4"
+        android:background="@drawable/comment_background"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:textDirection="rtl"/>

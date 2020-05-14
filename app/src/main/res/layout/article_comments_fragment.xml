@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="8dp"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/comment_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/comment_image"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:layout_marginTop="10dp"
+                android:background="@color/fontColorSecondary"
+                android:src="@mipmap/ic_comment" />
+
+            <ImageView
+                android:id="@+id/done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:src="@mipmap/ic_done"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+
+        <EditText
+            android:id="@+id/edit_comment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+           android:hint="@string/add_comment"
+            android:background="@drawable/comment_background"
+            android:cursorVisible="true"
+            android:duplicateParentState="true"
+            android:ems="4"
+            android:focusable="true"
+            android:inputType="text"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:textSize="7pt" />
+
+
+    </LinearLayout>
+
+
+    <ListView
+        android:id="@+id/list_comment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/list_view_divider" />
+
+</LinearLayout>
