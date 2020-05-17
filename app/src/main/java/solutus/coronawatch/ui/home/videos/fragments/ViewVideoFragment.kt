@@ -47,6 +47,9 @@ class ViewVideoFragment : Fragment() {
         var videoUrl = bundle!!.getString("url")
         val url : Uri = Uri.parse(videoUrl)
 
+        val content = bundle!!.getString("content")
+
+        val title = bundle!!.getString("title")
 
        // val jsonList = bundle.getString("listComment")
         //val listComment :  List<Comment> = gson.fromJson(jsonList,arrayCommentType)
@@ -58,6 +61,10 @@ class ViewVideoFragment : Fragment() {
         //set video url
         videoView.setVideoURI(url)
         //set media controleur
+        title_text_view.setText(title)
+        content_text_view.setText(content)
+
+
 
         val mediaController = MediaController(context)
         videoView.setMediaController(mediaController)

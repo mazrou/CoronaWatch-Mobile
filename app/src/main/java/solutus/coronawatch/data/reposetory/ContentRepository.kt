@@ -14,6 +14,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import solutus.coronawatch.data.db.entity.AppUser
+import solutus.coronawatch.data.db.entity.DeletePostRequest
 import solutus.coronawatch.data.db.entity.Post
 import solutus.coronawatch.data.db.entity.Video
 
@@ -44,11 +45,16 @@ class ContentRepository (
 
 
     suspend fun getPosts() : ArrayList<Post>? {
-       return contentApi.getPosts().body()
+       return contentApi.getPosts().body()!!.posts.filter { (it.status.equals("accepted")) && !it.deleted } as ArrayList<Post>?
     }
 
     suspend fun getUserPosts(token: String) : ArrayList<Post>?{
-        return contentApi.getUserPosts("token "+token).body()
+        return contentApi.getUserPosts("token "+token).body()!!.posts
+    }
+
+    suspend fun deletePost(token: String,id:Int){
+        val deleted = DeletePostRequest("true")
+        contentApi.deletePost("token "+token,id,deleted)
     }
 
     suspend fun createVideos(posts : ArrayList<Post>) : ArrayList<Video>{
@@ -66,8 +72,9 @@ class ContentRepository (
                         publisher = user,
                         title = post.title,
                         url = post.file,
+                        content = post.content,
                         //comments = getComments(),
-                        thumbnail = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+                        thumbnail = "https://www.gynecologie-pratique.com/sites/www.gynecologie-pratique.com/files/images/article_journal/covid-19.png"
                     )
                 )
 
@@ -85,7 +92,8 @@ class ContentRepository (
                     publisher = user,
                     title = post.title,
                     url = post.file,
-                    thumbnail = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
+                    content = post.content,
+                    thumbnail = "https://www.gynecologie-pratique.com/sites/www.gynecologie-pratique.com/files/images/article_journal/covid-19.png"
                 )
             )
         }

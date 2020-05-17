@@ -70,6 +70,7 @@ class ProfileFragment : Fragment() {
         avatar.setOnClickListener{
             showPictureDialog()
         }
+
         //manipulation du Date Picker
         dateOfBirthET = view?.findViewById<EditText>(R.id.date_naissance)!!
         dateOfBirthET.inputType = InputType.TYPE_NULL
@@ -87,7 +88,9 @@ class ProfileFragment : Fragment() {
         firstName.setText(user.firstName)
         lastName.setText(user.lastName)
         dateOfBirthET.setText(user.birthDate)
-
+        if (user.image != null){
+            Picasso.get().load(user.image).into(avatar)
+        }
 
         //souvegarder l'état du profile
         val sauvegardBtn =  view?.findViewById<Button>(R.id.souvegarder_button)
@@ -101,7 +104,7 @@ class ProfileFragment : Fragment() {
                     Toast.makeText(activity,"كلمتا المرور غير متطابقتين",Toast.LENGTH_SHORT).show()
                 }else{
                     buttonClicked=true
-                    uploadPhotoProfile()
+                    uploadPhotoProfile(avatar)
                     souvegardeProfile()
                 }
             }
@@ -153,8 +156,8 @@ class ProfileFragment : Fragment() {
     }
 
 
-    private fun uploadPhotoProfile() {
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    private fun uploadPhotoProfile(avatar : de.hdodenhof.circleimageview.CircleImageView) {
+
 
     }
     private fun souvegardeProfile(){//A changer
@@ -174,6 +177,7 @@ class ProfileFragment : Fragment() {
                 imageSelected=true
                 selectedImageUri = data?.data
                 avatar.setImageURI(selectedImageUri)
+                uploadPhotoProfile(avatar)
             }
             if (requestCode == REQUEST_CODE_PICK_IMAGE_CAMERA) {
                 imageSelected=true
@@ -196,5 +200,9 @@ class ProfileFragment : Fragment() {
         super.onAttach(context)
         activity = context as MainActivity
     }
+
+
+
+
 }
 

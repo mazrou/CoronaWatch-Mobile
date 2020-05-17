@@ -32,6 +32,11 @@
     <string name="second_name">اللقب</string>
     <string name="email">البريد الالكتروني</string>
     <string name="tel">رقم الهاتف</string>
-
+    <string name="chooseOption">ماذا تريد ان تختار</string>
+    <string name="update">تعديل</string>
+    <string name="delete">حذف</string>
+    <string name="pending">قيد الانتظار</string>
+    <string name="accepted">مقبول</string>
+    <string name="rejected">مرفوض</string>
 
 </resources>

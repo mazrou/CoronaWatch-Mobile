@@ -17,6 +17,14 @@
                 android:layout_height="0dp"
                 android:orientation="vertical"
                 android:layout_weight="0.2">
+
+                <TextView
+                    android:id="@+id/status_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="viewEnd"
+                    android:textDirection="rtl" />
+
                 <TextView
                     android:id="@+id/video_title"
                     android:layout_width="match_parent"

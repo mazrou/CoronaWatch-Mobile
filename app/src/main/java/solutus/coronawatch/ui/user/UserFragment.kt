@@ -1,5 +1,6 @@
 package solutus.coronawatch.ui.user
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import com.example.coronawatch_mobile.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.user_fragment.*
 import kotlinx.android.synthetic.main.video_section.view.*
+import solutus.coronawatch.ui.MainActivity
 import solutus.coronawatch.ui.MainActivity.Companion.replaceFragment
 import solutus.coronawatch.ui.user.fragment.content.add.AddContentFragment
 import solutus.coronawatch.ui.user.fragment.content.view.ViewContentFragment
@@ -17,6 +19,8 @@ import solutus.coronawatch.ui.user.fragment.profile.ProfileFragment
 
 
 class UserFragment : Fragment() {
+    private lateinit var activity : MainActivity
+    private lateinit var avatar:de.hdodenhof.circleimageview.CircleImageView
 
     companion object {
         fun newInstance() = UserFragment()
@@ -33,8 +37,12 @@ class UserFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        var user = activity.user
         //set photo profile
-        //Picasso.get().load(getPhotoProfile()).into(profile_image)
+        avatar = activity?.findViewById<View>(R.id.profile_image) as de.hdodenhof.circleimageview.CircleImageView
+        if (user.image != null){
+            Picasso.get().load(user.image).into(avatar)
+        }
         //set ViewContentFragment the default fragment
         replaceFragment(activity,R.id.user_nav_host_fragment,ViewContentFragment())
         arc_left.visibility = View.VISIBLE
@@ -64,5 +72,10 @@ class UserFragment : Fragment() {
             arc_under.visibility= View.INVISIBLE
         }
     }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = context as MainActivity
+    }
+
 
 }

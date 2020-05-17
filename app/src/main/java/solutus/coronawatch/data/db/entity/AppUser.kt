@@ -21,11 +21,14 @@ data class AppUser  (
     @SerializedName("date_joined")
     val dateJoined: String,
 
-
     @SerializedName("is_active")
     val isActive: Boolean, // true
 
     @SerializedName("role")
-    val role: Int
+    val role: Int,
+
+    @SerializedName("image")
+    val image : String
+
 
 ) : Serializable

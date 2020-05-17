@@ -10,6 +10,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 import solutus.coronawatch.data.db.entity.AppUser
+import solutus.coronawatch.data.db.entity.DeletePostRequest
+import solutus.coronawatch.data.db.entity.GetPostsResponse
 import solutus.coronawatch.data.db.entity.Post
 import java.util.concurrent.TimeUnit
 
@@ -20,12 +22,12 @@ interface ContentApi {
 
     @GET("posts/")
     suspend fun getPosts(
-    ) : Response<ArrayList<Post>>
+    ) : Response<GetPostsResponse>
 
     @GET("posts/user/")
     suspend fun getUserPosts(
         @Header("Authorization") token :String
-    ): Response<ArrayList<Post>>
+    ): Response<GetPostsResponse>
 
     @Multipart
     @POST("post/create/")
@@ -37,7 +39,12 @@ interface ContentApi {
 
     )
 
-
+    @PUT("post/delete/{id}")
+    suspend fun deletePost(
+        @Header("Authorization") token :String,
+        @Path ("id") id : Int,
+        @Body deleted : DeletePostRequest
+    ) : Response<Post>
 
     companion object {
         operator fun invoke() : ContentApi {

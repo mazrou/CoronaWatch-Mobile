@@ -1,5 +1,6 @@
 package solutus.coronawatch.ui.home.videos.fragments
 
+import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 
 import com.example.coronawatch_mobile.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.list_videos_fragment.*
+import kotlinx.android.synthetic.main.video_section.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
@@ -59,6 +62,7 @@ class ListVideosFragment : Fragment() {
             if (posts != null) {
 
                 viewModel.getVideos(posts)
+
             }
         }
 
@@ -77,12 +81,18 @@ class ListVideosFragment : Fragment() {
                             /*************/
                             val bundle = Bundle()
                             bundle.putString("url", video.url)
+                            bundle.putString("content", video.content)
+                            bundle.putString("title",video.title)
                             //bundle.putString("listComment", jsonList.toString())
                             viewVideoFragment.arguments = bundle
                             replaceFragment(activity, R.id.video_fragment, viewVideoFragment)
+
                         }
+
                 }
+
             })
+
 
     }
 

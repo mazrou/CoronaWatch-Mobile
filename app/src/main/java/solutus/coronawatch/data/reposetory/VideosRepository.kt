@@ -38,6 +38,7 @@ class VideosRepository(
                     title = post.title,
                     url = post.file,
                     //comments = getComments(),
+                    content = post.content,
                     thumbnail = "https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"
                 )
             )

@@ -33,7 +33,7 @@ class VideoAdapter(context: Context, private var listVideoAdapter: List<Video>) 
         //set user name
         view.video_user.text = video.publisher.firstName + " "+ video.publisher.lastName
         //set user avatar
-        //Picasso.get().load(video.publisher.).into(view.user_avatar)
+        Picasso.get().load(video.publisher.image).into(view.user_avatar)
        return view
     }
 
