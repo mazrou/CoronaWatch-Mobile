@@ -7,24 +7,24 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="solutus.coronawatch.ui.home.HomeFragment"
+        android:name="solutus.coronawatch.ui.mainActivity.home.HomeFragment"
         tools:layout="@layout/home_fragment" />
 
     <fragment
         android:id="@+id/infoFragment"
-        android:name="solutus.coronawatch.ui.info.InfoFragment"
+        android:name="solutus.coronawatch.ui.mainActivity.info.InfoFragment"
         tools:layout="@layout/info_fragment" />
     <fragment
         android:id="@+id/mapFragment"
-        android:name="solutus.coronawatch.ui.map.MapFragment"
+        android:name="solutus.coronawatch.ui.mainActivity.map.MapFragment"
         tools:layout="@layout/map_fragment" />
 
     <fragment
         android:id="@+id/userFragment"
-        android:name="solutus.coronawatch.ui.user.UserFragment"
+        android:name="solutus.coronawatch.ui.mainActivity.user.UserFragment"
         tools:layout="@layout/user_fragment" />
     <fragment
         android:id="@+id/healthFragment"
-        android:name="solutus.coronawatch.ui.health.HealthFragment"
+        android:name="solutus.coronawatch.ui.mainActivity.health.HealthFragment"
         tools:layout="@layout/health_fragment" />
 </navigation>

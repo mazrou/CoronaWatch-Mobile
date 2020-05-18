@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="solutus.coronawatch.ui.user.fragment.content.add.AddContentFragment">
+    tools:context="solutus.coronawatch.ui.mainActivity.user.fragment.content.add.AddContentFragment">
 
      <TextView
          style="@style/ProfileStyle"

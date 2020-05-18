@@ -5,15 +5,16 @@ import org.junit.Assert
 import org.junit.Test
 
 import solutus.coronawatch.data.db.entity.Post
-import solutus.coronawatch.data.network.ContentApi
-import solutus.coronawatch.data.reposetory.ContentRepository
-import java.util.*
+import solutus.coronawatch.data.network.implementation.ContentApi
+import solutus.coronawatch.data.reposetory.implementation.ContentRepository
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class ContentRepositoryTest {
 
-    private val contentRepository = ContentRepository(ContentApi.invoke())
+    private val contentRepository =
+        ContentRepository(
+            ContentApi.invoke()
+        )
 
 
     @Test

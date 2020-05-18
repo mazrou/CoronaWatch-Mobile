@@ -18,9 +18,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name="solutus.coronawatch.ui.MainActivity"/>
-        <activity android:name="solutus.coronawatch.ui.activity.LoginActivity" />
-        <activity android:name="solutus.coronawatch.ui.activity.FirstActivity">
+        <activity android:name="solutus.coronawatch.ui.mainActivity.MainActivity"/>
+        <activity android:name="solutus.coronawatch.ui.loginActivity.LoginActivity" />
+        <activity android:name="solutus.coronawatch.ui.firstActivity.FirstActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

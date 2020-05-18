@@ -4,19 +4,18 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
 import solutus.coronawatch.data.db.entity.AppUser
-import solutus.coronawatch.data.network.CoronaWatchApi
-import solutus.coronawatch.data.network.UserApi
-import solutus.coronawatch.data.reposetory.UserRepository
-import solutus.coronawatch.data.reposetory.VideosRepository
+import solutus.coronawatch.data.network.implementation.UserApi
+import solutus.coronawatch.data.reposetory.implementation.UserRepository
 
 class UserRepositoryTest{
-    private val userRepository = UserRepository(UserApi.invoke())
+    private val userRepository =
+        UserRepository(UserApi.invoke())
 
     @Test
      fun getAppUserTest() = runBlocking{
        val appUser =  userRepository.getAuthAppUser("token 63c80d8178352bd3e9cfa68e21d82fd1991a0251")
 
-       Assert.assertEquals(20 ,appUser!!.id)
+       Assert.assertNotNull(appUser)
     }
 
   /*  @Test
@@ -42,10 +41,13 @@ class UserRepositoryTest{
     @Test
     fun getUserById() = runBlocking {
       lateinit var user : AppUser
-      val userRepository = UserRepository(UserApi.invoke())
-      user = userRepository.getUser(20)
+      val userRepository =
+          UserRepository(
+              UserApi.invoke()
+          )
+      user = userRepository.getUser(14)
       println(user.firstName)
-      Assert.assertEquals(user.email.toString(),"gs_chacha@esi.dz")
+      Assert.assertEquals(user.email,"hamid@email.com")
   }
 
     @Test

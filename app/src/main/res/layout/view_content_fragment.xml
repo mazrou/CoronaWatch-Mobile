@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="solutus.coronawatch.ui.user.fragment.content.view.ViewContentFragment">
+    tools:context="solutus.coronawatch.ui.mainActivity.user.fragment.content.view.ViewContentFragment">
 
     <fragment
         android:id="@+id/video_fragment"

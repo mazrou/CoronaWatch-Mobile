@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="solutus.coronawatch.ui.home.novelties.NouveltiesFragment">
+    tools:context="solutus.coronawatch.ui.mainActivity.home.novelties.NouveltiesFragment">
 
     <TextView
         android:layout_width="match_parent"
