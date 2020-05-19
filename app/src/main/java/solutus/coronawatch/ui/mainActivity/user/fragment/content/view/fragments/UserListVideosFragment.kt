@@ -21,9 +21,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 import solutus.coronawatch.ui.mainActivity.home.adapter.UserVideoAdapter
 import solutus.coronawatch.data.db.entity.Post
 import solutus.coronawatch.data.db.entity.Video
+import solutus.coronawatch.data.internal.NoConnectivityException
 import solutus.coronawatch.data.network.implementation.ContentApi
 import solutus.coronawatch.data.reposetory.implementation.ContentRepository
 import solutus.coronawatch.ui.mainActivity.home.videos.VideoViewModelFactory
@@ -33,18 +37,19 @@ import solutus.coronawatch.utilities.InjectorUtils
 import solutus.coronawatch.ui.mainActivity.home.videos.VideosViewModel
 
 
-class UserListVideosFragment : Fragment() {
+class UserListVideosFragment : Fragment()  , KodeinAware{
 
     companion object {
         fun newInstance() = UserListVideosFragment()
     }
+
+    override val kodein by closestKodein()
     private lateinit var activity : MainActivity
     private lateinit var viewModelFactory: VideoViewModelFactory
     private lateinit var viewModel: VideosViewModel
-    private val contentRepository =
-        ContentRepository(
-            ContentApi.invoke()
-        )
+    private val contentRepository  : ContentRepository by instance()
+
+
     private lateinit var posts : ArrayList<Post>
     private lateinit var status : TextView
 
@@ -61,15 +66,17 @@ class UserListVideosFragment : Fragment() {
     }
     private fun initializeUi(){
 
-        viewModelFactory = (InjectorUtils.provideVideosViewModelFactory())
+        viewModelFactory = (InjectorUtils.provideVideosViewModelFactory(requireContext()))
         viewModel= ViewModelProviders.of(this ,viewModelFactory ).get(VideosViewModel::class.java)
         CoroutineScope(Dispatchers.IO).launch {
             var posts = contentRepository.getUserPosts(activity.token)
             if (posts != null) {
 
-                viewModel.getUserVideos(posts,activity.user)
-
-
+                try {
+                    viewModel.getUserVideos(posts,activity.user)
+                }catch (e : NoConnectivityException){
+                    Toast.makeText(requireContext() , "makach connextion ", Toast.LENGTH_LONG).show()
+                }
 
 
 

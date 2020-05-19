@@ -6,6 +6,7 @@ import solutus.coronawatch.data.db.entity.AppUser
 import solutus.coronawatch.data.db.entity.RegisterPostRequest
 import solutus.coronawatch.data.network.entity.Token
 import solutus.coronawatch.data.network.abstraction.Api
+import solutus.coronawatch.data.network.abstraction.ConnectivityInterceptor
 import solutus.coronawatch.data.network.abstraction.SERVER_URL
 
 
@@ -37,9 +38,11 @@ interface UserApi : Api {
 
 
     companion object {
-        operator fun invoke() : UserApi {
+        operator fun invoke(
+            connectivityInterceptor : ConnectivityInterceptor
+        ) : UserApi {
 
-            return Api().baseUrl(BASE_URL)
+            return Api(connectivityInterceptor).baseUrl(BASE_URL)
                 .build()
                 .create(UserApi::class.java)
 

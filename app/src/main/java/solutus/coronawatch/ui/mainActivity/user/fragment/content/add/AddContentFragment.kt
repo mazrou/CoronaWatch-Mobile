@@ -19,14 +19,18 @@ import kotlinx.android.synthetic.main.add_content_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 import solutus.coronawatch.data.db.entity.AppUser
 import solutus.coronawatch.data.network.implementation.ContentApi
 import solutus.coronawatch.data.reposetory.implementation.ContentRepository
 import solutus.coronawatch.ui.mainActivity.MainActivity
 
 
-class AddContentFragment : Fragment(){
+class AddContentFragment : Fragment() , KodeinAware{
 
+    override val kodein by closestKodein()
     companion object {
         const val REQUEST_CODE_PICK_VIDEO_CAMERA = 101
         const val REQUEST_CODE_PICK_VIDEO_GALLERY = 102
@@ -36,10 +40,8 @@ class AddContentFragment : Fragment(){
     private lateinit var activity : MainActivity
     private lateinit var token: String
     private lateinit var user: AppUser
-    private val contentRepository =
-        ContentRepository(
-            ContentApi.invoke()
-        )
+    private val contentRepository : ContentRepository by instance()
+
     var progressdialog: ProgressDialog? = null
     private var selectedVideoUri: Uri? = null
     override fun onCreateView(

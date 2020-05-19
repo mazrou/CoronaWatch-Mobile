@@ -16,6 +16,9 @@ import kotlinx.android.synthetic.main.list_videos_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 import solutus.coronawatch.ui.mainActivity.home.adapter.VideoAdapter
 import solutus.coronawatch.data.db.entity.Comment
 import solutus.coronawatch.data.db.entity.Post
@@ -27,17 +30,15 @@ import solutus.coronawatch.ui.mainActivity.MainActivity.Companion.replaceFragmen
 import solutus.coronawatch.utilities.InjectorUtils
 import solutus.coronawatch.ui.mainActivity.home.videos.VideosViewModel
 
-class ListVideosFragment : Fragment() {
+class ListVideosFragment : Fragment() , KodeinAware {
 
+    override val kodein by closestKodein()
     companion object {
         fun newInstance() = ListVideosFragment()
     }
     private lateinit var viewModelFactory: VideoViewModelFactory
     private lateinit var viewModel: VideosViewModel
-    private val contentRepository =
-        ContentRepository(
-            ContentApi()
-        )
+    private val contentRepository : ContentRepository by instance()
     private lateinit var posts : ArrayList<Post>
 
 
@@ -54,7 +55,7 @@ class ListVideosFragment : Fragment() {
     }
     private fun initializeUi() {
 
-        viewModelFactory = (InjectorUtils.provideVideosViewModelFactory())
+        viewModelFactory = (InjectorUtils.provideVideosViewModelFactory(requireContext()))
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(VideosViewModel::class.java)
         CoroutineScope(IO).launch {
             var posts = contentRepository.getPosts()

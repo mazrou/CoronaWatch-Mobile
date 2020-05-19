@@ -5,6 +5,9 @@ import android.net.Uri
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.closestKodein
 import solutus.coronawatch.data.db.entity.AppUser
 import solutus.coronawatch.data.db.entity.DeletePostRequest
 import solutus.coronawatch.data.db.entity.Post
@@ -19,7 +22,7 @@ import java.io.File
 
 class ContentRepository (
     private val contentApi: ContentApi
-): SafeApiRequest() {
+): SafeApiRequest()   {
 
 
     suspend fun postVideo(token : String , title: String ,content: String,video : Uri ,context : Context  ) {
@@ -52,15 +55,13 @@ class ContentRepository (
     suspend fun createVideos(posts : ArrayList<Post>) : ArrayList<Video>{
 
 
-        val userRepository =
-            UserRepository(
-                UserApi.invoke()
-            )
+       // val userRepository : UserRepository by instance()
+
         lateinit var user : AppUser
         val listv = ArrayList<Video>()
 
         for (post in posts) {
-                user = userRepository.getUser(post.userId)
+           //     user = userRepository.getUser(post.userId)
                 listv.add(
                     Video(
                         id = post.pk.toString(),

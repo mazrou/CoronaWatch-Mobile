@@ -11,6 +11,7 @@ import solutus.coronawatch.data.db.entity.DeletePostRequest
 import solutus.coronawatch.data.db.entity.GetPostsResponse
 import solutus.coronawatch.data.db.entity.Post
 import solutus.coronawatch.data.network.abstraction.Api
+import solutus.coronawatch.data.network.abstraction.ConnectivityInterceptor
 import solutus.coronawatch.data.network.abstraction.SERVER_URL
 import java.util.concurrent.TimeUnit
 
@@ -35,7 +36,6 @@ interface ContentApi : Api {
         @Part("title") title : String,
         @Part("content") content : String,
         @Part file : MultipartBody.Part
-
     )
 
     @PUT("post/delete/{id}")
@@ -46,9 +46,11 @@ interface ContentApi : Api {
     ) : Response<Post>
 
     companion object {
-        operator fun invoke() : ContentApi {
+        operator fun invoke(
+            connectivityInterceptor: ConnectivityInterceptor
+        ) : ContentApi {
 
-            return Api().baseUrl(BASE_URL)
+            return Api(connectivityInterceptor).baseUrl(BASE_URL)
                     .build()
                     .create(ContentApi::class.java)
 

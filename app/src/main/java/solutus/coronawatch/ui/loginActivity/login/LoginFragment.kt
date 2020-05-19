@@ -15,16 +15,24 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 import solutus.coronawatch.data.db.entity.AppUser
+import solutus.coronawatch.data.internal.NoConnectivityException
+import solutus.coronawatch.data.network.implementation.ConnectivityInterceptorImpl
 import solutus.coronawatch.data.network.implementation.UserApi
 import solutus.coronawatch.data.reposetory.implementation.UserRepository
 import solutus.coronawatch.ui.mainActivity.MainActivity
 import solutus.coronawatch.ui.mainActivity.MainActivity.Companion.replaceFragment
 
 
-class LoginFragment : Fragment() {
-    private val userRepository =
-        UserRepository(UserApi.invoke())
+class LoginFragment() : Fragment() , KodeinAware {
+
+    override val kodein : Kodein by closestKodein()
+    private val userRepository : UserRepository by instance()
+      //  UserRepository(UserApi.invoke(ConnectivityInterceptorImpl(requireContext())))
     private var emailPassword = HashMap<String,String>()
     private lateinit var token : String
     private var user : AppUser? = null
@@ -52,9 +60,15 @@ class LoginFragment : Fragment() {
                 //TODO :login
                 emailPassword["email"] = email.text.toString().trim()
                 emailPassword["password"] = password.text.toString().trim()
-                CoroutineScope(IO).launch{
-                    apiRequest()
-                }
+               CoroutineScope(IO).launch {
+              try {
+                  apiRequest()
+
+              }catch (e : NoConnectivityException){
+                  Toast.makeText(activity , "makach conncytion" , Toast.LENGTH_LONG).show()
+              }
+                  }
+
             }
         }
         forgot_pw.setOnClickListener {

@@ -14,7 +14,10 @@ const val SERVER_URL = "http://solutusprojet.herokuapp.com/"
 interface Api {
 
     companion object {
-        operator fun invoke() : Retrofit.Builder {
+        operator fun invoke(
+            connectivityInterceptor: ConnectivityInterceptor
+
+        ) : Retrofit.Builder {
             val logging = HttpLoggingInterceptor()
             logging.level = HttpLoggingInterceptor.Level.BODY
 
@@ -24,6 +27,8 @@ interface Api {
                 .readTimeout(1000, TimeUnit.SECONDS)
                 .writeTimeout(1000, TimeUnit.SECONDS)
                 .addInterceptor(logging)
+                .addInterceptor(connectivityInterceptor)
+
 
 
             return  Retrofit.Builder()

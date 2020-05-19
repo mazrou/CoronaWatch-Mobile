@@ -17,14 +17,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 import solutus.coronawatch.data.db.entity.AppUser
 import solutus.coronawatch.data.network.implementation.UserApi
 import solutus.coronawatch.data.reposetory.implementation.UserRepository
 import solutus.coronawatch.ui.mainActivity.MainActivity
 
-class RegisterFragment : Fragment() {
-    private val userRepository =
-        UserRepository(UserApi.invoke())
+class RegisterFragment : Fragment() , KodeinAware {
+    override val kodein: Kodein by  closestKodein()
+    private val userRepository :UserRepository by instance()
     private var user : AppUser? = null
     private var emailPassword = HashMap<String,String>()
     private lateinit var token : String
