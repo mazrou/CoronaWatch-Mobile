@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
     }
 
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-       super.onViewCreated(view!!, savedInstanceState)
+       super.onViewCreated(view, savedInstanceState)
        val navigation = activity!!.findViewById<View>(R.id.homeNavigation) as BottomNavigationView
        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
    }

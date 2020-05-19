@@ -2,8 +2,8 @@ package solutus.coronawatch.data.network.implementation
 
 import retrofit2.Response
 import retrofit2.http.*
-import solutus.coronawatch.data.db.entity.AppUser
-import solutus.coronawatch.data.db.entity.RegisterPostRequest
+import solutus.coronawatch.data.entity.AppUser
+import solutus.coronawatch.data.entity.RegisterPostRequest
 import solutus.coronawatch.data.network.entity.Token
 import solutus.coronawatch.data.network.abstraction.Api
 import solutus.coronawatch.data.network.abstraction.SERVER_URL

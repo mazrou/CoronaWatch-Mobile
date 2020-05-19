@@ -1,5 +1,4 @@
-package solutus.coronawatch.data.db.entity
-
+package solutus.coronawatch.data.cache.entity
 data class Comment (
     val  user : String,
     val post : Post,

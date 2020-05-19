@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import solutus.coronawatch.data.db.entity.AppUser
+import solutus.coronawatch.data.entity.AppUser
 import solutus.coronawatch.data.network.implementation.UserApi
 import solutus.coronawatch.data.reposetory.implementation.UserRepository
 import solutus.coronawatch.ui.mainActivity.MainActivity
@@ -64,12 +64,12 @@ class LoginFragment : Fragment() {
 
     }
 
-    suspend fun apiRequest(){
+    private suspend fun apiRequest(){
         this.token = userRepository.loginUser(this.emailPassword)!!.token
         this.user = getUser(this.token)
         user?.let { showToken(it) }
     }
-    suspend fun showToken(user: AppUser){
+    private suspend fun showToken(user: AppUser){
         withContext(Dispatchers.Main){
             val intent = Intent(activity, MainActivity::class.java)
             intent.putExtra("token",token)
@@ -77,7 +77,7 @@ class LoginFragment : Fragment() {
             startActivity(intent)
         }
     }
-    suspend fun getUser(token:String) : AppUser? {
+    private suspend fun getUser(token:String) : AppUser? {
         val appUser =  userRepository.getAuthAppUser("token "+token)
         return appUser
     }

@@ -7,30 +7,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.AdapterView
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.coronawatch_mobile.R
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.list_videos_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
-import solutus.coronawatch.ui.mainActivity.home.adapter.UserVideoAdapter
-import solutus.coronawatch.data.db.entity.Post
-import solutus.coronawatch.data.db.entity.Video
+import solutus.coronawatch.data.entity.Post
+import solutus.coronawatch.data.entity.Video
 import solutus.coronawatch.data.network.implementation.ContentApi
 import solutus.coronawatch.data.reposetory.implementation.ContentRepository
-import solutus.coronawatch.ui.mainActivity.home.videos.VideoViewModelFactory
 import solutus.coronawatch.ui.mainActivity.MainActivity
 import solutus.coronawatch.ui.mainActivity.MainActivity.Companion.replaceFragment
-import solutus.coronawatch.utilities.InjectorUtils
+import solutus.coronawatch.ui.mainActivity.home.adapter.UserVideoAdapter
+import solutus.coronawatch.ui.mainActivity.home.videos.VideoViewModelFactory
 import solutus.coronawatch.ui.mainActivity.home.videos.VideosViewModel
+import solutus.coronawatch.utilities.InjectorUtils
 
 
 class UserListVideosFragment : Fragment() {
@@ -38,15 +38,16 @@ class UserListVideosFragment : Fragment() {
     companion object {
         fun newInstance() = UserListVideosFragment()
     }
-    private lateinit var activity : MainActivity
+
+    private lateinit var activity: MainActivity
     private lateinit var viewModelFactory: VideoViewModelFactory
     private lateinit var viewModel: VideosViewModel
     private val contentRepository =
         ContentRepository(
             ContentApi.invoke()
         )
-    private lateinit var posts : ArrayList<Post>
-    private lateinit var status : TextView
+    private lateinit var posts: ArrayList<Post>
+    private lateinit var status: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,60 +60,58 @@ class UserListVideosFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         initializeUi()
     }
-    private fun initializeUi(){
 
+    private fun initializeUi() {
+        //set recycle view adapter
+        val recyclerView: RecyclerView = list_video as RecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.setHasFixedSize(true)
+        val adapter = UserVideoAdapter(activity)
+        recyclerView.adapter = adapter
+
+        //set ViewModel
         viewModelFactory = (InjectorUtils.provideVideosViewModelFactory())
-        viewModel= ViewModelProviders.of(this ,viewModelFactory ).get(VideosViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(VideosViewModel::class.java)
         CoroutineScope(Dispatchers.IO).launch {
-            var posts = contentRepository.getUserPosts(activity.token)
+            val posts = contentRepository.getUserPosts(activity.token)
             if (posts != null) {
 
-                viewModel.getUserVideos(posts,activity.user)
-
-
-
-
-
+                viewModel.getUserVideos(posts, activity.user)
             }
         }
-        viewModel.userVideos.observe(viewLifecycleOwner, Observer { videos ->
-            list_video.also {
-                it.adapter = UserVideoAdapter(context!!, videos)
-                it.onItemClickListener =
-                    AdapterView.OnItemClickListener { arg0, arg1, position, arg3 ->
-                        val viewVideoFragment = UserViewVideoFragment()
-                        val video: Video = it.adapter.getItem(position) as Video
-                        //val comments = video.comments
-                        //convert list comments to json
-                        val gson = Gson()
-                        //val arrayCommentType = object : TypeToken<ArrayList<Comment>>() {}.type
-                        //val jsonList = gson.toJson(video.comments,arrayCommentType)
-                        /*************/
-                        val bundle = Bundle()
-                        bundle.putString("url", video.url)
-                        bundle.putString("content", video.content)
-                        bundle.putString("title",video.title)
-                        //bundle.putString("listComment", jsonList.toString())
-                        viewVideoFragment.arguments = bundle
-                        replaceFragment(activity,R.id.video_fragment,viewVideoFragment)
-                        status = view!!.findViewById(R.id.status_text)
 
-                    }
-
-                it.onItemLongClickListener = AdapterView.OnItemLongClickListener{ arg0,arg1, position, arg3 ->
-                    val video: Video = it.adapter.getItem(position) as Video
-                    showDialog(activity.token, (video.id).toInt())
-                    return@OnItemLongClickListener true
-                }
+        viewModel.userVideos.observe(
+            viewLifecycleOwner,
+            Observer { videos -> adapter.setVideos(videos as List<Video>) })
+        //go to view Video on thumbnail click
+        adapter.setOnItemClickListener(object : UserVideoAdapter.OnItemClickListener {
+            override fun onItemClick(video: Video) {
+                val viewVideoFragment = UserViewVideoFragment()
+                val bundle = Bundle()
+                bundle.putString("url", video.url)
+                bundle.putString("content", video.content)
+                bundle.putString("title", video.title)
+                //bundle.putString("listComment", jsonList.toString())
+                viewVideoFragment.arguments = bundle
+                replaceFragment(activity, R.id.video_fragment, viewVideoFragment)
+                status = view!!.findViewById(R.id.status_text)
             }
         })
+        adapter.setOnItemLongClickListener(object : UserVideoAdapter.OnItemLongClickListener {
+            override fun onItemLongClick(video: Video): Boolean {
+                showDialog(activity.token, (video.id).toInt())
+                return true
+            }
+        })
+
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context as MainActivity
     }
-    private fun showDialog(token : String ,  id : Int) {
+
+    private fun showDialog(token: String, id: Int) {
         val dialog = Dialog(activity)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)

@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.Job
-import solutus.coronawatch.data.db.entity.AppUser
-import solutus.coronawatch.data.db.entity.Post
-import solutus.coronawatch.data.db.entity.Video
+import solutus.coronawatch.data.entity.AppUser
+import solutus.coronawatch.data.entity.Post
+import solutus.coronawatch.data.entity.Video
 import solutus.coronawatch.data.reposetory.implementation.ContentRepository
 import solutus.coronawatch.utilities.Coroutines
 

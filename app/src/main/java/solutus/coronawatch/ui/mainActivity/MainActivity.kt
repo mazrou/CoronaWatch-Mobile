@@ -19,7 +19,7 @@ import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
-import solutus.coronawatch.data.db.entity.AppUser
+import solutus.coronawatch.data.entity.AppUser
 
 
 class MainActivity : AppCompatActivity() {

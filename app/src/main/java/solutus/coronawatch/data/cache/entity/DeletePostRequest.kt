@@ -1,4 +1,4 @@
-package solutus.coronawatch.data.db.entity
+package solutus.coronawatch.data.cache.entity
 
 import com.google.gson.annotations.SerializedName
 

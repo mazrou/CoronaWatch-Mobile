@@ -16,7 +16,7 @@ import com.example.coronawatch_mobile.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.view_video_fragment.*
-import solutus.coronawatch.data.db.entity.Comment
+import solutus.coronawatch.data.entity.Comment
 
 class ViewVideoFragment : Fragment() {
 

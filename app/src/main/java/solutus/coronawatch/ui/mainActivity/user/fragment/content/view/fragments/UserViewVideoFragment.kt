@@ -13,9 +13,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.view_video_fragment.*
-import solutus.coronawatch.data.db.entity.Comment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import solutus.coronawatch.data.entity.Comment
 
 
 class UserViewVideoFragment : Fragment() {
