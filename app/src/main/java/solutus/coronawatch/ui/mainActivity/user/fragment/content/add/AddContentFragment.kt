@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.add_content_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
-import solutus.coronawatch.data.db.entity.AppUser
+import solutus.coronawatch.data.entity.AppUser
 import solutus.coronawatch.data.network.implementation.ContentApi
 import solutus.coronawatch.data.reposetory.implementation.ContentRepository
 import solutus.coronawatch.ui.mainActivity.MainActivity

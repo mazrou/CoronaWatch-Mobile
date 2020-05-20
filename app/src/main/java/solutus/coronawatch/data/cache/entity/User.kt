@@ -1,4 +1,4 @@
-package solutus.coronawatch.data.db.entity
+package solutus.coronawatch.data.cache.entity
 
 data class User(
     val id : String ,

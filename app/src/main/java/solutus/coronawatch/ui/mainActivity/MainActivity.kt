@@ -8,31 +8,17 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
-
-import androidx.fragment.app.FragmentTransaction
+import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.activity_main.*
-import androidx.core.app.ActivityCompat
-import androidx.fragment.app.FragmentActivity
-import solutus.coronawatch.data.db.entity.AppUser
+import solutus.coronawatch.data.entity.AppUser
 
 
 class MainActivity : AppCompatActivity() {
-    companion object{
 
-        fun replaceFragment (activity: FragmentActivity?, layout:Int, fragment: Fragment){
-                val fragmentTransaction : FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
-                fragmentTransaction?.replace(layout , fragment)
-                fragmentTransaction?.addToBackStack(null)
-                fragmentTransaction?.commit()
-        }
-
-    }
     private lateinit var navController:NavController
     private lateinit var toolbar: Toolbar
     lateinit var user : AppUser
@@ -55,13 +41,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-   override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(null,navController)
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater :MenuInflater = menuInflater
-        inflater.inflate(R.menu.top_nav,menu)
+        inflater.inflate(R.menu.popup_menu, menu)
         val switchOnOffItem = menu?.findItem(R.id.active_notifications)
         switchOnOffItem?.setActionView(R.layout.switch_layout)
         return true

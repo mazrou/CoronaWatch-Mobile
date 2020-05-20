@@ -2,12 +2,13 @@ package solutus.coronawatch.ui.loginActivity.login
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.login_fragment.*
 import kotlinx.coroutines.CoroutineScope
@@ -15,11 +16,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import solutus.coronawatch.data.db.entity.AppUser
+import solutus.coronawatch.data.entity.AppUser
 import solutus.coronawatch.data.network.implementation.UserApi
 import solutus.coronawatch.data.reposetory.implementation.UserRepository
 import solutus.coronawatch.ui.mainActivity.MainActivity
-import solutus.coronawatch.ui.mainActivity.MainActivity.Companion.replaceFragment
 
 
 class LoginFragment : Fragment() {
@@ -43,7 +43,9 @@ class LoginFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         logout.setOnClickListener {
-            replaceFragment(activity,R.id.login_fragment,RegisterFragment())
+            val navController: NavController =
+                Navigation.findNavController(requireActivity(), R.id.login_fragment)
+            navController.navigate(R.id.to_register_fragment_action)
         }
         enter.setOnClickListener {
             if(email.text.toString()==""||password.text.toString()==""){
@@ -64,12 +66,13 @@ class LoginFragment : Fragment() {
 
     }
 
-    suspend fun apiRequest(){
+    private suspend fun apiRequest() {
         this.token = userRepository.loginUser(this.emailPassword)!!.token
         this.user = getUser(this.token)
         user?.let { showToken(it) }
     }
-    suspend fun showToken(user: AppUser){
+
+    private suspend fun showToken(user: AppUser) {
         withContext(Dispatchers.Main){
             val intent = Intent(activity, MainActivity::class.java)
             intent.putExtra("token",token)
@@ -77,7 +80,8 @@ class LoginFragment : Fragment() {
             startActivity(intent)
         }
     }
-    suspend fun getUser(token:String) : AppUser? {
+
+    private suspend fun getUser(token: String): AppUser? {
         val appUser =  userRepository.getAuthAppUser("token "+token)
         return appUser
     }

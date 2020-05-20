@@ -3,7 +3,6 @@ package solutus.coronawatch.ui.mainActivity.home.videos.fragments
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +10,9 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.MediaController
 import android.widget.Toast
-
+import androidx.fragment.app.Fragment
 import com.example.coronawatch_mobile.R
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.view_video_fragment.*
-import solutus.coronawatch.data.db.entity.Comment
 
 class ViewVideoFragment : Fragment() {
 
@@ -36,29 +32,27 @@ class ViewVideoFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val gson = Gson()
-        val arrayCommentType = object : TypeToken<ArrayList<Comment>>() {}.type
+        //get data from list videos fragment uing bundle
         val bundle = arguments
-
-        var videoUrl = bundle!!.getString("url")
+        val videoUrl = bundle!!.getString("url")
         val url : Uri = Uri.parse(videoUrl)
+        val content = bundle.getString("content")
+        val title = bundle.getString("title")
 
-        val content = bundle!!.getString("content")
-
-        val title = bundle!!.getString("title")
-
-       // val jsonList = bundle.getString("listComment")
-        //val listComment :  List<Comment> = gson.fromJson(jsonList,arrayCommentType)
+        /*val gson = Gson()
+        val arrayCommentType = object : TypeToken<ArrayList<Comment>>() {}.type
+        val jsonList = bundle.getString("listComment")
+        val listComment :  List<Comment> = gson.fromJson(jsonList,arrayCommentType)
 
         //show comments
-        //val adpter = CommentAdapter(context!!,listComment)
-        //list_comment.adapter = adpter
+        val adpter = CommentAdapter(context!!,listComment)
+        list_comment.adapter = adpter*/
 
         //set video url
         videoView.setVideoURI(url)
         //set media controleur
-        title_text_view.setText(title)
-        content_text_view.setText(content)
+        title_text_view.text = title
+        content_text_view.text = content
 
 
 

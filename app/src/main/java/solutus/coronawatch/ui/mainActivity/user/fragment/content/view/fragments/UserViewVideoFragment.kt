@@ -13,9 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.view_video_fragment.*
-import solutus.coronawatch.data.db.entity.Comment
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import solutus.coronawatch.data.entity.Comment
 
 
 class UserViewVideoFragment : Fragment() {
@@ -34,23 +32,26 @@ class UserViewVideoFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val gson = Gson()
-        val arrayCommentType = object : TypeToken<ArrayList<Comment>>() {}.type
+        //get data from list videos fragment uing bundle
         val bundle = arguments
         val url : Uri = Uri.parse(bundle!!.getString("url"))
-        val content = bundle!!.getString("content")
-        val title = bundle!!.getString("title")
+        val content = bundle.getString("content")
+        val title = bundle.getString("title")
 
-        // val jsonList = bundle.getString("listComment")
-      //  val listComment :  List<Comment> = gson.fromJson(jsonList,arrayCommentType)
+        /*
+        val gson = Gson()
+        val arrayCommentType = object : TypeToken<ArrayList<Comment>>() {}.type
+        val jsonList = bundle.getString("listComment")
+        val listComment: List<Comment> = gson.fromJson(jsonList, arrayCommentType)
         //show comments
-       // val adpter = CommentAdapter(context!!,listComment)
-     //   list_comment.adapter = adpter
+        val adpter = CommentAdapter(context!!, listComment)
+        list_comment.adapter = adpter
+        */
 
         //set video url
         videoView.setVideoURI(url)
-        title_text_view.setText(title)
-        content_text_view.setText(content)
+        title_text_view.text = title
+        content_text_view.text = content
 
         //set media controleur
         val mediaController = MediaController(context)

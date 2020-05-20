@@ -1,14 +1,15 @@
 package solutus.coronawatch.ui.mainActivity.home
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.ui.setupWithNavController
 import com.example.coronawatch_mobile.R
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import solutus.coronawatch.ui.mainActivity.MainActivity.Companion.replaceFragment
-import solutus.coronawatch.ui.mainActivity.home.news.NewsFragment
-import solutus.coronawatch.ui.mainActivity.home.novelties.NouveltiesFragment
-import solutus.coronawatch.ui.mainActivity.home.videos.VideosFragment
+import kotlinx.android.synthetic.main.home_fragment.*
 
 
 class HomeFragment : Fragment() {
@@ -17,23 +18,7 @@ class HomeFragment : Fragment() {
         fun newInstance() = HomeFragment()
     }
 
-     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
-        item -> when (item?.itemId) {
-                      R.id.noveltiesFragment -> {
-                             replaceFragment(activity,R.id.nav_home_fragment,NouveltiesFragment())
-                          return@OnNavigationItemSelectedListener true
-                      }
-                      R.id.newsFragment -> {
-                              replaceFragment(activity,R.id.nav_home_fragment,NewsFragment())
-                          return@OnNavigationItemSelectedListener true
-                      }
-                      R.id.videosFragment -> {
-                               replaceFragment(activity,R.id.nav_home_fragment,VideosFragment())
-                          return@OnNavigationItemSelectedListener true
-                      }
-                 }
-        return@OnNavigationItemSelectedListener false
-    }
+    private lateinit var navController: NavController
 
    override fun onCreateView(
        inflater: LayoutInflater, container: ViewGroup?,
@@ -44,16 +29,11 @@ class HomeFragment : Fragment() {
     }
 
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-       super.onViewCreated(view!!, savedInstanceState)
-       val navigation = activity!!.findViewById<View>(R.id.homeNavigation) as BottomNavigationView
-       navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+       super.onViewCreated(view, savedInstanceState)
+       //set the navigation menu
+       navController = activity?.let { Navigation.findNavController(it, R.id.nav_home_fragment) }!!
+       home_navigation.setupWithNavController(navController)
    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-       // put the News Fragment as default fragment
-        replaceFragment(activity,R.id.nav_home_fragment,NewsFragment())
-    }
 
 
 }

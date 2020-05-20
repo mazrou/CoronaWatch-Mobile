@@ -1,8 +1,8 @@
 package solutus.coronawatch.data.reposetory.implementation
 
 
-import solutus.coronawatch.data.db.entity.AppUser
-import solutus.coronawatch.data.db.entity.RegisterPostRequest
+import solutus.coronawatch.data.entity.AppUser
+import solutus.coronawatch.data.entity.RegisterPostRequest
 import solutus.coronawatch.data.network.entity.Token
 import solutus.coronawatch.data.internal.GetDataFromApiException
 import solutus.coronawatch.data.reposetory.abstraction.SafeApiRequest

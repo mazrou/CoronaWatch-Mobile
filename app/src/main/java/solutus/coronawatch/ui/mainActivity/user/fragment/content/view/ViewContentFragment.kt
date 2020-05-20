@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.coronawatch_mobile.R
-import solutus.coronawatch.ui.mainActivity.MainActivity.Companion.replaceFragment
-import solutus.coronawatch.ui.mainActivity.user.fragment.content.view.fragments.UserListVideosFragment
 
 
 class ViewContentFragment : Fragment() {
@@ -29,7 +27,6 @@ class ViewContentFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        replaceFragment(activity,R.id.video_fragment,UserListVideosFragment())
     }
 
 }

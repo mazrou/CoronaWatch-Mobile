@@ -2,22 +2,21 @@ package solutus.coronawatch.ui.loginActivity.login
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.register_fragment.*
-import kotlinx.android.synthetic.main.register_fragment.email
-import kotlinx.android.synthetic.main.register_fragment.password
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import solutus.coronawatch.data.db.entity.AppUser
+import solutus.coronawatch.data.entity.AppUser
 import solutus.coronawatch.data.network.implementation.UserApi
 import solutus.coronawatch.data.reposetory.implementation.UserRepository
 import solutus.coronawatch.ui.mainActivity.MainActivity
@@ -45,7 +44,9 @@ class RegisterFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         login.setOnClickListener {
-            MainActivity.replaceFragment(activity, R.id.login_fragment, LoginFragment())
+            val navController: NavController =
+                Navigation.findNavController(requireActivity(), R.id.login_fragment)
+            navController.navigate(R.id.to_login_fragment_action)
         }
 
         register.setOnClickListener {

@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.start_fragment.*
 import solutus.coronawatch.ui.loginActivity.LoginActivity
-import solutus.coronawatch.ui.mainActivity.MainActivity.Companion.replaceFragment
 
 
 class StartFragment : Fragment() {
@@ -29,7 +30,9 @@ class StartFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         empty_cercle.setOnClickListener {
-            replaceFragment(activity,R.id.first_fragment,AdviceFragment())
+            val navController: NavController =
+                Navigation.findNavController(activity!!, R.id.first_fragment)
+            navController.navigate(R.id.to_advice_fragment_action)
         }
         start_button.setOnClickListener {
             val intent = Intent(activity, LoginActivity::class.java)

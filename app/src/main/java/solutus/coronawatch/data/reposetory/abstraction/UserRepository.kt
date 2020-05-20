@@ -1,7 +1,7 @@
 package solutus.coronawatch.data.reposetory.abstraction
 
-import solutus.coronawatch.data.db.entity.AppUser
-import solutus.coronawatch.data.db.entity.RegisterPostRequest
+import solutus.coronawatch.data.entity.AppUser
+import solutus.coronawatch.data.entity.RegisterPostRequest
 import solutus.coronawatch.data.network.entity.Token
 
 interface UserRepository {
