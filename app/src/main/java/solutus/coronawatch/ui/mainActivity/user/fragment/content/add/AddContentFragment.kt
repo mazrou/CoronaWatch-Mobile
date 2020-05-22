@@ -19,10 +19,15 @@ import kotlinx.android.synthetic.main.add_content_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import solutus.coronawatch.data.entity.AppUser
 import solutus.coronawatch.data.network.implementation.ContentApi
 import solutus.coronawatch.data.reposetory.implementation.ContentRepository
 import solutus.coronawatch.ui.mainActivity.MainActivity
+import solutus.coronawatch.utilities.RealPathUtil
+import java.io.File
 
 
 class AddContentFragment : Fragment(){
@@ -122,13 +127,18 @@ class AddContentFragment : Fragment(){
         //upload
 
          */
+        val realPath :String? = RealPathUtil.getRealPath(context as Context ,selectedVideoUri as Uri)
+        val originalFile : File = File(realPath!!)
+        val str = context!!.contentResolver?.getType(selectedVideoUri as Uri) as String
+        val file : RequestBody = RequestBody.create(str.toMediaTypeOrNull(),originalFile)
+
+        val video : MultipartBody.Part = MultipartBody.Part.createFormData("file",originalFile.name,file )
         CoroutineScope(IO).launch {
             contentRepository.postVideo(
                 token,
                 title.text.toString(),
                 description.text.toString(),
-                selectedVideoUri as Uri,
-                context as Context
+                video
             )
 
         }

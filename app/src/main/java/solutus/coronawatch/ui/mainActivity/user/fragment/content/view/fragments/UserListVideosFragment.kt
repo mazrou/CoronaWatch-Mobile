@@ -116,13 +116,10 @@ class UserListVideosFragment : Fragment() {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)
         dialog.setContentView(R.layout.costume_dialog_update_delete)
-        val yesBtn = dialog.findViewById(R.id.updateBtn) as Button
-        val noBtn = dialog.findViewById(R.id.deleteBtn) as Button
-        yesBtn.setOnClickListener {
-            dialog.dismiss()
-            Toast.makeText(context, "update", Toast.LENGTH_LONG).show()
-        }
-        noBtn.setOnClickListener {
+
+        val Btn = dialog.findViewById(R.id.deleteBtn) as Button
+
+        Btn.setOnClickListener {
             CoroutineScope(IO).launch {
                 contentRepository.deletePost(token, id)
                 dialog.dismiss()

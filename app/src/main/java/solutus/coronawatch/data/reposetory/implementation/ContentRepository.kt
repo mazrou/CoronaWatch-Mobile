@@ -23,16 +23,8 @@ class ContentRepository (
 ): SafeApiRequest() {
 
 
-    suspend fun postVideo(token : String , title: String ,content: String,video : Uri ,context : Context  ) {
-
-        val realPath :String? = RealPathUtil.getRealPath(context,video)
-        val originalFile : File = File(realPath!!)
-        val str = context.contentResolver?.getType(video) as String
-        val file : RequestBody = RequestBody.create(str.toMediaTypeOrNull(),originalFile)
-
-        val videoP : MultipartBody.Part = MultipartBody.Part.createFormData("file",originalFile.name,file )
-
-        contentApi.storePost(token,title,content,videoP)
+    suspend fun postVideo(token : String , title: String ,content: String,video : MultipartBody.Part  ) {
+        contentApi.storePost(token,title,content,video)
 
     }
 
