@@ -38,5 +38,6 @@
     <string name="pending">قيد الانتظار</string>
     <string name="accepted">مقبول</string>
     <string name="rejected">مرفوض</string>
+    <string name="popup_menu">popup_menu</string>
 
 </resources>

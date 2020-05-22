@@ -2,30 +2,36 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/notification_item"
+        android:id="@+id/notification"
         android:icon="@mipmap/ic_notification"
         android:title="@string/notifications"
-        app:showAsAction="ifRoom"
-        />
-
+        app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/settings"
-        android:title="@string/settings"
-        app:showAsAction="never"
-        />
-    <item
-        android:id="@+id/help"
-        android:title="@string/help"
-        app:showAsAction="never"/>
-    <item
-        android:id="@+id/active_notifications"
-        android:actionLayout="@layout/switch_layout"
-        android:title="@string/notifications"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/logout"
-        android:title="@string/logout"
-        app:showAsAction="never" />
-
+        android:icon="@drawable/ic_more_vert"
+        android:title="@string/popup_menu"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/settings"
+                android:icon="@drawable/ic_settings_black"
+                android:title="@string/settings"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/help"
+                android:icon="@drawable/ic_help_black"
+                android:title="@string/help"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/active_notifications"
+                android:checkable="true"
+                android:icon="@drawable/ic_notifications_black"
+                android:title="@string/notifications"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/ic_logout_black"
+                android:title="@string/logout"
+                app:showAsAction="never" />
+        </menu>
+    </item>
 </menu>

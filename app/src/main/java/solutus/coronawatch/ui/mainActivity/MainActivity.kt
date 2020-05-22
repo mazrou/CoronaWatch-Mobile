@@ -27,7 +27,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        ActivityCompat.requestPermissions(this,
+        ActivityCompat.requestPermissions(
+            this,
             arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
             1)
         user = intent.getSerializableExtra("user") as AppUser
@@ -44,14 +45,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater :MenuInflater = menuInflater
         inflater.inflate(R.menu.popup_menu, menu)
-        val switchOnOffItem = menu?.findItem(R.id.active_notifications)
-        switchOnOffItem?.setActionView(R.layout.switch_layout)
         return true
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {//A changer plus tard
         return when (item.itemId) {
-            R.id.notification_item -> {
-                Toast.makeText(this, "notification", Toast.LENGTH_SHORT).show()
+            R.id.notification -> {
+                Toast.makeText(this, "notifications", Toast.LENGTH_SHORT).show()
                 true
             }
             R.id.settings -> {
@@ -62,6 +61,18 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "help", Toast.LENGTH_SHORT).show()
                 true
             }
+            R.id.active_notifications -> {
+                if (item.isChecked) {
+                    item.isChecked = false
+                    Toast.makeText(this, "notification désactivées", Toast.LENGTH_SHORT).show()
+
+                } else {
+                    item.isChecked = true
+                    Toast.makeText(this, "notification activées", Toast.LENGTH_SHORT).show()
+                }
+                true
+            }
+
             R.id.logout -> {
                 Toast.makeText(this, "logout", Toast.LENGTH_SHORT).show()
                 true
