@@ -97,7 +97,7 @@ class LoginFragment : Fragment()  , KodeinAware{
             user?.let { showToken(it) }
         }catch (e : GetDataFromApiException){
             println("Network call exception ${e.message}")
-            setErrorMessage("البريد أو كلمة السر خاظئة")
+            setErrorMessage("البريد أو كلمة السر خاطئة")
 
     }
 

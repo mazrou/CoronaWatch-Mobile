@@ -23,9 +23,10 @@ class UserRepository(
 
     }
 
+    @Throws(GetDataFromApiException::class)
     suspend fun registerUser(email : String,first_name:String,last_name:String,password:String,second_password:String) : AppUser?{
         val postRequest = RegisterPostRequest(email,first_name,last_name,password,second_password)
-        return userApi.addUser(postRequest).body()
+        return apiRequest {  userApi.addUser(postRequest) }
     }
 
     @Throws(GetDataFromApiException::class)
