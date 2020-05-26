@@ -28,13 +28,7 @@ class UserRepository(
         return userApi.addUser(postRequest).body()
     }
 
-    suspend fun loginUser(emailPassword : HashMap<String,String>): Token? {
-        return try {
-            apiRequest { userApi.loginUser(emailPassword) }
-        } catch (e : GetDataFromApiException){
-            e.printStackTrace()
-            e.message
-            null
-        }
-    }
+    @Throws(GetDataFromApiException::class)
+    suspend fun loginUser(emailPassword : HashMap<String,String>): Token? =
+        apiRequest { userApi.loginUser(emailPassword) }
 }
