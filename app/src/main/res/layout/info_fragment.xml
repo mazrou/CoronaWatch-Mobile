@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="solutus.coronawatch.ui.mainActivity.info.infoFragment"
-    android:id="@+id/infoFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="solutus.coronawatch.ui.mainActivity.info.InfoFragment"
+    android:orientation="vertical">
 
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/info_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/info_nav"
+        />
 
-    <TextView
+    <fragment
+        android:id="@+id/nav_info_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Info" />
+        style="@style/FragmentStyle"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:navGraph="@navigation/info_navigation"
+        app:defaultNavHost="true" />
 
-</FrameLayout>
+
+</LinearLayout>

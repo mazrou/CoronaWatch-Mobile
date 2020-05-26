@@ -40,7 +40,7 @@ class UserListVideosFragment : Fragment() {
         fun newInstance() = UserListVideosFragment()
     }
 
-    private lateinit var activity: MainActivity
+   private lateinit var activity: MainActivity
     private lateinit var viewModelFactory: VideoViewModelFactory
     private lateinit var viewModel: VideosViewModel
     private val contentRepository =

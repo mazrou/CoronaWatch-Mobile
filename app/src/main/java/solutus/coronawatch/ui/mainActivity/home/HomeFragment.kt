@@ -20,7 +20,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var navController: NavController
 
-   override fun onCreateView(
+    override fun onCreateView(
        inflater: LayoutInflater, container: ViewGroup?,
        savedInstanceState: Bundle?
     ): View? {
@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.home_fragment, container, false)
     }
 
-   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
        super.onViewCreated(view, savedInstanceState)
        //set the navigation menu
        navController = activity?.let { Navigation.findNavController(it, R.id.nav_home_fragment) }!!
