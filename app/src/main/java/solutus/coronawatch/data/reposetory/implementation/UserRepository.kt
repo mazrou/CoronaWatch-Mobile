@@ -23,18 +23,13 @@ class UserRepository(
 
     }
 
+    @Throws(GetDataFromApiException::class)
     suspend fun registerUser(email : String,first_name:String,last_name:String,password:String,second_password:String) : AppUser?{
         val postRequest = RegisterPostRequest(email,first_name,last_name,password,second_password)
-        return userApi.addUser(postRequest).body()
+        return apiRequest {  userApi.addUser(postRequest) }
     }
 
-    suspend fun loginUser(emailPassword : HashMap<String,String>): Token? {
-        return try {
-            apiRequest { userApi.loginUser(emailPassword) }
-        } catch (e : GetDataFromApiException){
-            e.printStackTrace()
-            e.message
-            null
-        }
-    }
+    @Throws(GetDataFromApiException::class)
+    suspend fun loginUser(emailPassword : HashMap<String,String>): Token? =
+        apiRequest { userApi.loginUser(emailPassword) }
 }

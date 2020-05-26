@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.coronawatch_mobile">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -10,6 +11,7 @@
 
     <application
         android:allowBackup="true"
+        android:name="solutus.coronawatch.CoronaWatchApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
@@ -17,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m">
+        tools:targetApi="m"
+        android:fullBackupContent="@xml/backup_descriptor">
         <activity android:name="solutus.coronawatch.ui.mainActivity.MainActivity"/>
         <activity android:name="solutus.coronawatch.ui.loginActivity.LoginActivity" />
         <activity android:name="solutus.coronawatch.ui.firstActivity.FirstActivity">
