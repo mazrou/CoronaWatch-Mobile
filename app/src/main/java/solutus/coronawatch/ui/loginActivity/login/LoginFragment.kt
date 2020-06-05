@@ -30,6 +30,8 @@ import solutus.coronawatch.ui.mainActivity.MainActivity
 
 
 class LoginFragment : Fragment()  , KodeinAware{
+
+
     override val kodein by closestKodein()
 
     private val userRepository =
@@ -40,9 +42,7 @@ class LoginFragment : Fragment()  , KodeinAware{
     companion object {
         fun newInstance() = LoginFragment()
     }
-
     private val networkConnexion : NetworkConnexion by instance<NetworkConnexion>()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,20 +73,24 @@ class LoginFragment : Fragment()  , KodeinAware{
                             apiRequest()
                         }
                     }
-
-                    forgot_pw.setOnClickListener {
+                }
+                forgot_pw.setOnClickListener {
                         //TODO : forget password
-                    }
+                }
+                login_facebook.setOnClickListener{
+                    loginFromFacebook()
                 }
             }
             else{
                 enter.isEnabled = false
                 setErrorMessage("جهازك غير متصل بالانترنت")
             }
-
-
         })
 
+
+    }
+
+    private fun loginFromFacebook(){
 
     }
 
@@ -98,7 +102,6 @@ class LoginFragment : Fragment()  , KodeinAware{
         }catch (e : GetDataFromApiException){
             println("Network call exception ${e.message}")
             setErrorMessage("البريد أو كلمة السر خاطئة")
-
     }
 
     }

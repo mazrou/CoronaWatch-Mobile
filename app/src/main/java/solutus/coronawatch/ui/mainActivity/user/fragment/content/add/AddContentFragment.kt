@@ -20,6 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import solutus.coronawatch.data.entity.AppUser
+import solutus.coronawatch.data.internal.GetDataFromApiException
 import solutus.coronawatch.data.network.implementation.ContentApi
 import solutus.coronawatch.data.reposetory.implementation.ContentRepository
 import solutus.coronawatch.ui.mainActivity.MainActivity
@@ -123,13 +124,19 @@ class AddContentFragment : Fragment(){
 
          */
         CoroutineScope(IO).launch {
-            contentRepository.postVideo(
-                token,
-                title.text.toString(),
-                description.text.toString(),
-                selectedVideoUri as Uri,
-                context as Context
-            )
+          try {
+              contentRepository.postVideo(
+                  token,
+                  title.text.toString(),
+                  description.text.toString(),
+                  selectedVideoUri as Uri,
+                  context as Context
+              )
+          } catch (e :GetDataFromApiException){
+              Toast.makeText(requireContext() , "لم يتم ارسال الفيدو بنجاح",Toast.LENGTH_SHORT).show()
+          }catch (e :Exception){
+              Toast.makeText(requireContext() , "لم يتم ارسال الفيدو بنجاح",Toast.LENGTH_SHORT).show()
+          }
 
         }
     }

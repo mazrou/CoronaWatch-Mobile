@@ -133,6 +133,7 @@ class RegisterFragment : Fragment() , KodeinAware {
             startActivity(intent)
         }
     }
+
     private fun isEmailValid(email: String): Boolean {
         println("is $email a valid email ${android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()}")
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()

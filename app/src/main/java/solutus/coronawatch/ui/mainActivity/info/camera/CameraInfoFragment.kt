@@ -104,7 +104,7 @@ class CameraInfoFragment : Fragment() {
 
 
     private fun takePhotoCamera() {
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE_SECURE)
         startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE_CAMERA)
     }
 

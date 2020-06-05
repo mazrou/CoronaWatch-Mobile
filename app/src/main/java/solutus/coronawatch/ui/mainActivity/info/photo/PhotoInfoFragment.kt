@@ -17,16 +17,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.photo_info_fragment.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 
 
-class PhotoInfoFragment : Fragment() {
+class PhotoInfoFragment : Fragment() , KodeinAware {
 
     companion object {
         fun newInstance() = PhotoInfoFragment()
         const val REQUEST_CODE_PICK_IMAGE_GALLERY = 100
     }
 
-    private lateinit var viewModel: PhotoInfoViewModel
+    override  val kodein by closestKodein()
+    private  val viewModel: PhotoInfoViewModel by instance<PhotoInfoViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +42,7 @@ class PhotoInfoFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //set view model
-        viewModel = ViewModelProviders.of(this).get(PhotoInfoViewModel::class.java)
+       // viewModel = ViewModelProviders.of(this).get(PhotoInfoViewModel::class.java)
 
         if (viewModel.photoPath != null) {
             setPhoto()
@@ -62,7 +66,9 @@ class PhotoInfoFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_CODE_PICK_IMAGE_GALLERY) {
                 val selectedImageUri = data?.data
+                viewModel.photoUri = selectedImageUri
                 viewModel.photoPath = getRealPathFromURI(selectedImageUri)
+
                 setPhoto()
             }
         }
@@ -83,7 +89,7 @@ class PhotoInfoFragment : Fragment() {
             if (description_edit.text.toString().trim().isEmpty()) {
                 Toast.makeText(activity, "اضف وصفا", Toast.LENGTH_SHORT).show()
             } else {
-                viewModel.uploadCase(context, description_edit.text.toString())
+                viewModel.uploadCase(requireContext(), description_edit.text.toString())
                 frame_view.isClickable = true
                 add_photo_layout.visibility = View.VISIBLE
                 photo_view.visibility = View.GONE

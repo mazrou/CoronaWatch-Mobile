@@ -28,6 +28,7 @@ class InfoFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         //set the navigation menu
         navController = activity?.let { Navigation.findNavController(it, R.id.nav_info_fragment) }!!
         info_navigation.setupWithNavController(navController)

@@ -36,7 +36,6 @@ class ContentRepository (
 
     }
 
-
     suspend fun getPosts() : ArrayList<Post>? {
         return contentApi.getPosts().body()!!.posts.filter { (it.status == "accepted") && !it.deleted } as ArrayList<Post>?
     }
@@ -95,7 +94,6 @@ class ContentRepository (
         }
         return listv
     }
-
 
 
 }
