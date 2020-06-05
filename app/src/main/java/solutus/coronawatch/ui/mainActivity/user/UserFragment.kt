@@ -17,6 +17,7 @@ import solutus.coronawatch.ui.mainActivity.MainActivity
 class UserFragment : Fragment() {
     private lateinit var activity : MainActivity
     private lateinit var avatar:de.hdodenhof.circleimageview.CircleImageView
+    lateinit var navController: NavController
 
     companion object {
         fun newInstance() = UserFragment()
@@ -46,7 +47,7 @@ class UserFragment : Fragment() {
         //navigation entre les fragments
 
         view_content.setOnClickListener {
-            val navController: NavController =
+            navController =
                 Navigation.findNavController(requireActivity(), R.id.user_nav_host_fragment)
             navController.navigate(R.id.to_videos_fragment_action)
             arc_left.visibility = View.VISIBLE
@@ -54,7 +55,7 @@ class UserFragment : Fragment() {
             arc_under.visibility= View.INVISIBLE
         }
         add_content.setOnClickListener {
-            val navController: NavController =
+            navController =
                 Navigation.findNavController(requireActivity(), R.id.user_nav_host_fragment)
             navController.navigate(R.id.to_add_video_fragment_action)
             arc_left.visibility = View.INVISIBLE
@@ -62,7 +63,7 @@ class UserFragment : Fragment() {
             arc_under.visibility= View.VISIBLE
         }
         edit_profile.setOnClickListener {
-            val navController: NavController =
+            navController =
                 Navigation.findNavController(requireActivity(), R.id.user_nav_host_fragment)
             navController.navigate(R.id.to_profile_fragment_action)
             arc_left.visibility = View.INVISIBLE

@@ -48,5 +48,12 @@
     <string name="open_camera">التقط صورة او صور فيديو</string>
     <string name="take_picture">التقاط صورة</string>
     <string name="take_video">تصوير فيديو</string>
+    <string name="diagnose">شخّص حالتك</string>
+    <string name="results">نتائج الفحص</string>
+    <string name="body_temperature">حرارة الجسم</string>
+    <string name="heart_beat">نبض القلب</string>
+    <string name="weight">الوزن</string>
+    <string name="diagnose_button">شخّص</string>
+    <string name="take_photo_camera">التقط صورة</string>
 
 </resources>

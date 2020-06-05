@@ -1,13 +1,14 @@
 package solutus.coronawatch.ui.mainActivity.health
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.coronawatch_mobile.R
+import kotlinx.android.synthetic.main.health_fragment.*
 
 
 class HealthFragment : Fragment() {
@@ -16,8 +17,7 @@ class HealthFragment : Fragment() {
         fun newInstance() = HealthFragment()
     }
 
-    private lateinit var viewModel: HealthViewModel
-
+    lateinit var navController: NavController
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,8 +28,27 @@ class HealthFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(HealthViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        diagnose_view.setOnClickListener {
+            navController =
+                Navigation.findNavController(requireActivity(), R.id.nav_health_fragment)
+            navController.navigate(R.id.to_diagnose_fragment_action)
+            diagnose_view.setBackgroundResource(R.drawable.ic_health_red_button)
+            result_view.setBackgroundResource(R.drawable.ic_health_white_button)
+            diagnose_view.setTextColor(resources.getColor(R.color.fontColorPrimary))
+            result_view.setTextColor(resources.getColor(R.color.colorPrimary))
+
+        }
+        result_view.setOnClickListener {
+            navController =
+                Navigation.findNavController(requireActivity(), R.id.nav_health_fragment)
+            navController.navigate(R.id.to_result_fragment_action)
+            diagnose_view.setBackgroundResource(R.drawable.ic_health_white_button)
+            result_view.setBackgroundResource(R.drawable.ic_health_red_button)
+            diagnose_view.setTextColor(resources.getColor(R.color.colorPrimary))
+            result_view.setTextColor(resources.getColor(R.color.fontColorPrimary))
+        }
+
     }
 
 }
