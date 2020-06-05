@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA),
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
             1)
         user = intent.getSerializableExtra("user") as AppUser
         token = intent.getStringExtra("token")
