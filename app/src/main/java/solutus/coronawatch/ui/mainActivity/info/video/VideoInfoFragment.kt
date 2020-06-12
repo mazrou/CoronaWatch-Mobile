@@ -17,16 +17,19 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.video_info_fragment.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 
+class VideoInfoFragment : Fragment() , KodeinAware {
 
-class VideoInfoFragment : Fragment() {
-
+    override val kodein by closestKodein()
     companion object {
         fun newInstance() = VideoInfoFragment
         const val REQUEST_CODE_PICK_VIDEO_GALLERY = 100
     }
 
-    private lateinit var viewModel: VideoInfoViewModel
+    private  val viewModel: VideoInfoViewModel by instance<VideoInfoViewModel>()
     private lateinit var mediaController: MediaController
 
     override fun onCreateView(
@@ -39,7 +42,6 @@ class VideoInfoFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //set view model
-        viewModel = ViewModelProviders.of(this).get(VideoInfoViewModel::class.java)
         //set media controller to video view
         mediaController = MediaController(this.context)
         mediaController.setAnchorView(video_view)
@@ -75,6 +77,7 @@ class VideoInfoFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_CODE_PICK_VIDEO_GALLERY) {
                 val selectedVideoUri = data?.data
+                viewModel.videoUri=selectedVideoUri
                 viewModel.videoPath = getRealPathFromURI(selectedVideoUri)
                 setVideo()
             }
@@ -88,7 +91,7 @@ class VideoInfoFragment : Fragment() {
             if (description_edit.text.toString().trim().isEmpty()) {
                 Toast.makeText(activity, "اضف وصفا", Toast.LENGTH_SHORT).show()
             } else {
-                viewModel.uploadCase(context, description_edit.text.toString())
+                viewModel.uploadCase(requireContext(), description_edit.text.toString())
                 frame_view.isClickable = true
                 add_video_layout.visibility = View.VISIBLE
                 video_view.visibility = View.GONE

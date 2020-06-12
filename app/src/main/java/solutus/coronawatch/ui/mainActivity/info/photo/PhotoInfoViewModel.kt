@@ -41,25 +41,28 @@ class PhotoInfoViewModel(
             val file : RequestBody = RequestBody.create(str.toMediaTypeOrNull(),originalFile)
 
             val image : MultipartBody.Part = MultipartBody.Part.createFormData("file",originalFile.name,file )
-
-            CoroutineScope(IO).launch {
+            var success = false
+           val job =  CoroutineScope(IO).launch {
                 try {
+                    println("Debug : Sending the file on the network")
                     repository.reportImage(description , image)
+                    success = true
                 }catch (e : Exception){
                     println("Debug : ${e.message}")
                     e.printStackTrace()
                    CoroutineScope(Main).launch {
-                       Toast.makeText(context, "لم يتم الابلاغ بنجاح يرجى المحاولة مجددا", Toast.LENGTH_LONG).show()
+                       Toast.makeText(context, " لم يتم الابلاغ بنجاح يرجى المحاولة مجددا  ${e.message}", Toast.LENGTH_LONG).show()
                    }
                 }
             }
-            Toast.makeText(context, " تم الابلاغ بنجاحا", Toast.LENGTH_LONG).show()
+
+            if(job.isCompleted){
+                if(success)
+                    Toast.makeText(context, " تم الابلاغ بنجاحا", Toast.LENGTH_LONG).show()
+            }
         }catch (e : Exception){
             println("Debug : ${e.cause}")
             e.printStackTrace()
-
         }
-
-
     }
 }

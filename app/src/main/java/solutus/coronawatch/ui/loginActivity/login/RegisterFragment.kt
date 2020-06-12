@@ -105,9 +105,9 @@ class RegisterFragment : Fragment() , KodeinAware {
                         Toast.makeText(activity,"يجب ان توافق على شروط الاستخدام",Toast.LENGTH_SHORT).show()
                     }
                 }
-                condition.setOnClickListener {
+       /*         condition.setOnClickListener {
                     //TODO: afficher les condition d'utlisation
-                }
+                }*/
             }else{
                 register.isEnabled = false
                 setErrorMessage("جهازك غير متصل بالانترنت")

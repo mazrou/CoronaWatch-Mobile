@@ -56,4 +56,7 @@
     <string name="diagnose_button">شخّص</string>
     <string name="take_photo_camera">التقط صورة</string>
 
+    <string name="facebook_app_id">2556537747946372</string>
+    <string name="fb_login_protocol_scheme">fb3015995501778536</string>
+
 </resources>

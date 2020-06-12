@@ -105,9 +105,19 @@
         android:src="@mipmap/ic_forgot_password" />
 
     <Button
-        android:id="@+id/login_facebook"
-        android:layout_width="match_parent"
+        android:id="@+id/facebook"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="فايسبوك " />
+        android:text="Facebook">
+
+    </Button>
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_Facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:text="باستعمال فايسبوك"/>
 
 </LinearLayout>

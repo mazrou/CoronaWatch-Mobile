@@ -1,6 +1,7 @@
 package solutus.coronawatch.ui.loginActivity.login
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.coronawatch_mobile.R
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginResult
 import kotlinx.android.synthetic.main.login_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -43,7 +48,7 @@ class LoginFragment : Fragment()  , KodeinAware{
         fun newInstance() = LoginFragment()
     }
     private val networkConnexion : NetworkConnexion by instance<NetworkConnexion>()
-
+    val callbackManager : CallbackManager =  CallbackManager.Factory.create()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -77,8 +82,10 @@ class LoginFragment : Fragment()  , KodeinAware{
                 forgot_pw.setOnClickListener {
                         //TODO : forget password
                 }
-                login_facebook.setOnClickListener{
-                    loginFromFacebook()
+                 loginFromFacebook()
+
+                facebook.setOnClickListener {
+                    facebook()
                 }
             }
             else{
@@ -92,6 +99,38 @@ class LoginFragment : Fragment()  , KodeinAware{
 
     private fun loginFromFacebook(){
 
+    println("Hey I'm a facebook login")
+
+        login_Facebook.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+            override fun onSuccess(loginResult: LoginResult) {
+
+                Toast.makeText(requireContext() ,  "User ID: " + loginResult.accessToken
+                    .userId + "\n" + "Auth Token: " + loginResult.accessToken
+                    .token , Toast.LENGTH_LONG).show()
+            }
+
+            override fun onCancel() {
+                println("Hey I'm a facebook cancel")
+
+            }
+
+            override fun onError(e: FacebookException) {
+                println("Hey I'm a facebook error")
+            }
+        })
+    }
+    private fun facebook(){
+
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.setData(Uri.parse("https://solutusprojet.herokuapp.com/social/login/facebook/"))
+        startActivity(intent)
+
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        callbackManager.onActivityResult(requestCode , resultCode , data)
+
     }
 
     private suspend fun apiRequest() {
@@ -102,18 +141,16 @@ class LoginFragment : Fragment()  , KodeinAware{
         }catch (e : GetDataFromApiException){
             println("Network call exception ${e.message}")
             setErrorMessage("البريد أو كلمة السر خاطئة")
-    }
-
+        }
     }
 
     private fun setErrorMessage(message : String ){
-
         CoroutineScope(Main).launch{
             error.text = message
             error.visibility = View.VISIBLE
         }
-
     }
+
     private suspend fun showToken(user: AppUser) {
         withContext(Dispatchers.Main){
             val intent = Intent(activity, MainActivity::class.java)

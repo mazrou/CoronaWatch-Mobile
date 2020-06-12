@@ -25,7 +25,6 @@ interface ReportApi  : Api{
 
     companion object {
         operator fun invoke() : ReportApi {
-
             return Api().baseUrl(BASE_URL)
                 .build()
                 .create(ReportApi::class.java)

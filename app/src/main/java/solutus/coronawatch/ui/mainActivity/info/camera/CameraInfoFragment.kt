@@ -24,12 +24,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.camera_info_fragment.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 import solutus.coronawatch.ui.mainActivity.MainActivity
 import java.io.ByteArrayOutputStream
 
 
-class CameraInfoFragment : Fragment() {
+class CameraInfoFragment : Fragment()  , KodeinAware{
 
+    override val kodein by closestKodein()
     companion object {
         fun newInstance() = CameraInfoFragment
         const val REQUEST_CODE_PICK_IMAGE_CAMERA = 100
@@ -38,7 +42,7 @@ class CameraInfoFragment : Fragment() {
         const val VIDEO_TYPE = "VIDEO"
     }
 
-    private lateinit var viewModel: CameraInfoViewModel
+    private  val viewModel: CameraInfoViewModel by instance<CameraInfoViewModel>()
     private lateinit var activity: MainActivity
     private lateinit var mediaController: MediaController
 
@@ -52,7 +56,7 @@ class CameraInfoFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //set view model
-        viewModel = ViewModelProviders.of(this).get(CameraInfoViewModel::class.java)
+
 
         //set media controller to video view
         mediaController = MediaController(this.context)
@@ -96,6 +100,7 @@ class CameraInfoFragment : Fragment() {
                     VIDEO_TYPE -> data?.data
                     else -> null
                 }
+                viewModel.mediaUri = selectedMediaUri
                 viewModel.mediaPath = getRealPathFromURI(selectedMediaUri, viewModel.type!!)
                 setMedia()
             }
