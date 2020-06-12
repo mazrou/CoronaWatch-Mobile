@@ -1,3 +1,3 @@
 package solutus.coronawatch.data.entity
 
-class Case(val description: String, mediaPath: String, mediaType: String)
+class Case(val description: String, val location: Location, mediaPath: String, mediaType: String)

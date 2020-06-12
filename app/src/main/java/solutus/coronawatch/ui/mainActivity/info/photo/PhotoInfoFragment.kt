@@ -17,9 +17,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.photo_info_fragment.*
+
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
+import solutus.coronawatch.ui.mainActivity.info.InfoFragmentViewModel
+
 
 
 class PhotoInfoFragment : Fragment() , KodeinAware {
@@ -68,7 +71,6 @@ class PhotoInfoFragment : Fragment() , KodeinAware {
                 val selectedImageUri = data?.data
                 viewModel.photoUri = selectedImageUri
                 viewModel.photoPath = getRealPathFromURI(selectedImageUri)
-
                 setPhoto()
             }
         }

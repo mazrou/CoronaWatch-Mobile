@@ -125,7 +125,7 @@ class CameraInfoFragment : Fragment()  , KodeinAware{
             if (description_edit.text.toString().trim().isEmpty()) {
                 Toast.makeText(activity, "اضف وصفا", Toast.LENGTH_SHORT).show()
             } else {
-                viewModel.uploadCase(context, description_edit.text.toString())
+                viewModel.uploadCase(requireContext(), description_edit.text.toString())
                 frame_view.isClickable = true
                 add_media_layout.visibility = View.VISIBLE
                 photo_view.visibility = View.GONE

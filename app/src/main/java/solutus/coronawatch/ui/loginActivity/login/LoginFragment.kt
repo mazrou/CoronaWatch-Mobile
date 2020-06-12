@@ -26,9 +26,11 @@ import kotlinx.coroutines.withContext
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
+import solutus.coronawatch.TokenApp
 import solutus.coronawatch.data.entity.AppUser
 import solutus.coronawatch.data.internal.GetDataFromApiException
 import solutus.coronawatch.data.network.NetworkConnexion
+import solutus.coronawatch.data.network.entity.Token
 import solutus.coronawatch.data.network.implementation.UserApi
 import solutus.coronawatch.data.reposetory.implementation.UserRepository
 import solutus.coronawatch.ui.mainActivity.MainActivity
@@ -137,6 +139,7 @@ class LoginFragment : Fragment()  , KodeinAware{
         try {
             this.token = userRepository.loginUser(this.emailPassword)!!.token
             this.user = getUser(this.token)
+            TokenApp.token = Token("token $token")
             user?.let { showToken(it) }
         }catch (e : GetDataFromApiException){
             println("Network call exception ${e.message}")

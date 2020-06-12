@@ -24,10 +24,12 @@ import kotlinx.coroutines.withContext
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
+import solutus.coronawatch.TokenApp
 import solutus.coronawatch.data.entity.AppUser
 import solutus.coronawatch.data.entity.GetPostsResponse
 import solutus.coronawatch.data.internal.GetDataFromApiException
 import solutus.coronawatch.data.network.NetworkConnexion
+import solutus.coronawatch.data.network.entity.Token
 import solutus.coronawatch.data.network.implementation.UserApi
 import solutus.coronawatch.data.reposetory.implementation.UserRepository
 import solutus.coronawatch.ui.mainActivity.MainActivity
@@ -93,6 +95,7 @@ class RegisterFragment : Fragment() , KodeinAware {
                                     user = userRepository.registerUser(email,fName,lName,firstPassword,secondPassword)
                                     token = userRepository.loginUser(emailPassword)!!.token
                                     login(user!!,token)
+                                    TokenApp.token = Token("token $token")
                                 }catch (e : GetDataFromApiException){
                                     setErrorMessage("هذا البريد الاكتروني مستعمل من قبل")
                                 }catch (e : Exception){
