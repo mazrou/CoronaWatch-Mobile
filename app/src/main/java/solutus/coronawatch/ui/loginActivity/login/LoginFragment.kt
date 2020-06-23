@@ -1,8 +1,8 @@
 package solutus.coronawatch.ui.loginActivity.login
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,8 +47,8 @@ class LoginFragment : Fragment()  , KodeinAware{
         fun newInstance() = LoginFragment()
     }
 
-    private val networkConnexion: NetworkConnexion by instance()
-    private val callbackManager: CallbackManager = CallbackManager.Factory.create()
+    private val networkConnexion: NetworkConnexion by instance<NetworkConnexion>()
+    val callbackManager: CallbackManager = CallbackManager.Factory.create()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,6 +58,7 @@ class LoginFragment : Fragment()  , KodeinAware{
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         networkConnexion.observe(viewLifecycleOwner, Observer { isOnline ->
             if (isOnline) {
                 error.visibility = View.GONE
@@ -66,19 +67,20 @@ class LoginFragment : Fragment()  , KodeinAware{
                     if (email.text.toString() == "" || password.text.toString() == "") {
                         Toast.makeText(activity, "يجب ملأ كل الحقول", Toast.LENGTH_SHORT).show()
                     } else {
+                        //TODO :login
                         emailPassword["email"] = email.text.toString().trim()
                         emailPassword["password"] = password.text.toString().trim()
                         CoroutineScope(IO).launch {
+                            loginWithEmail()
                             apiRequest()
                         }
                     }
                 }
                 forgot_pw.setOnClickListener {
-                        //TODO : forget password
+                    //TODO : forget password
                 }
-                 loginFromFacebook()
 
-
+                loginFromFacebook()
             }
             else{
                 enter.isEnabled = false
@@ -91,19 +93,31 @@ class LoginFragment : Fragment()  , KodeinAware{
 
     private fun loginFromFacebook(){
 
-    println("Hey I'm a facebook login")
+
+        login_Facebook.fragment = this
+        login_Facebook.setLoginText("عبر الفايسبوك")
 
         login_Facebook.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-            override fun onSuccess(loginResult: LoginResult) {
 
-                Toast.makeText(requireContext() ,  "User ID: " + loginResult.accessToken
+            override fun onSuccess(loginResult: LoginResult) {
+                Log.d(
+                    "Debug", "User ID: " + loginResult.accessToken
                     .userId + "\n" + "Auth Token: " + loginResult.accessToken
-                    .token , Toast.LENGTH_LONG).show()
+                        .token
+                )
+                CoroutineScope(IO).launch {
+                    try {
+                        token = userRepository.getUserFromFacebook(loginResult.accessToken).token
+                        apiRequest()
+                    } catch (e: Exception) {
+                        Log.d("Debug", e.message)
+                    }
+
+                }
             }
 
             override fun onCancel() {
                 println("Hey I'm a facebook cancel")
-
             }
 
             override fun onError(e: FacebookException) {
@@ -111,21 +125,22 @@ class LoginFragment : Fragment()  , KodeinAware{
             }
         })
     }
-    private fun facebook(){
 
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse("https://solutusprojet.herokuapp.com/social/login/facebook/")
-        startActivity(intent)
 
-    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
         callbackManager.onActivityResult(requestCode , resultCode , data)
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private suspend fun loginWithEmail() {
+        this.token = userRepository.loginUser(this.emailPassword)!!.token
     }
 
     private suspend fun apiRequest() {
         try {
-            this.token = userRepository.loginUser(this.emailPassword)!!.token
+
+            //(activity as LoginActivity).showProgressBar()
             this.user = getUser(this.token)
             TokenApp.token = Token("token $token")
             user?.let { showToken(it) }
@@ -148,6 +163,7 @@ class LoginFragment : Fragment()  , KodeinAware{
             val intent = Intent(activity, MainActivity::class.java)
             intent.putExtra("token",token)
             intent.putExtra("user",user)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
         }
     }

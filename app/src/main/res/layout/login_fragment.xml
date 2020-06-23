@@ -29,7 +29,7 @@
             android:layout_marginEnd="25dp"
             android:text="لا توجد أنترنت"
             android:textColor="@color/colorPrimary"
-            android:textSize="21dp"
+            android:textSize="21sp"
             android:visibility="gone" />
 
     </RelativeLayout>
@@ -46,7 +46,7 @@
         android:background="@drawable/rectangle_background"
         android:ems="10"
         android:hint="@string/email"
-        android:inputType="textShortMessage"
+        android:inputType="textEmailAddress"
         android:paddingTop="10dp" />
 
     <EditText
@@ -92,7 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:text="باستعمال فايسبوك"/>
+        android:layout_marginBottom="30dp" />
+
 
 </LinearLayout>

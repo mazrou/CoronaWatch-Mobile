@@ -1,5 +1,6 @@
 package solutus.coronawatch.data.network.implementation
 
+import com.facebook.AccessToken
 import retrofit2.Response
 import retrofit2.http.*
 import solutus.coronawatch.data.entity.AppUser
@@ -35,6 +36,11 @@ interface UserApi : Api {
         @Body emailPassword : HashMap<String , String>
     ) : Response<Token>
 
+
+    @POST("social/facebook/")
+    suspend fun loginWithFacebook(
+        @Body accessToken: HashMap<String,String>
+    ):Response<Token>
 
     companion object {
         operator fun invoke() : UserApi {

@@ -99,12 +99,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="2dp"
         android:visibility="gone">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/replace_photo_button"
             android:layout_width="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_autorenew" />
 

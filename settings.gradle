@@ -1,2 +1,2 @@
 rootProject.name='CoronaWatch-Mobile'
-include ':app'
+include ':app', ':facebook-login', ':facebook'

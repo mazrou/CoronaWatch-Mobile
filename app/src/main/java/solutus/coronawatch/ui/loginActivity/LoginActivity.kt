@@ -1,6 +1,7 @@
 package solutus.coronawatch.ui.loginActivity
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -17,5 +18,8 @@ class LoginActivity : AppCompatActivity() {
         //set the navigation menu
         navController =  Navigation.findNavController(this, R.id.login_nav_fragment)
         login_navigation.setupWithNavController(navController)
+
+
+
     }
 }
