@@ -85,7 +85,6 @@
 
     <fragment
         android:id="@+id/user_nav_host_fragment"
-        style="@style/FragmentStyle"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -4,11 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/novelties_fragment"
-    tools:context="solutus.coronawatch.ui.mainActivity.home.novelties.NouveltiesFragment">
+    tools:context="solutus.coronawatch.ui.mainActivity.home.novelties.NoveltiesFragment">
 
-    <TextView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_article"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        tools:listitem="@layout/article_item" />
 
 </FrameLayout>

@@ -6,9 +6,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="solutus.coronawatch.ui.loginActivity.LoginActivity">
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/login_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/login_nav"/>
 
     <fragment
-        android:id="@+id/login_fragment"
+        android:id="@+id/login_nav_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"

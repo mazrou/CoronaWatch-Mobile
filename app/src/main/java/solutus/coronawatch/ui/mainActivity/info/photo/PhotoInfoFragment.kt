@@ -44,8 +44,6 @@ class PhotoInfoFragment : Fragment() , KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //set view model
-       // viewModel = ViewModelProviders.of(this).get(PhotoInfoViewModel::class.java)
 
         if (viewModel.photoPath != null) {
             setPhoto()

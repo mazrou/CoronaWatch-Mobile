@@ -41,7 +41,6 @@ class VideoInfoFragment : Fragment() , KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //set view model
         //set media controller to video view
         mediaController = MediaController(this.context)
         mediaController.setAnchorView(video_view)

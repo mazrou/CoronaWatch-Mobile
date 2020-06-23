@@ -19,7 +19,6 @@
         android:id="@+id/nav_info_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/FragmentStyle"
         android:name="androidx.navigation.fragment.NavHostFragment"
         app:navGraph="@navigation/info_navigation"
         app:defaultNavHost="true" />

@@ -1,6 +1,6 @@
 package solutus.coronawatch.data.entity
 
-class Location(
+data class Location(
     var x: Float,
     var y: Float
 ) {

@@ -5,28 +5,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ffffff"
-    tools:context="solutus.coronawatch.ui.loginActivity.login.RegisterFragment">
+    android:id="@+id/register_fragment"
+    tools:context="solutus.coronawatch.ui.loginActivity.register.RegisterFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp">
-
-        <ImageView
-            android:id="@+id/login"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:padding="0dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/left_log_out" />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:scaleType="centerCrop"
-            android:src="@drawable/right_log_out" />
-    </LinearLayout>
 
     <RelativeLayout
         android:layout_marginTop="15dp"
@@ -58,7 +39,7 @@
         android:background="@drawable/rectangle_background"
         android:ems="10"
         android:hint="@string/email"
-        android:inputType="textShortMessage"
+        android:inputType="textEmailAddress"
         android:paddingTop="10dp" />
 
     <EditText
@@ -129,16 +110,25 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="25dp">
 
-        <ImageView
+        <TextView
+            android:id="@+id/conditions_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/image_agree" />
+            android:text="@string/term_conditions"
+            android:autoLink="web"
+            android:layout_marginEnd="10dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/agree"
+            android:textColor="#000000"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         <CheckBox
             android:id="@+id/agree"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

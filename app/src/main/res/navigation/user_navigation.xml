@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/videos_fragment"
-        android:name="solutus.coronawatch.ui.mainActivity.user.fragment.content.view.ViewContentFragment"
-        tools:layout="@layout/view_content_fragment">
+        android:name="solutus.coronawatch.ui.mainActivity.user.videos.UserVideosFragment"
+        tools:layout="@layout/user_videos_fragment">
         <action
             android:id="@+id/to_videos_fragment_action"
             app:destination="@+id/videos_fragment" />
@@ -22,8 +22,8 @@
     </fragment>
     <fragment
         android:id="@+id/add_video_fragment"
-        android:name="solutus.coronawatch.ui.mainActivity.user.fragment.content.add.AddContentFragment"
-        tools:layout="@layout/add_content_fragment">
+        android:name="solutus.coronawatch.ui.mainActivity.user.addVideo.AddVideoFragment"
+        tools:layout="@layout/add_video_fragment">
         <action
             android:id="@+id/to_add_video_fragment_action"
             app:destination="@+id/add_video_fragment" />
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/profile_fragment"
-        android:name="solutus.coronawatch.ui.mainActivity.user.fragment.profile.ProfileFragment"
+        android:name="solutus.coronawatch.ui.mainActivity.user.profile.ProfileFragment"
         tools:layout="@layout/profile_fragment">
         <action
             android:id="@+id/to_profile_fragment_action"

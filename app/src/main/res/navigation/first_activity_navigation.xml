@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/start_fragment"
-        android:name="solutus.coronawatch.ui.firstActivity.firstView.StartFragment"
+        android:name="solutus.coronawatch.ui.firstActivity.StartFragment"
         tools:layout="@layout/start_fragment">
         <action
             android:id="@+id/to_advice_fragment_action"
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/advice_fragment"
-        android:name="solutus.coronawatch.ui.firstActivity.firstView.AdviceFragment"
+        android:name="solutus.coronawatch.ui.firstActivity.AdviceFragment"
         tools:layout="@layout/advice_fragment">
         <action
             android:id="@+id/to_start_fragment_action"

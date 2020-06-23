@@ -18,14 +18,10 @@ open class VideosViewModel(
     private lateinit var job : Job
     private val _videos = MutableLiveData<List<Video>>()
     private val _userVideos = MutableLiveData<List<Video>>()
-    private val _usersImgs = MutableLiveData<List<String>>()
+
 
     val videos : LiveData<List<Video>>
         get() = _videos
-
-    val usersImgs : LiveData<List<String>>
-        get() = _usersImgs
-
 
 
     fun getVideos(posts: ArrayList<Post>) {
@@ -48,12 +44,7 @@ open class VideosViewModel(
     val userVideos : LiveData<List<Video>>
             get() = _userVideos
 
-    /*fun getUserVideos(){
-        job = Coroutines.ioThMain(
-            { videosRepository.getVideos().filter { video ->video.publisher.id == user.id }},
-            {_userVideos.value = it}
-        )
-    }*/
+
     override fun onCleared() {
         if(::job.isInitialized){
             job.cancel()

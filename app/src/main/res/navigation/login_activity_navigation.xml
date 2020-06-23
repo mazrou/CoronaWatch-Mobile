@@ -7,20 +7,14 @@
 
     <fragment
         android:id="@+id/register_fragment"
-        android:name="solutus.coronawatch.ui.loginActivity.login.RegisterFragment"
+        android:name="solutus.coronawatch.ui.loginActivity.register.RegisterFragment"
         tools:layout="@layout/register_fragment">
-        <action
-            android:id="@+id/to_login_fragment_action"
-            app:destination="@+id/login_fragment" />
-
     </fragment>
+
     <fragment
         android:id="@+id/login_fragment"
         android:name="solutus.coronawatch.ui.loginActivity.login.LoginFragment"
         tools:layout="@layout/login_fragment">
-        <action
-            android:id="@+id/to_register_fragment_action"
-            app:destination="@+id/register_fragment" />
 
     </fragment>
 

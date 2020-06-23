@@ -15,6 +15,6 @@
         tools:layout="@layout/news_fragment" />
     <fragment
         android:id="@+id/novelties_fragment"
-        android:name="solutus.coronawatch.ui.mainActivity.home.novelties.NouveltiesFragment"
+        android:name="solutus.coronawatch.ui.mainActivity.home.novelties.NoveltiesFragment"
         tools:layout="@layout/nouvelties_fragment" />
 </navigation>

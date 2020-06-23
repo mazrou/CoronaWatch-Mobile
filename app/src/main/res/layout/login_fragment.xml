@@ -5,28 +5,8 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical"
+    android:id="@+id/login_fragment"
     tools:context="solutus.coronawatch.ui.loginActivity.login.LoginFragment">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:padding="0dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/left_login" />
-
-        <ImageView
-            android:id="@+id/logout"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:scaleType="centerCrop"
-            android:src="@drawable/right_login" />
-    </LinearLayout>
 
     <ImageView
         android:layout_width="wrap_content"
@@ -35,23 +15,24 @@
         android:layout_marginTop="20dp"
         android:scaleType="centerCrop"
         android:src="@drawable/logo" />
-<RelativeLayout
-    android:layout_marginTop="40dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/error"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="25dp"
-        android:text="لا توجد أنترنت"
-        android:textColor="@color/colorPrimary"
-        android:textSize="21dp"
-        android:visibility="gone" />
+        android:layout_marginTop="40dp">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="25dp"
+            android:text="لا توجد أنترنت"
+            android:textColor="@color/colorPrimary"
+            android:textSize="21dp"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/email"
@@ -94,23 +75,17 @@
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_enter" />
 
-    <ImageView
+    <TextView
         android:id="@+id/forgot_pw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="20dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_forgot_password" />
+        android:text="@string/forgot_pw"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-    <Button
-        android:id="@+id/facebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Facebook">
 
-    </Button>
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_Facebook"
         android:layout_width="wrap_content"

@@ -3,7 +3,7 @@ package com.example.coronawatch_mobile.repository
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
-import solutus.coronawatch.data.db.entity.AppUser
+import solutus.coronawatch.data.entity.AppUser
 import solutus.coronawatch.data.network.implementation.UserApi
 import solutus.coronawatch.data.reposetory.implementation.UserRepository
 
