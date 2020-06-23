@@ -13,6 +13,7 @@
 
     <color name="ButtonTextColor">#E4324D</color>
     <color name="ButtonBackgroundColor">#FFFFFF</color>
-
-
+    <color name="com_facebook_button_background_color_focused_disabled">#2F7DDC</color>
+    <color name="com_facebook_button_background_color_focused">#2d6ccb</color>
+    <color name="com_facebook_button_border_color_focused">#234423</color>
 </resources>
