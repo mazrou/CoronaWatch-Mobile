@@ -22,6 +22,7 @@ class WatchVideoFragment : Fragment() {
     private var url: String? = null
     private var title: String? = null
     private var content: String? = null
+    private lateinit var mediaController: MediaController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +54,7 @@ class WatchVideoFragment : Fragment() {
     @SuppressLint("SetJavaScriptEnabled")
     private fun setVideo() {
         //set media controller
-        val mediaController = MediaController(context)
+        mediaController = MediaController(context)
         video_view.setMediaController(mediaController)
         mediaController.setAnchorView(video_view)
         // set progress bar

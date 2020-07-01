@@ -1,4 +1,4 @@
-package solutus.coronawatch.ui.mainActivity.home.novelties
+package solutus.coronawatch.ui.mainActivity.home.novelties.listArticles
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coronawatch_mobile.R
-import kotlinx.android.synthetic.main.nouvelties_fragment.*
+import kotlinx.android.synthetic.main.novelties_fragment.*
 import solutus.coronawatch.data.entity.Article
 import solutus.coronawatch.ui.mainActivity.home.novelties.adapter.ArticleAdapter
 import solutus.coronawatch.utilities.InjectorUtils
@@ -18,7 +18,8 @@ import solutus.coronawatch.utilities.InjectorUtils
 class NoveltiesFragment : Fragment() {
 
     companion object {
-        fun newInstance() = NoveltiesFragment()
+        fun newInstance() =
+            NoveltiesFragment()
     }
 
     private lateinit var viewModelFactory: NoveltiesViewModelFactory
@@ -30,7 +31,7 @@ class NoveltiesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.nouvelties_fragment, container, false)
+        return inflater.inflate(R.layout.novelties_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -40,7 +41,9 @@ class NoveltiesFragment : Fragment() {
         viewModel =
             ViewModelProviders.of(this, viewModelFactory).get(NoveltiesViewModel::class.java)
         initializeUi()
+
     }
+
 
     private fun initializeUi() {
         //set recycle view adapter

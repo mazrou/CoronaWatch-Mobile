@@ -57,15 +57,15 @@ class MainActivity : AppCompatActivity() {
             if (isLogin) {
                 user = intent.getSerializableExtra("user") as AppUser
                 token = intent.getStringExtra("token")
-
                 //change bottom menu
                 bottom_nav.menu.clear()
                 bottom_nav.inflateMenu(R.menu.user_bottom_nav)
                 nav_host_fragment.findNavController().setGraph(R.navigation.mobile_navigation)
+
             }else{
                 bottom_nav.menu.clear()
-                bottom_nav.inflateMenu(R.menu.observer_bottom_nav)
-                nav_host_fragment.findNavController().setGraph(R.navigation.observer_mobile_navigation)
+                bottom_nav.inflateMenu(R.menu.visitor_bottom_nav)
+                nav_host_fragment.findNavController().setGraph(R.navigation.visitor_mobile_navigation)
             }
         })
 

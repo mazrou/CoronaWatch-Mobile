@@ -21,7 +21,6 @@ import android.widget.LinearLayout
 import android.widget.MediaController
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.camera_info_fragment.*
 import org.kodein.di.KodeinAware

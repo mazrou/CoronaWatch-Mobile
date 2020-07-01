@@ -1,4 +1,4 @@
-package solutus.coronawatch.ui.mainActivity.home.videos
+package solutus.coronawatch.ui.mainActivity.home.videos.listVideos
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

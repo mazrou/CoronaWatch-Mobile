@@ -29,11 +29,8 @@ class StartFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        empty_cercle.setOnClickListener {
-            val navController: NavController =
-                Navigation.findNavController(requireActivity(), R.id.first_fragment)
-            navController.navigate(R.id.to_advice_fragment_action)
-        }
+
+        //go to main activity on start button click
         start_button.setOnClickListener {
             val intent = Intent(activity, MainActivity::class.java)
             startActivity(intent)

@@ -48,7 +48,7 @@ class LoginFragment : Fragment()  , KodeinAware{
     }
 
     private val networkConnexion: NetworkConnexion by instance<NetworkConnexion>()
-    val callbackManager: CallbackManager = CallbackManager.Factory.create()
+    private val callbackManager: CallbackManager = CallbackManager.Factory.create()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -75,9 +75,6 @@ class LoginFragment : Fragment()  , KodeinAware{
                             apiRequest()
                         }
                     }
-                }
-                forgot_pw.setOnClickListener {
-                    //TODO : forget password
                 }
 
                 loginFromFacebook()

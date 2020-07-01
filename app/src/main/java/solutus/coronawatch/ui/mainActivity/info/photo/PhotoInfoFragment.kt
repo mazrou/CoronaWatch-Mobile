@@ -14,15 +14,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.photo_info_fragment.*
-
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
-import solutus.coronawatch.ui.mainActivity.info.InfoFragmentViewModel
-
 
 
 class PhotoInfoFragment : Fragment() , KodeinAware {
@@ -32,8 +28,8 @@ class PhotoInfoFragment : Fragment() , KodeinAware {
         const val REQUEST_CODE_PICK_IMAGE_GALLERY = 100
     }
 
-    override  val kodein by closestKodein()
-    private  val viewModel: PhotoInfoViewModel by instance<PhotoInfoViewModel>()
+    override val kodein by closestKodein()
+    private val viewModel: PhotoInfoViewModel by instance<PhotoInfoViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

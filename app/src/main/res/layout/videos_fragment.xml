@@ -6,14 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/videos_fragment"
-    tools:context="solutus.coronawatch.ui.mainActivity.home.videos.VideosFragment">
+    tools:context="solutus.coronawatch.ui.mainActivity.home.videos.listVideos.VideosFragment">
 
-    <fragment
-        android:id="@+id/video_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_video"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/home_videos_navigation" />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/video_item" />
 </LinearLayout>

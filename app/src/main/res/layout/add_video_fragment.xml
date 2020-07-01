@@ -10,18 +10,17 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/shadow_layout"
+        android:padding="15dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/shadow_layout"
-            android:padding="15dp">
-
+            android:layout_height="wrap_content">
 
             <FrameLayout
                 android:id="@+id/frame_view"
@@ -103,6 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/description_edit"
+                android:layout_marginBottom="48dp"
                 android:layout_alignParentStart="true"
                 android:background="@drawable/circular_background"
                 android:text="@string/report" />
@@ -122,8 +122,8 @@
                 android:id="@+id/replace_video_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 app:srcCompat="@drawable/ic_autorenew" />
 
         </FrameLayout>
