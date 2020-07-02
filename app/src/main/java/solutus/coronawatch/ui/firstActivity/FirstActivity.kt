@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.example.coronawatch_mobile.R
 import com.facebook.AccessToken
+import com.facebook.login.LoginManager
 import kotlinx.android.synthetic.main.activity_first.*
 import solutus.coronawatch.ui.mainActivity.MainActivity
 
@@ -23,13 +24,6 @@ class FirstActivity : AppCompatActivity() {
         //set pager adapter
         val pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager)
         first_activity_view_pager.adapter = pagerAdapter
-
-        val accessToken = AccessToken.getCurrentAccessToken()
-        val isLoggedIn = accessToken != null && !accessToken.isExpired
-
-        if (isLoggedIn){
-            //MainActivity.isLoginWithFacebookLiveData.value = true
-        }
 
     }
 
@@ -53,5 +47,7 @@ class FirstActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
 }
