@@ -21,20 +21,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-    <ImageView
-        android:id="@+id/empty_w_cercle"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="2dp"
-        android:src="@mipmap/ic_empty_w_cercle" />
+        <ImageView
+            android:id="@+id/w_cercle"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="10dp"
+            android:src="@mipmap/ic_w_cercle" />
 
-    <ImageView
-        android:id="@+id/w_cercle"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="2dp"
-        android:src="@mipmap/ic_w_cercle" />
+        <ImageView
+            android:id="@+id/empty_w_cercle"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="2dp"
+            android:src="@mipmap/ic_empty_w_cercle" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

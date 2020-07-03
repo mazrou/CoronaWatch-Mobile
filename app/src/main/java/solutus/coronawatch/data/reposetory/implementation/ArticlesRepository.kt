@@ -5,7 +5,7 @@ import solutus.coronawatch.data.entity.Article
 import solutus.coronawatch.data.network.implementation.ContentApi
 import solutus.coronawatch.data.reposetory.abstraction.SafeApiRequest
 
-class ArticleRepository(private val contentApi: ContentApi) : SafeApiRequest() {
+class ArticlesRepository(private val contentApi: ContentApi) : SafeApiRequest() {
 
     //pour tester
     fun getArticles():List<Article>{

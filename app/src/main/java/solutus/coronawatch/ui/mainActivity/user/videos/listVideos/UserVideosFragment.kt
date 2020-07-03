@@ -18,28 +18,23 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coronawatch_mobile.R
-import kotlinx.android.synthetic.main.list_videos_fragment.*
+import kotlinx.android.synthetic.main.user_videos_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import solutus.coronawatch.data.entity.Post
 import solutus.coronawatch.data.entity.Video
 import solutus.coronawatch.data.network.implementation.ContentApi
 import solutus.coronawatch.data.reposetory.implementation.ContentRepository
 import solutus.coronawatch.ui.mainActivity.MainActivity
+import solutus.coronawatch.ui.mainActivity.home.videos.listVideos.VideoViewModelFactory
+import solutus.coronawatch.ui.mainActivity.home.videos.listVideos.VideosViewModel
 import solutus.coronawatch.ui.mainActivity.user.videos.adapter.UserVideoAdapter
-import solutus.coronawatch.ui.mainActivity.home.videos.VideoViewModelFactory
-import solutus.coronawatch.ui.mainActivity.home.videos.VideosViewModel
 import solutus.coronawatch.utilities.InjectorUtils
 
 
-class UserListVideosFragment : Fragment() {
+class UserVideosFragment : Fragment() {
 
-    companion object {
-        fun newInstance() =
-            UserListVideosFragment()
-    }
 
     private lateinit var activity: MainActivity
     private lateinit var viewModelFactory: VideoViewModelFactory
@@ -55,7 +50,7 @@ class UserListVideosFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.list_videos_fragment, container, false)
+        return inflater.inflate(R.layout.user_videos_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -100,8 +95,8 @@ class UserListVideosFragment : Fragment() {
 
                 //go to ViewVideoFragment
                 val navController: NavController =
-                    Navigation.findNavController(requireActivity(), R.id.video_fragment)
-                navController.navigate(R.id.to_view_video_fragment_action, bundle)
+                    Navigation.findNavController(requireActivity(), R.id.user_nav_host_fragment)
+                navController.navigate(R.id.to_watch_video_fragment_action, bundle)
                 status = view!!.findViewById(R.id.status_text)
             }
         })
@@ -131,7 +126,7 @@ class UserListVideosFragment : Fragment() {
             Toast.makeText(context, "update", Toast.LENGTH_LONG).show()
         }
         noBtn.setOnClickListener {
-            CoroutineScope(IO).launch {
+            CoroutineScope(Dispatchers.IO).launch {
                 contentRepository.deletePost(token, id)
                 dialog.dismiss()
                 /*  var posts = contentRepository.getUserPosts(activity.token)

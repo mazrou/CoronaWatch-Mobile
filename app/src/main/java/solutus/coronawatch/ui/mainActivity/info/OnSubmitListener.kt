@@ -2,5 +2,5 @@ package solutus.coronawatch.ui.mainActivity.info
 
 interface OnSubmitListener {
 
-    fun onSubmit()
+    fun onSubmit(seccess : Boolean)
 }

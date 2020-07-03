@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -20,21 +21,31 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.coronawatch_mobile.R
+import com.facebook.AccessToken
+import com.facebook.login.LoginManager
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import solutus.coronawatch.data.entity.AppUser
+import solutus.coronawatch.data.network.implementation.UserApi
+import solutus.coronawatch.data.reposetory.implementation.UserRepository
 import solutus.coronawatch.ui.loginActivity.LoginActivity
 
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        var isLoginLiveData = MutableLiveData<Boolean>(false)
+        var isLogin = MutableLiveData<Boolean>(false)
     }
 
-    private lateinit var navController:NavController
+    private val userRepository =
+        UserRepository(UserApi.invoke())
+    private lateinit var navController: NavController
     private lateinit var toolbar: Toolbar
-    var user: AppUser? = null
-    var token: String? = null
+    private var isLoginWithFacebook = false
+    lateinit var user: AppUser
+    lateinit var token: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,43 +54,52 @@ class MainActivity : AppCompatActivity() {
         ActivityCompat.requestPermissions(
             this,
             arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-            1)
+            1
+        )
 
         //set the tool bar and hide the return back home
-        toolbar=findViewById(R.id.toolbar)
+        toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         //set the bottom menu
-        navController = Navigation.findNavController(this,R.id.nav_host_fragment)
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         bottom_nav.setupWithNavController(navController)
 
-        isLoginLiveData.observe(this, Observer { isLogin ->
-            if (isLogin) {
-                user = intent.getSerializableExtra("user") as AppUser
-                token = intent.getStringExtra("token")
+        val accessToken = AccessToken.getCurrentAccessToken()
+        isLoginWithFacebook = accessToken != null && !accessToken.isExpired
+        if (isLoginWithFacebook) isLogin.value = true
 
+        isLogin.observe(this, Observer {
+            if (it) {
+                if (isLoginWithFacebook) {
+                    getFacebookUser()
+                } else {
+                    user = intent.getSerializableExtra("user") as AppUser
+                    token = intent.getStringExtra("token")
+                }
                 //change bottom menu
                 bottom_nav.menu.clear()
                 bottom_nav.inflateMenu(R.menu.user_bottom_nav)
                 nav_host_fragment.findNavController().setGraph(R.navigation.mobile_navigation)
-            }else{
+
+            } else {
                 bottom_nav.menu.clear()
-                bottom_nav.inflateMenu(R.menu.observer_bottom_nav)
-                nav_host_fragment.findNavController().setGraph(R.navigation.observer_mobile_navigation)
+                bottom_nav.inflateMenu(R.menu.visitor_bottom_nav)
+                nav_host_fragment.findNavController()
+                    .setGraph(R.navigation.visitor_mobile_navigation)
             }
         })
-
 
 
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater :MenuInflater = menuInflater
+        val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.popup_menu, menu)
 
         val loginItem = menu!!.findItem(R.id.login)
-        isLoginLiveData.observe(this, Observer { isLogin ->
-            if (isLogin) {
+        isLogin.observe(this, Observer {
+            if (it) {
                 loginItem.isVisible = false
                 menu.setGroupVisible(R.id.user_group, true)
             } else {
@@ -122,11 +142,29 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.logout -> {
-                isLoginLiveData.value = false
+                logout()
                 true
             }
 
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun getFacebookUser() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                token = userRepository.getUserFromFacebook(AccessToken.getCurrentAccessToken()).token
+                user = userRepository.getAuthAppUser("token $token")!!
+            } catch (e: Exception) {
+                Log.d("Debug", e.message)
+            }
+        }
+    }
+
+    private fun logout() {
+        isLogin.value = false
+        if (isLoginWithFacebook) {
+            LoginManager.getInstance().logOut()
         }
     }
 
@@ -147,9 +185,5 @@ class MainActivity : AppCompatActivity() {
         }
         dialog.show()
     }
-
-
-
-
 
 }

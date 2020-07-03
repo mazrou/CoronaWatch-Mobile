@@ -117,7 +117,7 @@ class RegisterFragment : Fragment() , KodeinAware {
     }
     suspend fun login(user : AppUser, token : String){
         withContext(Dispatchers.Main){
-            MainActivity.isLoginLiveData.value = true
+            MainActivity.isLogin.value = true
             val intent = Intent(activity, MainActivity::class.java)
             intent.putExtra("token",token)
             intent.putExtra("user",user)

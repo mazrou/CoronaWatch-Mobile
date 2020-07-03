@@ -1,14 +1,14 @@
-package solutus.coronawatch.ui.mainActivity.home.novelties
+package solutus.coronawatch.ui.mainActivity.home.novelties.listArticles
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.Job
 import solutus.coronawatch.data.entity.Article
-import solutus.coronawatch.data.reposetory.implementation.ArticleRepository
+import solutus.coronawatch.data.reposetory.implementation.ArticlesRepository
 import solutus.coronawatch.utilities.Coroutines
 
-class NoveltiesViewModel(private val articleRepository: ArticleRepository) : ViewModel() {
+class NoveltiesViewModel(private val articleRepository: ArticlesRepository) : ViewModel() {
     private lateinit var job: Job
     private val _articles = MutableLiveData<List<Article>>()
 

@@ -51,26 +51,14 @@ class PhotoInfoViewModel(
                 try {
                     println("Debug : Sending the file on the network")
                     repository.reportImage(description, image, case.location)
+                    onSubmitListener?.onSubmit(true)
                     success = true
                 } catch (e: Exception) {
                     println("Debug : ${e.message}")
                     e.printStackTrace()
-                    CoroutineScope(Main).launch {
-                        Toast.makeText(
-                            context,
-                            " لم يتم الابلاغ بنجاح يرجى المحاولة مجددا  ${e.message}",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
+                    onSubmitListener?.onSubmit(false)
                 }
             }
-            if(job.isCompleted){
-              // onSubmitListener!!.onSubmit()
-                if (success)
-                    Toast.makeText(context, " تم الابلاغ بنجاحا", Toast.LENGTH_LONG).show()
-            }
-
-
         } catch (e: Exception) {
             println("Debug : ${e.cause}")
             e.printStackTrace()

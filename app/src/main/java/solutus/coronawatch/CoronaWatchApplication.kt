@@ -28,4 +28,6 @@ class CoronaWatchApplication : Application() , KodeinAware {
         bind<VideoInfoViewModel>() with singleton  { VideoInfoViewModel(instance()) }
         bind<CameraInfoViewModel>() with singleton  { CameraInfoViewModel(instance()) }
     }
+
+
 }

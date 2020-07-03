@@ -25,11 +25,7 @@ class AdviceFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        empty_w_cercle.setOnClickListener {
-            val navController: NavController =
-                Navigation.findNavController(requireActivity(), R.id.first_fragment)
-            navController.navigate(R.id.to_start_fragment_action)
-        }
+
     }
 
 }

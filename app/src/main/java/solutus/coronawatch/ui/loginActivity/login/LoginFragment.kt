@@ -48,7 +48,7 @@ class LoginFragment : Fragment()  , KodeinAware{
     }
 
     private val networkConnexion: NetworkConnexion by instance<NetworkConnexion>()
-    val callbackManager: CallbackManager = CallbackManager.Factory.create()
+    private val callbackManager: CallbackManager = CallbackManager.Factory.create()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -76,9 +76,6 @@ class LoginFragment : Fragment()  , KodeinAware{
                         }
                     }
                 }
-                forgot_pw.setOnClickListener {
-                    //TODO : forget password
-                }
 
                 loginFromFacebook()
             }
@@ -93,13 +90,12 @@ class LoginFragment : Fragment()  , KodeinAware{
 
     private fun loginFromFacebook(){
 
-
         login_Facebook.fragment = this
         login_Facebook.setLoginText("عبر الفايسبوك")
-
         login_Facebook.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
 
             override fun onSuccess(loginResult: LoginResult) {
+                progress_bar.visibility = View.VISIBLE
                 Log.d(
                     "Debug", "User ID: " + loginResult.accessToken
                     .userId + "\n" + "Auth Token: " + loginResult.accessToken
@@ -139,8 +135,6 @@ class LoginFragment : Fragment()  , KodeinAware{
 
     private suspend fun apiRequest() {
         try {
-
-            //(activity as LoginActivity).showProgressBar()
             this.user = getUser(this.token)
             TokenApp.token = Token("Token $token")
             user?.let { showToken(it) }
@@ -159,7 +153,7 @@ class LoginFragment : Fragment()  , KodeinAware{
 
     private suspend fun showToken(user: AppUser) {
         withContext(Main) {
-            MainActivity.isLoginLiveData.value = true
+            MainActivity.isLogin.value = true
             val intent = Intent(activity, MainActivity::class.java)
             intent.putExtra("token",token)
             intent.putExtra("user",user)

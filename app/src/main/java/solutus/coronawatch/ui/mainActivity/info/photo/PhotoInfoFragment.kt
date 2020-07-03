@@ -14,14 +14,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.photo_info_fragment.*
-
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
-import solutus.coronawatch.ui.mainActivity.info.InfoFragmentViewModel
+import solutus.coronawatch.ui.mainActivity.info.InfoFragment
 import solutus.coronawatch.ui.mainActivity.info.OnSubmitListener
 
 
@@ -32,8 +33,9 @@ class PhotoInfoFragment : Fragment() , KodeinAware  , OnSubmitListener{
         const val REQUEST_CODE_PICK_IMAGE_GALLERY = 100
     }
 
-    override  val kodein by closestKodein()
-    private  val viewModel: PhotoInfoViewModel by instance<PhotoInfoViewModel>()
+
+    override val kodein by closestKodein()
+    private val viewModel: PhotoInfoViewModel by instance<PhotoInfoViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,10 +47,12 @@ class PhotoInfoFragment : Fragment() , KodeinAware  , OnSubmitListener{
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+
         viewModel.onSubmitListener = this
         if (viewModel.photoPath != null) {
             setPhoto()
         }
+
 
         //use on first time
         frame_view.setOnClickListener {
@@ -90,6 +94,8 @@ class PhotoInfoFragment : Fragment() , KodeinAware  , OnSubmitListener{
             if (description_edit.text.toString().trim().isEmpty()) {
                 Toast.makeText(activity, "اضف وصفا", Toast.LENGTH_SHORT).show()
             } else {
+                progress_bar_photo.visibility = View.VISIBLE
+                println("Progress bar Shown")
                 viewModel.uploadCase(requireContext(), description_edit.text.toString())
                            }
         }
@@ -119,16 +125,26 @@ class PhotoInfoFragment : Fragment() , KodeinAware  , OnSubmitListener{
         return cursor.getString(columnIndex)
     }
 
-    override fun onSubmit() {
-        frame_view.isClickable = true
-        add_photo_layout.visibility = View.VISIBLE
-        photo_view.visibility = View.GONE
-        replace_photo_frame.visibility = View.GONE
-        //reset the photo path
-        viewModel.photoPath = null
-        //empty the edit text
-        description_edit.text.clear()
-        description_edit.isCursorVisible = false
+    override fun onSubmit(seccess : Boolean) {
+
+
+       CoroutineScope(Main).launch {
+           progress_bar_photo.visibility = View.GONE
+           frame_view.isClickable = true
+           add_photo_layout.visibility = View.VISIBLE
+           photo_view.visibility = View.GONE
+           replace_photo_frame.visibility = View.GONE
+           //reset the photo path
+           viewModel.photoPath = null
+           //empty the edit text
+           description_edit.text.clear()
+           description_edit.isCursorVisible = false
+           if(seccess) {
+               Toast.makeText(context, " تم الابلاغ بنجاحا", Toast.LENGTH_LONG).show()
+           }
+           else
+               Toast.makeText(context, " لم يتم الابلاغ بنجاح يرجى المحاولة مجددا", Toast.LENGTH_LONG).show()
+       }
 
     }
 }

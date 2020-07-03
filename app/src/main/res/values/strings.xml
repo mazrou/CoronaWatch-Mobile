@@ -23,7 +23,7 @@
     <string name="comment">تعليق</string>
     <string name="add_video">اضف فيديو</string>
     <string name="share">شارك</string>
-    <string name="add_comment">اضف تعليقا</string>
+    <string name="add_comment">اضف تعليقا…</string>
     <string name="videos">فيديوهات</string>
     <string name="news">الأخبار</string>
     <string name="novelties">المستجدات</string>
@@ -65,6 +65,7 @@
     <string name="yes">نعم</string>
     <string name="no">لا</string>
     <string name="fb_login_protocol_scheme">fb2556537747946372</string>
+    <string name="comments">التعليقات</string>
 
 
 </resources>

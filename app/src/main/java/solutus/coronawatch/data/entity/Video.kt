@@ -9,7 +9,8 @@ data class Video(
      var title : String,
      var content : String,
      var url : String,
-     var thumbnail : String
+     var thumbnail : String,
+     var listComments : List<Comment>
 
  ) :
      Publication(
