@@ -36,9 +36,12 @@ class VideoInfoViewModel(
             val str = context.contentResolver?.getType(videoUri!!) as String
             val file : RequestBody = RequestBody.create(str.toMediaTypeOrNull(),originalFile)
 
-            val image : MultipartBody.Part = MultipartBody.Part.createFormData("file",originalFile.name,file )
+            val image : MultipartBody.Part = MultipartBody.Part.createFormData("attachment",originalFile.name,file )
             var success = false
-           val job = CoroutineScope(Dispatchers.IO).launch {
+
+
+
+            val job = CoroutineScope(Dispatchers.IO).launch {
                 try {
                     println("Debug : Sending the file on the network")
                     repository.reportImage(description , image, case.location)

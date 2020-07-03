@@ -45,6 +45,13 @@ interface ContentApi : Api {
         @Body deleted : DeletePostRequest
     ) : Response<Post>
 
+
+    @GET("")
+    suspend fun getWriterPosts(
+
+    )
+
+
     companion object {
         operator fun invoke() : ContentApi {
 

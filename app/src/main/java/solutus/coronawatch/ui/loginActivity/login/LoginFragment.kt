@@ -142,7 +142,7 @@ class LoginFragment : Fragment()  , KodeinAware{
 
             //(activity as LoginActivity).showProgressBar()
             this.user = getUser(this.token)
-            TokenApp.token = Token("token $token")
+            TokenApp.token = Token("Token $token")
             user?.let { showToken(it) }
         }catch (e : GetDataFromApiException){
             println("Network call exception ${e.message}")

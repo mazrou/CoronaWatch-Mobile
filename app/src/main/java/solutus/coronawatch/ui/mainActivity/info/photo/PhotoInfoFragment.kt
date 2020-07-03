@@ -22,10 +22,10 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 import solutus.coronawatch.ui.mainActivity.info.InfoFragmentViewModel
+import solutus.coronawatch.ui.mainActivity.info.OnSubmitListener
 
 
-
-class PhotoInfoFragment : Fragment() , KodeinAware {
+class PhotoInfoFragment : Fragment() , KodeinAware  , OnSubmitListener{
 
     companion object {
         fun newInstance() = PhotoInfoFragment()
@@ -45,6 +45,7 @@ class PhotoInfoFragment : Fragment() , KodeinAware {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        viewModel.onSubmitListener = this
         if (viewModel.photoPath != null) {
             setPhoto()
         }
@@ -90,16 +91,7 @@ class PhotoInfoFragment : Fragment() , KodeinAware {
                 Toast.makeText(activity, "اضف وصفا", Toast.LENGTH_SHORT).show()
             } else {
                 viewModel.uploadCase(requireContext(), description_edit.text.toString())
-                frame_view.isClickable = true
-                add_photo_layout.visibility = View.VISIBLE
-                photo_view.visibility = View.GONE
-                replace_photo_frame.visibility = View.GONE
-                //reset the photo path
-                viewModel.photoPath = null
-                //empty the edit text
-                description_edit.text.clear()
-                description_edit.isCursorVisible = false
-            }
+                           }
         }
     }
 
@@ -125,5 +117,18 @@ class PhotoInfoFragment : Fragment() , KodeinAware {
             .getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
         cursor.moveToFirst()
         return cursor.getString(columnIndex)
+    }
+
+    override fun onSubmit() {
+        frame_view.isClickable = true
+        add_photo_layout.visibility = View.VISIBLE
+        photo_view.visibility = View.GONE
+        replace_photo_frame.visibility = View.GONE
+        //reset the photo path
+        viewModel.photoPath = null
+        //empty the edit text
+        description_edit.text.clear()
+        description_edit.isCursorVisible = false
+
     }
 }
