@@ -13,15 +13,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.news_fragment.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 import solutus.coronawatch.data.entity.VideoYoutube
 import solutus.coronawatch.ui.mainActivity.home.news.adapter.VideoYoutubeAdapter
 import solutus.coronawatch.utilities.InjectorUtils
 
-class NewsFragment : Fragment() {
+class NewsFragment : Fragment() , KodeinAware {
 
 
-    private lateinit var viewModelFactory: ListVideosYoutubeViewModelFactory
-    private lateinit var viewModel: ListVideosYoutubeViewModel
+    override val kodein by closestKodein()
+    private  val viewModel: ListVideosYoutubeViewModel by instance<ListVideosYoutubeViewModel>()
     private lateinit var adapter: VideoYoutubeAdapter
 
     override fun onCreateView(
@@ -33,11 +36,7 @@ class NewsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //set ViewModel
-        viewModelFactory = (InjectorUtils.provideListVideoYoutubeViewModelFactory())
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory)
-                .get(ListVideosYoutubeViewModel::class.java)
+
         initializeUi()
         ////go to watch Video on thumbnail click
         adapter.setOnItemClickListener(object : VideoYoutubeAdapter.OnItemClickListener {
@@ -50,8 +49,7 @@ class NewsFragment : Fragment() {
     private fun watchVideo(video: VideoYoutube) {
         //pass data to watch video fragment using bundle
         val bundle = Bundle()
-        bundle.putString("url", video.url)
-
+             bundle.putString("url", video.video)
         //go to ViewVideoFragment
         val navController: NavController =
             Navigation.findNavController(requireActivity(), R.id.nav_home_fragment)

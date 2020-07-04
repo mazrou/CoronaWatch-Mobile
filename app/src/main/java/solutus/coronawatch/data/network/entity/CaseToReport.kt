@@ -1,4 +1,4 @@
-package solutus.coronawatch.data.network.implementation
+package solutus.coronawatch.data.network.entity
 
 import android.accounts.AuthenticatorDescription
 import okhttp3.MultipartBody

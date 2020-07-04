@@ -30,7 +30,7 @@ class UserRepository(
 
 
     suspend fun getUser(id:Int) : AppUser{
-        return userApi.getUser(id).body()!!
+        return apiRequest { userApi.getUser(id) }
 
     }
 

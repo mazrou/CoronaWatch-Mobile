@@ -28,7 +28,7 @@ class VideoYoutubeAdapter(val context: Context) :
         //set video title
         holder.videoTitleView.text = currentVideo.title
         //set video thumbnil
-        Picasso.get().load(currentVideo.thumbnail).into(holder.videoThumbnail)
+        Picasso.get().load(currentVideo.thumb).into(holder.videoThumbnail)
     }
 
     override fun getItemCount(): Int {

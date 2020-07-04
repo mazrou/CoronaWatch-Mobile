@@ -81,9 +81,7 @@ class VideosFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             val posts = contentRepository.getPosts()
             if (posts != null) {
-
                 viewModel.getVideos(posts)
-
             }
         }
         viewModel.videos.observe(

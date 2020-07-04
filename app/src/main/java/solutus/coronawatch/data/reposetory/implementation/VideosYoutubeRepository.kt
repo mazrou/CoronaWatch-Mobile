@@ -1,16 +1,32 @@
 package solutus.coronawatch.data.reposetory.implementation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import solutus.coronawatch.data.entity.VideoYoutube
 import solutus.coronawatch.data.network.implementation.ContentApi
+import solutus.coronawatch.data.network.implementation.RobotApi
 import solutus.coronawatch.data.reposetory.abstraction.SafeApiRequest
+import solutus.coronawatch.utilities.Coroutines
 
-class VideosYoutubeRepository(private val contentApi: ContentApi) : SafeApiRequest() {
+class VideosYoutubeRepository(
+    private val api: RobotApi
+) : SafeApiRequest() {
 
-    //pour tester
-    fun getVideosYoutube():List<VideoYoutube>{
-        val list = ArrayList<VideoYoutube>()
-        list.add(VideoYoutube("1","Corona1","https://www.youtube.com/watch?v=RBUbja6V9Aw","https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"))
-        list.add(VideoYoutube("1","Corona2","https://www.youtube.com/watch?v=RBUbja6V9Aw","https://s3.ca-central-1.amazonaws.com/codingwithmitch/media/VideoPlayerRecyclerView/Sending+Data+to+a+New+Activity+with+Intent+Extras.png"))
-        return list
+    private val  _youtubeVideos  = MutableLiveData<List<VideoYoutube>>()
+
+     val youtubeVideos : LiveData<List<VideoYoutube>>
+        get () = _youtubeVideos
+
+     //pour tester
+    suspend  fun getVideosYoutube() {
+
+       val youtubeList =   apiRequest { api.getRobotVideos() }.results
+       CoroutineScope(Main).launch {
+          _youtubeVideos.postValue( youtubeList)
+      }
     }
 }
