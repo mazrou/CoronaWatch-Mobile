@@ -19,6 +19,13 @@ import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.map_fragment.*
 import solutus.coronawatch.data.entity.AppUser
 
 
@@ -41,6 +48,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
         ActivityCompat.requestPermissions(this,
             arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
             1)
@@ -55,8 +64,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
    override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(null,navController)
+        return NavigationUI.navigateUp(navController,null)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -88,6 +98,8 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+
 
 
 

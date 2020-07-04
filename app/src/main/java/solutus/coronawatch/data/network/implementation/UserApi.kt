@@ -9,7 +9,7 @@ import solutus.coronawatch.data.network.abstraction.Api
 import solutus.coronawatch.data.network.abstraction.SERVER_URL
 
 
-private const val BASE_URL: String = SERVER_URL +"api-account/"
+private const val BASE_URL: String = SERVER_URL +"api_account/"
 
 interface UserApi : Api {
 

@@ -12,7 +12,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.add_content_fragment.*
@@ -23,6 +23,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import solutus.coronawatch.data.entity.AppUser
+import solutus.coronawatch.data.entity.ProgressRequestBody
 import solutus.coronawatch.data.network.implementation.ContentApi
 import solutus.coronawatch.data.reposetory.implementation.ContentRepository
 import solutus.coronawatch.ui.mainActivity.MainActivity
@@ -114,7 +115,7 @@ class AddContentFragment : Fragment(){
         // à coder ulterieurement
         //CreateProgressDialog
         video_view.visibility = View.GONE
-        /*progressdialog = ProgressDialog(activity);
+        progressdialog = ProgressDialog(activity);
         progressdialog?.setIndeterminate(false);
         progressdialog?.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressdialog?.setCancelable(true);
@@ -123,14 +124,14 @@ class AddContentFragment : Fragment(){
         //A changer
         progressdialog?.progress = 50
         progressdialog?.progress =100
-        //progressdialog?.dismiss()
+
         //upload
 
-         */
         val realPath :String? = RealPathUtil.getRealPath(context as Context ,selectedVideoUri as Uri)
         val originalFile : File = File(realPath!!)
         val str = context!!.contentResolver?.getType(selectedVideoUri as Uri) as String
         val file : RequestBody = RequestBody.create(str.toMediaTypeOrNull(),originalFile)
+       // val fileBody = ProgressRequestBody(originalFile, this)
 
         val video : MultipartBody.Part = MultipartBody.Part.createFormData("file",originalFile.name,file )
         CoroutineScope(IO).launch {
@@ -165,5 +166,6 @@ class AddContentFragment : Fragment(){
         super.onAttach(context)
         activity = context as MainActivity
     }
+
 
 }
