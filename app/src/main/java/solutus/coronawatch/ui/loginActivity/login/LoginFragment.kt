@@ -108,10 +108,8 @@ class LoginFragment : Fragment()  , KodeinAware{
                     } catch (e: Exception) {
                         Log.d("Debug", e.message)
                     }
-
                 }
             }
-
             override fun onCancel() {
                 println("Hey I'm a facebook cancel")
             }

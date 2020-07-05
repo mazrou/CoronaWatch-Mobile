@@ -21,7 +21,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.add_video_fragment.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import solutus.coronawatch.data.entity.AppUser
+import solutus.coronawatch.data.internal.GetDataFromApiException
 import solutus.coronawatch.data.network.implementation.ContentApi
 import solutus.coronawatch.data.reposetory.implementation.ContentRepository
 import solutus.coronawatch.ui.mainActivity.MainActivity
@@ -36,6 +42,7 @@ class AddVideoFragment : Fragment() {
             AddVideoFragment()
     }
 
+    var selectedVideoUri : Uri? = null
     private lateinit var viewModel: AddVideoViewModel
     private lateinit var activity : MainActivity
     private lateinit var token: String
@@ -127,13 +134,55 @@ class AddVideoFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if(resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_CODE_PICK_VIDEO_GALLERY || requestCode == REQUEST_CODE_PICK_VIDEO_CAMERA) {
-                val selectedVideoUri = data?.data
+                 selectedVideoUri = data?.data
                 viewModel.videoPath = getRealPathFromURI(selectedVideoUri)
                 setVideo()
             }
         }
     }
 
+    fun uploadVideo(){
+        CoroutineScope(IO).launch {
+            try {
+                contentRepository.postVideo(
+                    token,
+                    title_edit.text.toString(),
+                    description_edit.text.toString(),
+                    selectedVideoUri!!,
+                    requireContext()
+                )
+                reset()
+                Toast.makeText(requireContext() , " تم ارسال الفيدو بنجاح",Toast.LENGTH_SHORT).show()
+            } catch (e : GetDataFromApiException){
+                //reset()
+                Toast.makeText(requireContext() , "لم يتم ارسال الفيدو بنجاح",Toast.LENGTH_SHORT).show()
+            }catch (e :Exception){
+                Toast.makeText(requireContext() , "لم يتم ارسال الفيدو بنجاح",Toast.LENGTH_SHORT).show()
+            }
+
+        }
+    }
+
+    fun reset() {
+
+        CoroutineScope(Main).launch {
+            delay(1500)
+            frame_view.isClickable = true
+            add_video_layout.visibility = View.VISIBLE
+            video_view.visibility = View.GONE
+            mediaController.visibility = View.GONE
+            replace_video_frame.visibility = View.GONE
+            //reset the photo path
+            viewModel.videoPath = null
+            //empty the description edit text
+            description_edit.text.clear()
+            description_edit.isCursorVisible = false
+            //empty the title edit text
+            title_edit.text.clear()
+            title_edit.isCursorVisible = false
+        }
+
+    }
     private fun shareVideo() {
         if (viewModel.videoPath == null) {
             Toast.makeText(activity, "يجب اضافة فيديو", Toast.LENGTH_SHORT).show()
@@ -141,20 +190,10 @@ class AddVideoFragment : Fragment() {
             if (description_edit.text.toString().trim().isEmpty()) {
                 Toast.makeText(activity, "اضف وصفا", Toast.LENGTH_SHORT).show()
             } else {
-                viewModel.uploadVideo()
-                frame_view.isClickable = true
-                add_video_layout.visibility = View.VISIBLE
-                video_view.visibility = View.GONE
-                mediaController.visibility = View.GONE
-                replace_video_frame.visibility = View.GONE
-                //reset the photo path
-                viewModel.videoPath = null
-                //empty the description edit text
-                description_edit.text.clear()
-                description_edit.isCursorVisible = false
-                //empty the title edit text
-                title_edit.text.clear()
-                title_edit.isCursorVisible = false
+                uploadProgressBar.visibility = View.VISIBLE
+                this.uploadVideo()
+
+
             }
         }
     }

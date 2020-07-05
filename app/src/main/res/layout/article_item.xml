@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="8dp">
+    android:layout_marginTop="14dp"
+    android:layout_marginEnd="14dp"
+    android:background="#ccc">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginEnd="10dp"
+                android:textSize="15dp"
                 android:layout_toStartOf="@+id/redactor_avatar"
                 android:text="Ayoub Mazrou"
                 android:textColor="#000000"
@@ -47,6 +49,7 @@
 
             <TextView
                 android:id="@+id/article_title"
+                android:textSize="17dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
