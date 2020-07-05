@@ -65,9 +65,15 @@ class NewsFragment : Fragment() , KodeinAware {
         recyclerView.adapter = adapter
 
         viewModel.getVideosYoutube()
-        viewModel.videosYoutube.observe(
-            viewLifecycleOwner,
-            Observer { videos -> adapter.setVideos(videos as List<VideoYoutube>) })
+        viewModel.videosYoutube.observe(viewLifecycleOwner, Observer { videos ->
+
+               if(videos.isEmpty()){
+                   youtube_progressBar.visibility = View.VISIBLE
+               }else{
+                   youtube_progressBar.visibility = View.GONE
+               }
+                adapter.setVideos(videos as List<VideoYoutube>)
+        })
     }
 
 }

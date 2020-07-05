@@ -53,13 +53,16 @@ class NoveltiesFragment : Fragment()   , KodeinAware{
         adapter = ArticleAdapter(requireContext())
         recyclerView.adapter = adapter
 
-
-
-        println("Debug : I'll get my data")
         try {
             viewModel.getArticles()
             viewModel.articles.observe(viewLifecycleOwner , Observer {
                 Log.d("Debug" , "Update the articleList")
+                if (it.isEmpty()){
+                    nouvelties_progress.visibility = View.VISIBLE
+                }
+                else{
+                    nouvelties_progress.visibility = View.GONE
+                }
                 adapter.setArticles(it)
             })
 

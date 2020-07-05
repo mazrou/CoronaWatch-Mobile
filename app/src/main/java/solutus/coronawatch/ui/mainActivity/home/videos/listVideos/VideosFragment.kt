@@ -84,10 +84,24 @@ class VideosFragment : Fragment() {
                 viewModel.getVideos(posts)
             }
         }
-        viewModel.videos.observe(
-            viewLifecycleOwner,
-            Observer { videos -> adapter.setVideos(videos as List<Video>) })
+        viewModel.videos.observe(viewLifecycleOwner, Observer { videos ->
 
+                if(videos.isEmpty()){
+                    showProgressBar()
+                }else{
+                    deleteProgressBar()
+                }
+                adapter.setVideos(videos as List<Video>)
+            })
+
+    }
+
+    private fun deleteProgressBar() {
+        videoProgress.visibility = View.GONE
+    }
+
+    private fun showProgressBar() {
+        videoProgress.visibility = View.VISIBLE
     }
 
 

@@ -21,6 +21,8 @@ interface ReportApi  : Api{
         @Header("Authorization") token: String,
         //@Body caseToReport: MultipartBody
         @Part("description") description : RequestBody ,
+        @Part("x") x : Float ,
+        @Part("y") y : Float ,
         @Part attachment : MultipartBody.Part
     ) : Response<Unit>
 
