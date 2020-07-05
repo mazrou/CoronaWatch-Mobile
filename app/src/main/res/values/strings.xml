@@ -74,6 +74,11 @@
     <string name="no">لا</string>
     <string name="fb_login_protocol_scheme">fb2556537747946372</string>
     <string name="comments">التعليقات</string>
+    <string name="replies">6 ردود</string>
+    <string name="reply">رد</string>
+    <string name="add_reply">اضف رد</string>
+    <string name="delete_comment">حذف التعليق</string>
+    <string name="ask_continue">هل تريد المتابعة ⸮</string>
 
 
 </resources>

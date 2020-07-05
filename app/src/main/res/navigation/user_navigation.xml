@@ -11,20 +11,8 @@
         tools:layout="@layout/user_videos_fragment">
         <action
             android:id="@+id/to_watch_video_fragment_action"
-            app:destination="@+id/watch_video_fragment">
-            <argument
-                android:name="url"
-                android:defaultValue="null"
-                app:argType="string" />
-            <argument
-                android:name="content"
-                android:defaultValue="null"
-                app:argType="string" />
-            <argument
-                android:name="title"
-                android:defaultValue="null"
-                app:argType="string" />
-        </action>
+            app:destination="@+id/watch_video_fragment" />
+
         <action
             android:id="@+id/to_videos_fragment_action"
             app:destination="@+id/videos_fragment" />
@@ -41,19 +29,6 @@
         android:id="@+id/watch_video_fragment"
         android:name="solutus.coronawatch.ui.mainActivity.user.videos.watchVideo.UserWatchVideoFragment"
         tools:layout="@layout/watch_video_fragment">
-        <argument
-            android:name="url"
-            android:defaultValue="null"
-            app:argType="string" />
-        <argument
-            android:name="content"
-            android:defaultValue="null"
-            app:argType="string" />
-        <argument
-            android:name="title"
-            android:defaultValue="null"
-            app:argType="string" />
-
     </fragment>
 
 

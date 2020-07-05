@@ -5,10 +5,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.Window
+import android.view.*
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -65,6 +62,8 @@ class MainActivity : AppCompatActivity() {
             1
         )
 
+        //initialisation
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         //set the tool bar and hide the return back home
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -83,7 +82,7 @@ class MainActivity : AppCompatActivity() {
                     getFacebookUser()
                 } else {
                     user = intent.getSerializableExtra("user") as AppUser
-                    token = intent.getStringExtra("token")
+                    token = intent.getStringExtra("token")!!
                 }
                 //change bottom menu
                 bottom_nav.menu.clear()

@@ -15,7 +15,6 @@ import java.lang.Exception
 
 class ArticlesRepository(
     private val contentApi: ContentApi ,
-
     private val userRepository : UserRepository
 ) : SafeApiRequest() {
 
@@ -54,7 +53,7 @@ class ArticlesRepository(
         }
     }
 
-     suspend fun getWriterPost() : List<WriterPost>?{
+     private suspend fun getWriterPost() : List<WriterPost>?{
         Log.d("Debug " , "Get the data from APi")
         return apiRequest {
             contentApi.getWriterPosts()
