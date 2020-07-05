@@ -1,6 +1,7 @@
 package solutus.coronawatch.ui.mainActivity.home.news.listVideos
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +25,9 @@ class NewsFragment : Fragment() , KodeinAware {
 
 
     override val kodein by closestKodein()
+
     private  val viewModel: ListVideosYoutubeViewModel by instance<ListVideosYoutubeViewModel>()
+
     private lateinit var adapter: VideoYoutubeAdapter
 
     override fun onCreateView(
@@ -50,6 +53,7 @@ class NewsFragment : Fragment() , KodeinAware {
         //pass data to watch video fragment using bundle
         val bundle = Bundle()
              bundle.putString("url", video.video)
+        Log.d("Debug " ,video.video )
         //go to ViewVideoFragment
         val navController: NavController =
             Navigation.findNavController(requireActivity(), R.id.nav_home_fragment)
