@@ -9,17 +9,19 @@
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/homeNavigation"
+        android:id="@+id/home_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menu="@menu/home_nav"
         />
 
-    <FrameLayout
+    <fragment
         android:id="@+id/nav_home_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/FragmentStyle"/>
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        app:navGraph="@navigation/home_navigation"
+        app:defaultNavHost="true" />
 
 
 </LinearLayout>

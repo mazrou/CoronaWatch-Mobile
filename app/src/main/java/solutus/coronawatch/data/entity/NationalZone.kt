@@ -22,5 +22,7 @@ data class NationalZone (
 
     val is_risky : Boolean,
 
-    val remarque : String?
+    val remarque : String?,
+
+    val centre : Boolean
 )

@@ -37,6 +37,7 @@ import solutus.coronawatch.data.reposetory.implementation.MapRepository
 class MapFragment : Fragment() , OnMapReadyCallback{
 
     var is_national = false
+    var zoom : Float = 0.0f
     private  lateinit var googlemMap : GoogleMap
     var nationalZoneInfos = HashMap<Circle,NationalZoneInfos>()
     var internationalZoneInfos = HashMap<Circle,InternationalZoneInfos>()
@@ -44,6 +45,7 @@ class MapFragment : Fragment() , OnMapReadyCallback{
     lateinit var interNationalZones : ArrayList<InternationalZone>
     var nationalCircles = ArrayList<Circle>()
     var internationalCircles = ArrayList<Circle>()
+    var nationalCentresCircles = ArrayList<Circle>()
     lateinit var btn : MaterialButton
     //filters
     var RECOVERED_FILTER = 1
@@ -100,23 +102,42 @@ class MapFragment : Fragment() , OnMapReadyCallback{
                                 .strokeWidth(3f)
                                 .clickable(true)
                         )
-                        nationalCircles.add(circle)
-                        nationalZoneInfos.put(
-                            circle,
-                            NationalZoneInfos(
-                                zone.name,
-                                zone.dead,
-                                zone.sick,
-                                zone.recovered,
-                                zone.infected,
-                                zone.is_risky,
-                                zone.remarque
+                        if (zone.centre == false) {
+                            nationalCircles.add(circle)
+                            nationalZoneInfos.put(
+                                circle,
+                                NationalZoneInfos(
+                                    zone.name,
+                                    zone.dead,
+                                    zone.sick,
+                                    zone.recovered,
+                                    zone.infected,
+                                    zone.is_risky,
+                                    zone.remarque,
+                                    zone.centre
+                                )
                             )
-                        )
-                    }
+                        }
+                        else {
+                            nationalCentresCircles.add(circle)
+                            nationalZoneInfos.put(
+                                circle,
+                                NationalZoneInfos(
+                                    zone.name,
+                                    zone.dead,
+                                    zone.sick,
+                                    zone.recovered,
+                                    zone.infected,
+                                    zone.is_risky,
+                                    zone.remarque,
+                                    zone.centre
+                                )
+                            )
+                            }
+                     }
                 }else{
 
-                    for (circle in nationalCircles) circle.isVisible=true
+                    for (circle in nationalCentresCircles) circle.isVisible=true
 
                 }
                             is_national = true
@@ -142,6 +163,7 @@ class MapFragment : Fragment() , OnMapReadyCallback{
 
 
             }else{
+                for (circle in nationalCentresCircles) circle.isVisible=false
                 for (circle in nationalCircles) circle.isVisible=false
                 for (circle in internationalCircles) circle.isVisible=true
                 is_national=false
@@ -162,6 +184,7 @@ class MapFragment : Fragment() , OnMapReadyCallback{
             CoroutineScope(IO).launch {
                 interNationalZones = mapRepository.getInterNationalZones()!!
                 nationalZones = mapRepository.getNationalZones()!!
+
                 withContext(Main){
                     for (zone in interNationalZones){
                         var circle = map.addCircle(
@@ -185,6 +208,19 @@ class MapFragment : Fragment() , OnMapReadyCallback{
                         // stroke color.
                         showInfo(circle)
                     })
+                    map.setOnCameraIdleListener {
+                       if (is_national){
+                            zoom = map.cameraPosition.zoom
+                            if (zoom > 9.0f){
+                                for (centre in nationalCentresCircles) centre.isVisible = false
+                                for (zone in nationalCircles) zone.isVisible = true
+                            }
+                           else{
+                                for (centre in nationalCentresCircles) centre.isVisible = true
+                                for (zone in nationalCircles) zone.isVisible = false
+                            }
+                        }
+                    }
                     googlemMap = map
                 }
 
@@ -276,16 +312,16 @@ class MapFragment : Fragment() , OnMapReadyCallback{
             }
             if (filter == SICK_FILTER) {
                 for (circle in internationalCircles){
-                    circle.fillColor = Color.argb(100, 255,255,107)
-                    circle.strokeColor = Color.argb(100, 255,255,29)
+                    circle.fillColor = Color.argb(100, 255,178,0)
+                    circle.strokeColor = Color.argb(100, 255,157,0)
                     circle.radius = 1.0 * internationalZoneInfos[circle]!!.sick
                 }
 
             }
             if (filter == INFECTED_FILTER) {
                 for (circle in internationalCircles){
-                    circle.fillColor = Color.argb(100, 255,178,0)
-                    circle.strokeColor = Color.argb(100, 255,157,0)
+                    circle.fillColor = Color.argb(100, 255,255,107)
+                    circle.strokeColor = Color.argb(100, 255,255,29)
                     circle.radius = 1.0 * internationalZoneInfos[circle]!!.infected
                 }
 
@@ -294,16 +330,18 @@ class MapFragment : Fragment() , OnMapReadyCallback{
 
         else
         {
+            if (googlemMap.cameraPosition.zoom > 9.0f)
+            {
             if (filter == RECOVERED_FILTER) {
-                for (circle in nationalCircles){
+                for (circle in nationalCircles) {
                     circle.fillColor = Color.argb(69, 0, 253, 0)
-                    circle.strokeColor = Color.argb(100,0,197,0)
+                    circle.strokeColor = Color.argb(100, 0, 197, 0)
                     circle.radius = 10.0 * nationalZoneInfos[circle]!!.recovered
                 }
 
             }
             if (filter == DEAD_FILTER) {
-                for (circle in nationalCircles){
+                for (circle in nationalCircles) {
                     circle.fillColor = Color.argb(55, 255, 0, 0)
                     circle.strokeColor = Color.argb(95, 255, 0, 0)
                     circle.radius = 100.0 * nationalZoneInfos[circle]!!.dead
@@ -311,22 +349,59 @@ class MapFragment : Fragment() , OnMapReadyCallback{
 
             }
             if (filter == SICK_FILTER) {
-                for (circle in nationalCircles){
-                    circle.fillColor = Color.argb(100, 255,255,107)
-                    circle.strokeColor = Color.argb(100, 255,255,29)
+                for (circle in nationalCircles) {
+                    circle.fillColor = Color.argb(100, 255, 178, 0)
+                    circle.strokeColor = Color.argb(100, 255, 157, 0)
                     circle.radius = 10.0 * nationalZoneInfos[circle]!!.sick
                 }
 
             }
             if (filter == INFECTED_FILTER) {
-                for (circle in nationalCircles){
-                    circle.fillColor = Color.argb(100, 255,178,0)
-                    circle.strokeColor = Color.argb(100, 255,157,0)
+                for (circle in nationalCircles) {
+                    circle.fillColor = Color.argb(100, 255, 255, 107)
+                    circle.strokeColor = Color.argb(100, 255, 255, 29)
+
                     circle.radius = 10.0 * nationalZoneInfos[circle]!!.infected
+                    }
+
+                }
+            }else {
+                if (filter == RECOVERED_FILTER) {
+                    for (circle in nationalCentresCircles) {
+                        circle.fillColor = Color.argb(69, 0, 253, 0)
+                        circle.strokeColor = Color.argb(100, 0, 197, 0)
+                        circle.radius = 10.0 * nationalZoneInfos[circle]!!.recovered
+                    }
+
+                }
+                if (filter == DEAD_FILTER) {
+                    for (circle in nationalCentresCircles) {
+                        circle.fillColor = Color.argb(55, 255, 0, 0)
+                        circle.strokeColor = Color.argb(95, 255, 0, 0)
+                        circle.radius = 100.0 * nationalZoneInfos[circle]!!.dead
+                    }
+
+                }
+                if (filter == SICK_FILTER) {
+                    for (circle in nationalCentresCircles) {
+                        circle.fillColor = Color.argb(100, 255, 178, 0)
+                        circle.strokeColor = Color.argb(100, 255, 157, 0)
+                        circle.radius = 10.0 * nationalZoneInfos[circle]!!.sick
+                    }
+
+                }
+                if (filter == INFECTED_FILTER) {
+                    for (circle in nationalCentresCircles) {
+                        circle.fillColor = Color.argb(100, 255, 255, 107)
+                        circle.strokeColor = Color.argb(100, 255, 255, 29)
+                        circle.radius = 10.0 * nationalZoneInfos[circle]!!.infected
+                    }
+
                 }
 
             }
         }
     }
+
 
 }

@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <item android:id="@+id/newsFragment"
+    <item android:id="@+id/news_fragment"
         android:title="@string/news"/>
 
 
-    <item android:id="@+id/videosFragment"
+    <item android:id="@+id/videos_fragment"
         android:title="@string/videos"/>
 
-    <item android:id="@+id/noveltiesFragment"
+    <item android:id="@+id/novelties_fragment"
         android:title="@string/novelties"/>
 
 </menu>

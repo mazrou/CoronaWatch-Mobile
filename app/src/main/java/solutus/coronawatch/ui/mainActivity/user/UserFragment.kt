@@ -6,26 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.coronawatch_mobile.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.user_fragment.*
 import solutus.coronawatch.ui.mainActivity.MainActivity
-import solutus.coronawatch.ui.mainActivity.MainActivity.Companion.replaceFragment
-import solutus.coronawatch.ui.mainActivity.user.fragment.content.add.AddContentFragment
-import solutus.coronawatch.ui.mainActivity.user.fragment.content.view.ViewContentFragment
-import solutus.coronawatch.ui.mainActivity.user.fragment.profile.ProfileFragment
-
 
 
 class UserFragment : Fragment() {
     private lateinit var activity : MainActivity
-    private lateinit var avatar:de.hdodenhof.circleimageview.CircleImageView
+    lateinit var navController: NavController
 
     companion object {
         fun newInstance() = UserFragment()
-        //fun getPhotoProfile(): String  {
-          // return user.avatar
-        //}
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,36 +30,31 @@ class UserFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        var user = activity.user
+        val user = activity.user
         //set photo profile
-        avatar = activity?.findViewById<View>(R.id.profile_image) as de.hdodenhof.circleimageview.CircleImageView
-        if (user.image != null){
-            Picasso.get().load(user.image).into(avatar)
-        }
+        Picasso.get().load(user?.image).into(profile_image)
+
         //set ViewContentFragment the default fragment
-        replaceFragment(activity,R.id.user_nav_host_fragment,ViewContentFragment())
         arc_left.visibility = View.VISIBLE
         arc_right.visibility = View.INVISIBLE
         arc_under.visibility= View.INVISIBLE
         //navigation entre les fragments
-
+        navController =
+            Navigation.findNavController(requireActivity(), R.id.user_nav_host_fragment)
         view_content.setOnClickListener {
-            replaceFragment(activity,R.id.user_nav_host_fragment,ViewContentFragment())
+            navController.navigate(R.id.to_videos_fragment_action)
             arc_left.visibility = View.VISIBLE
             arc_right.visibility = View.INVISIBLE
             arc_under.visibility= View.INVISIBLE
-
-
-
         }
         add_content.setOnClickListener {
-            replaceFragment(activity,R.id.user_nav_host_fragment,AddContentFragment())
+            navController.navigate(R.id.to_add_video_fragment_action)
             arc_left.visibility = View.INVISIBLE
             arc_right.visibility = View.INVISIBLE
             arc_under.visibility= View.VISIBLE
         }
         edit_profile.setOnClickListener {
-            replaceFragment(activity,R.id.user_nav_host_fragment,ProfileFragment())
+            navController.navigate(R.id.to_profile_fragment_action)
             arc_left.visibility = View.INVISIBLE
             arc_right.visibility = View.VISIBLE
             arc_under.visibility= View.INVISIBLE

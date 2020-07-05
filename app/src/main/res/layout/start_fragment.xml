@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="solutus.coronawatch.ui.firstActivity.firstView.StartFragment">
+    tools:context="solutus.coronawatch.ui.firstActivity.StartFragment">
 
    <ImageView
        android:id="@+id/imageView2"
@@ -42,20 +42,22 @@
        app:layout_constraintStart_toStartOf="parent">
 
       <ImageView
+          android:id="@+id/empty_cercle"
+          android:layout_width="15dp"
+          android:layout_height="15dp"
+          android:layout_marginEnd="2dp"
+          android:layout_marginBottom="10dp"
+          android:src="@mipmap/ic_empty_cercle" />
+
+      <ImageView
           android:id="@+id/red_cercle"
           android:layout_width="15dp"
           android:layout_height="15dp"
           android:layout_marginBottom="10dp"
-          android:layout_marginEnd="2dp"
+          android:layout_marginStart="2dp"
+
           android:src="@mipmap/ic_red_cercle" />
 
-      <ImageView
-          android:id="@+id/empty_cercle"
-          android:layout_width="15dp"
-          android:layout_height="15dp"
-          android:layout_marginBottom="10dp"
-          android:layout_marginStart="2dp"
-          android:src="@mipmap/ic_empty_cercle" />
    </LinearLayout>
 
 

@@ -1,7 +1,16 @@
 package solutus.coronawatch.data.entity
 
-data class Comment (
-    val  user : String,
-    val post : Post,
-    var text : String?
-)
+data class Comment(
+
+    override val id: String,
+    override val publisher: AppUser,
+    var content: String
+) :
+    Publication(
+        id,
+        publisher
+
+    )
+
+
+
