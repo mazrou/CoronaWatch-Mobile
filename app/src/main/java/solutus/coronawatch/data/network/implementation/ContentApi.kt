@@ -1,18 +1,11 @@
 package solutus.coronawatch.data.network.implementation
 
 import okhttp3.MultipartBody
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
-import solutus.coronawatch.data.entity.DeletePostRequest
-import solutus.coronawatch.data.entity.GetPostsResponse
-import solutus.coronawatch.data.entity.Post
+import solutus.coronawatch.data.entity.*
 import solutus.coronawatch.data.network.abstraction.Api
 import solutus.coronawatch.data.network.abstraction.SERVER_URL
-import java.util.concurrent.TimeUnit
 
 
 private const val BASE_URL : String =  SERVER_URL +"api-content/"
@@ -40,10 +33,40 @@ interface ContentApi : Api {
 
     @PUT("post/delete/{id}")
     suspend fun deletePost(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int,
+        @Body deleted: DeletePostRequest
+    ): Response<Post>
+
+    @GET("comment/")
+    suspend fun getComments(
+    ): Response<CommentResponse>
+
+    @Multipart
+    @POST("comment/create/")
+    suspend fun storeComment(
+        @Header("Authorization") token: String,
+        @Part("post") post :Int,
+        @Part("content") content : String,
+        @Part("times") times : String
+    )
+    @Multipart
+    @POST("comment/reply/create/")
+    suspend fun storeReply(
+        @Header("Authorization") token: String,
+        @Part("post") post :Int,
+        @Part("content") content : String,
+        @Part("times") times : String,
+        @Part("parent") parent : Int
+    )
+
+    @PUT("comment/delete/{id}")
+    suspend fun deleteComment(
         @Header("Authorization") token :String,
         @Path ("id") id : Int,
-        @Body deleted : DeletePostRequest
-    ) : Response<Post>
+        @Body deleted : DeleteCommentRequest
+    ) : Response<ApiComment>
+
 
     companion object {
         operator fun invoke() : ContentApi {
@@ -54,5 +77,6 @@ interface ContentApi : Api {
 
         }
     }
+
 
 }

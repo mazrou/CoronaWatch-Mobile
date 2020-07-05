@@ -108,7 +108,6 @@ class LoginFragment : Fragment()  , KodeinAware{
                     } catch (e: Exception) {
                         Log.d("Debug", e.message)
                     }
-
                 }
             }
 

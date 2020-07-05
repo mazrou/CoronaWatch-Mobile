@@ -16,16 +16,20 @@ import kotlinx.android.synthetic.main.videos_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 import solutus.coronawatch.data.entity.Video
 import solutus.coronawatch.data.network.implementation.ContentApi
 import solutus.coronawatch.data.reposetory.implementation.ContentRepository
 import solutus.coronawatch.ui.mainActivity.home.videos.adapter.VideoAdapter
+import solutus.coronawatch.ui.mainActivity.home.videos.watchVideo.WatchVideoViewModel
 import solutus.coronawatch.utilities.InjectorUtils
 
 
-class VideosFragment : Fragment() {
+class VideosFragment : Fragment(), KodeinAware {
 
-
+    override val kodein by closestKodein()
     private lateinit var viewModelFactory: VideoViewModelFactory
     private lateinit var viewModel: VideosViewModel
     private lateinit var adapter: VideoAdapter
@@ -58,16 +62,12 @@ class VideosFragment : Fragment() {
     }
 
     private fun watchVideo(video: Video) {
-        //pass data to watch video fragment using bundle
-        val bundle = Bundle()
-        bundle.putString("url", video.url)
-        bundle.putString("content", video.content)
-        bundle.putString("title", video.title)
-
         //go to ViewVideoFragment
+        val viewModel: WatchVideoViewModel by instance()
+        viewModel.video = video
         val navController: NavController =
             Navigation.findNavController(requireActivity(), R.id.nav_home_fragment)
-        navController.navigate(R.id.to_watch_video_fragment_action, bundle)
+        navController.navigate(R.id.to_watch_video_fragment_action)
     }
 
     private fun initializeUi() {

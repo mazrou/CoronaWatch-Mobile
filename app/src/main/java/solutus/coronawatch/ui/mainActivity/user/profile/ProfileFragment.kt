@@ -1,6 +1,7 @@
 package solutus.coronawatch.ui.mainActivity.user.profile
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.ContentResolver
 import android.content.Context
@@ -17,12 +18,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.DatePicker
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.profile_fragment.*
@@ -30,16 +31,16 @@ import solutus.coronawatch.data.entity.AppUser
 import solutus.coronawatch.service.DatePickerFragment
 import solutus.coronawatch.ui.mainActivity.MainActivity
 import java.io.ByteArrayOutputStream
+import java.text.DateFormat
 import java.util.*
 
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), DatePickerDialog.OnDateSetListener {
 
     companion object {
 
         const val REQUEST_CODE_PICK_IMAGE_CAMERA = 101
         const val REQUEST_CODE_PICK_IMAGE_GALLERY = 102
-        const val REQUEST_CODE_DATE_PICKER = 100
         fun newInstance() =
             ProfileFragment()
     }
@@ -65,7 +66,7 @@ class ProfileFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
 
         avatar = activity.findViewById(R.id.profile_image)
-        val user : AppUser = activity.user!!
+        val user: AppUser = activity.user
 
         if (viewModel.profileImagePath != null) {
            setPhoto()
@@ -77,9 +78,7 @@ class ProfileFragment : Fragment() {
         //manipulation du Date Picker
         date_naissance.inputType = InputType.TYPE_NULL
         date_naissance.setOnClickListener {
-            showDatePicker(
-                this
-            )
+            showDatePicker()
         }
         //Initialise the fields
         email.setText(user.email)
@@ -95,12 +94,6 @@ class ProfileFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQUEST_CODE_DATE_PICKER) {
-                // get date from string
-                val selectedDate = data?.getStringExtra("selectedDate").toString()
-                // set the value of the editText
-                date_naissance.setText(selectedDate)
-            }
             if (requestCode == REQUEST_CODE_PICK_IMAGE_GALLERY) {
                 val selectedImageUri = data?.data
                 viewModel.profileImagePath = getRealPathFromURI(selectedImageUri)
@@ -119,6 +112,16 @@ class ProfileFragment : Fragment() {
         activity = context as MainActivity
     }
 
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        val c: Calendar = Calendar.getInstance()
+        c.set(Calendar.YEAR, year)
+        c.set(Calendar.MONTH, month)
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        val currentDateString: String =
+            DateFormat.getDateInstance(DateFormat.FULL).format(c.time)
+        date_naissance.setText(currentDateString)
+    }
+
     private fun saveProfile() {
         if (email?.text.toString() == "" || firstName?.text.toString() == "" || lastName?.text.toString() == "" || date_naissance?.text.toString() == "" || password?.text.toString() == "" || confirm_password.text.toString() == "") {
             Toast.makeText(activity, "يجب ملأ كل الحقول", Toast.LENGTH_SHORT).show()
@@ -132,17 +135,18 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun showDatePicker(fragment: Fragment) {
-        val fm: FragmentManager = (activity as AppCompatActivity?)!!.supportFragmentManager
+    private fun showDatePicker() {
         //Change the language to Arabic
         val locale: Locale? = Locale("ar")
         Locale.setDefault(locale!!)
         val config: Configuration? = activity.baseContext?.resources?.configuration
         config?.setLocale(locale)
         config?.let { it1 -> activity.createConfigurationContext(it1) }
-        val newFragment: AppCompatDialogFragment = DatePickerFragment()
-        newFragment.setTargetFragment(fragment, REQUEST_CODE_DATE_PICKER)
-        newFragment.show(fm, "datePicker")
+        val datePicker: DialogFragment = DatePickerFragment(this)
+        datePicker.show(
+            (activity as AppCompatActivity?)!!.supportFragmentManager,
+            "date picker"
+        )
     }
 
     private fun showDialog() {
@@ -207,7 +211,5 @@ class ProfileFragment : Fragment() {
             MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
         return Uri.parse(path)
     }
-
-
 }
 

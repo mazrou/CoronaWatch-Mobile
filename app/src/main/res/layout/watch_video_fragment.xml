@@ -66,11 +66,12 @@
                 android:layout_below="@+id/content_text_view"
                 android:layout_alignParentEnd="true"
                 android:paddingStart="4dp"
-                android:paddingTop="12dp"
+                android:paddingTop="8dp"
                 android:paddingEnd="12dp"
-                android:paddingBottom="12dp"
+                android:paddingBottom="8dp"
                 android:text="@string/comments"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/comment_number"
@@ -79,22 +80,34 @@
                 android:layout_below="@+id/content_text_view"
                 android:layout_toStartOf="@+id/comment_view"
                 android:paddingStart="12dp"
-                android:paddingTop="12dp"
+                android:paddingTop="8dp"
                 android:paddingEnd="4dp"
-                android:paddingBottom="12dp"
-                android:text="300"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="@color/colorPrimaryDark" />
+                android:paddingBottom="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_avatar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_below="@id/comment_view"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="12dp"
                 android:cropToPadding="true"
                 android:src="@drawable/ic_launcher_background" />
+
+            <ImageView
+                android:id="@+id/send_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/comment_view"
+                android:layout_alignParentStart="true"
+                android:layoutDirection="rtl"
+                android:paddingStart="12dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="5dp"
+                android:src="@drawable/ic_send"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/edit_comment"
@@ -102,11 +115,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/comment_view"
                 android:layout_toStartOf="@id/user_avatar"
+                android:layout_toEndOf="@+id/send_button"
                 android:autofillHints=""
                 android:background="@null"
+                android:paddingStart="12dp"
                 android:hint="@string/add_comment"
                 android:inputType="textShortMessage"
-                android:padding="12dp" />
+                android:paddingTop="8dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <View
                 android:id="@+id/divider2"

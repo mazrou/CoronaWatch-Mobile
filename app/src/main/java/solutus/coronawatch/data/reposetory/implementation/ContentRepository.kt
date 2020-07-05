@@ -17,15 +17,6 @@ class ContentRepository (
     private val contentApi: ContentApi
 ): SafeApiRequest() {
 
-    private fun getComment(): List<Comment> {
-        val user = AppUser(1, "Aymen", "Ourdjini", "", "", "", "", true, 0, "")
-        return arrayListOf(
-            Comment("1", user, "comment 1"),
-            Comment("2", user, "comment 2"),
-            Comment("3", user, "comment 3"),
-            Comment("4", user, "comment 4")
-        )
-    }
     suspend fun postVideo(token : String , title: String ,content: String,video : Uri ,context : Context  ) {
 
         val realPath :String? = RealPathUtil.getRealPath(context,video)
@@ -71,9 +62,7 @@ class ContentRepository (
                     title = post.title,
                     url = post.file,
                     content = post.content,
-                    //comments = getComments(),
-                    thumbnail = "https://www.gynecologie-pratique.com/sites/www.gynecologie-pratique.com/files/images/article_journal/covid-19.png",
-                    listComments = getComment()
+                    thumbnail = "https://www.gynecologie-pratique.com/sites/www.gynecologie-pratique.com/files/images/article_journal/covid-19.png"
                 )
             )
 
@@ -92,13 +81,84 @@ class ContentRepository (
                     title = post.title,
                     url = post.file,
                     content = post.content,
-                    thumbnail = "https://www.gynecologie-pratique.com/sites/www.gynecologie-pratique.com/files/images/article_journal/covid-19.png",
-                    listComments = getComment()
+                    thumbnail = "https://www.gynecologie-pratique.com/sites/www.gynecologie-pratique.com/files/images/article_journal/covid-19.png"
                 )
             )
         }
         return listv
     }
+
+
+    ///Comments
+    suspend fun getComment(): ArrayList<ApiComment>? {
+        return contentApi.getComments().body()!!.comments.filter { (!it.deleted) }.map { it ->
+            it.copy(replies = it.replies.filter { !it.deleted })
+        } as ArrayList<ApiComment>?
+    }
+
+    suspend fun createComments(apiComments: ArrayList<ApiComment>): ArrayList<Comment> {
+        val userRepository =
+            UserRepository(
+                UserApi.invoke()
+            )
+        lateinit var user: AppUser
+        val listComments = ArrayList<Comment>()
+
+        for (apiComment in apiComments) {
+            user = userRepository.getUser(apiComment.publisher)
+            listComments.add(
+                Comment(
+                    id = apiComment.id.toString(),
+                    publisher = user,
+                    video = apiComment.post,
+                    content = apiComment.content,
+                    times = apiComment.times,
+                    replies = getReplies(apiComment.replies)
+                )
+            )
+
+        }
+        return listComments
+    }
+
+    private suspend fun getReplies(apiReplies: List<ApiReply>): ArrayList<Reply> {
+        val userRepository =
+            UserRepository(
+                UserApi.invoke()
+            )
+        lateinit var user: AppUser
+        val listReplies = ArrayList<Reply>()
+
+        for (apiComment in apiReplies) {
+            user = userRepository.getUser(apiComment.publisher)
+            listReplies.add(
+                Reply(
+                    id = apiComment.id.toString(),
+                    publisher = user,
+                    video = apiComment.post,
+                    content = apiComment.content,
+                    times = apiComment.times,
+                    parent = apiComment.parent
+                )
+            )
+
+        }
+        return listReplies
+    }
+
+    suspend fun postComment(token: String, post: Int, content: String, times: String) {
+        contentApi.storeComment(token, post, content, times)
+    }
+
+    suspend fun postReply(token: String, post: Int, content: String, times: String, parent: Int) {
+        contentApi.storeReply(token, post, content, times, parent)
+    }
+
+    suspend fun deleteComment(token: String, id: Int) {
+        val deleted = DeleteCommentRequest("true")
+        contentApi.deleteComment("token $token", id, deleted)
+    }
+
 
 
 }

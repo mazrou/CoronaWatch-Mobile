@@ -1,16 +1,15 @@
 package solutus.coronawatch.data.network.implementation
 
-import com.facebook.AccessToken
 import retrofit2.Response
 import retrofit2.http.*
 import solutus.coronawatch.data.entity.AppUser
 import solutus.coronawatch.data.entity.RegisterPostRequest
-import solutus.coronawatch.data.network.entity.Token
 import solutus.coronawatch.data.network.abstraction.Api
 import solutus.coronawatch.data.network.abstraction.SERVER_URL
+import solutus.coronawatch.data.network.entity.Token
 
 
-private const val BASE_URL: String = SERVER_URL +"api_account/"
+private const val BASE_URL: String = SERVER_URL + "api_account/"
 
 interface UserApi : Api {
 

@@ -9,8 +9,11 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 import solutus.coronawatch.data.network.NetworkConnexion
+import solutus.coronawatch.data.network.implementation.ContentApi
 import solutus.coronawatch.data.network.implementation.ReportApi
+import solutus.coronawatch.data.reposetory.implementation.ContentRepository
 import solutus.coronawatch.data.reposetory.implementation.ReportRepository
+import solutus.coronawatch.ui.mainActivity.home.videos.watchVideo.WatchVideoViewModel
 import solutus.coronawatch.ui.mainActivity.info.camera.CameraInfoViewModel
 import solutus.coronawatch.ui.mainActivity.info.photo.PhotoInfoViewModel
 import solutus.coronawatch.ui.mainActivity.info.video.VideoInfoViewModel
@@ -27,6 +30,11 @@ class CoronaWatchApplication : Application() , KodeinAware {
         bind<PhotoInfoViewModel>() with provider { PhotoInfoViewModel(instance()) }
         bind<VideoInfoViewModel>() with singleton  { VideoInfoViewModel(instance()) }
         bind<CameraInfoViewModel>() with singleton  { CameraInfoViewModel(instance()) }
+
+        bind() from singleton { ContentApi() }
+        bind() from singleton { ContentRepository(instance()) }
+        bind<WatchVideoViewModel>() with singleton { WatchVideoViewModel(instance()) }
+
     }
 
 

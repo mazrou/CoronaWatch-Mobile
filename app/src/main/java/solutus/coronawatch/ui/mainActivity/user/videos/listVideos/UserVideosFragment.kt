@@ -22,6 +22,9 @@ import kotlinx.android.synthetic.main.user_videos_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 import solutus.coronawatch.data.entity.Post
 import solutus.coronawatch.data.entity.Video
 import solutus.coronawatch.data.network.implementation.ContentApi
@@ -29,13 +32,14 @@ import solutus.coronawatch.data.reposetory.implementation.ContentRepository
 import solutus.coronawatch.ui.mainActivity.MainActivity
 import solutus.coronawatch.ui.mainActivity.home.videos.listVideos.VideoViewModelFactory
 import solutus.coronawatch.ui.mainActivity.home.videos.listVideos.VideosViewModel
+import solutus.coronawatch.ui.mainActivity.home.videos.watchVideo.WatchVideoViewModel
 import solutus.coronawatch.ui.mainActivity.user.videos.adapter.UserVideoAdapter
 import solutus.coronawatch.utilities.InjectorUtils
 
 
-class UserVideosFragment : Fragment() {
+class UserVideosFragment : Fragment(), KodeinAware {
 
-
+    override val kodein by closestKodein()
     private lateinit var activity: MainActivity
     private lateinit var viewModelFactory: VideoViewModelFactory
     private lateinit var viewModel: VideosViewModel
@@ -73,10 +77,10 @@ class UserVideosFragment : Fragment() {
         viewModelFactory = (InjectorUtils.provideVideosViewModelFactory())
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(VideosViewModel::class.java)
         CoroutineScope(Dispatchers.IO).launch {
-            val posts = activity.token?.let { contentRepository.getUserPosts(it) }
+            val posts = activity.token.let { contentRepository.getUserPosts(it) }
             if (posts != null) {
 
-                activity.user?.let { viewModel.getUserVideos(posts, it) }
+                activity.user.let { viewModel.getUserVideos(posts, it) }
             }
         }
 
@@ -86,23 +90,13 @@ class UserVideosFragment : Fragment() {
         //go to view Video on thumbnail click
         adapter.setOnItemClickListener(object : UserVideoAdapter.OnItemClickListener {
             override fun onItemClick(video: Video) {
-                //pass data to view video fragment using bundle
-                val bundle = Bundle()
-                bundle.putString("url", video.url)
-                bundle.putString("content", video.content)
-                bundle.putString("title", video.title)
-                //bundle.putString("listComment", jsonList.toString())
-
-                //go to ViewVideoFragment
-                val navController: NavController =
-                    Navigation.findNavController(requireActivity(), R.id.user_nav_host_fragment)
-                navController.navigate(R.id.to_watch_video_fragment_action, bundle)
+                watchVideo(video)
                 status = view!!.findViewById(R.id.status_text)
             }
         })
         adapter.setOnItemLongClickListener(object : UserVideoAdapter.OnItemLongClickListener {
             override fun onItemLongClick(video: Video): Boolean {
-                activity.token?.let { showDialog(it, (video.id).toInt()) }
+                showDialog(activity.token, (video.id).toInt())
                 return true
             }
         })
@@ -112,6 +106,15 @@ class UserVideosFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity = context as MainActivity
+    }
+
+    private fun watchVideo(video: Video) {
+        //go to ViewVideoFragment
+        val viewModel: WatchVideoViewModel by instance()
+        viewModel.video = video
+        val navController: NavController =
+            Navigation.findNavController(requireActivity(), R.id.user_nav_host_fragment)
+        navController.navigate(R.id.to_watch_video_fragment_action)
     }
 
     private fun showDialog(token: String, id: Int) {
