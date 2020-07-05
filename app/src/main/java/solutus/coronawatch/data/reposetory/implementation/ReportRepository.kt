@@ -38,8 +38,10 @@ class ReportRepository  (
         apiRequest {
             api.reportCase(
                 TokenApp.token!!.token,
-                descriptionApi
-                ,image
+                descriptionApi ,
+                x = location.x ,
+                y = location.y,
+                attachment = image
              //   description,
               //  image
             )
