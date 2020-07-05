@@ -1,12 +1,14 @@
 package solutus.coronawatch.data.entity
 
+import com.google.gson.annotations.SerializedName
+
 
 data class VideoYoutube(
 
-    val id: String,
     var title: String,
-    var url: String,
-    var thumbnail: String
+    @SerializedName("vedio")
+    var video: String,
+    var thumb: String
 
 )
 

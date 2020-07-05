@@ -17,6 +17,12 @@ class ContentRepository (
     private val contentApi: ContentApi
 ): SafeApiRequest() {
 
+
+
+    suspend fun postVideo(token : String , title: String ,content: String,video : MultipartBody.Part  ) {
+        contentApi.storePost(token, title, content, video)
+    }
+
     suspend fun postVideo(token : String , title: String ,content: String,video : Uri ,context : Context  ) {
 
         val realPath :String? = RealPathUtil.getRealPath(context,video)
@@ -71,7 +77,7 @@ class ContentRepository (
         return listv
     }
 
-    suspend fun  createUserVideos(posts : ArrayList<Post> , user: AppUser) : ArrayList<Video>{
+    fun  createUserVideos(posts : ArrayList<Post> , user: AppUser) : ArrayList<Video>{
         val listv = ArrayList<Video>()
         for (post in posts ){
             listv.add(

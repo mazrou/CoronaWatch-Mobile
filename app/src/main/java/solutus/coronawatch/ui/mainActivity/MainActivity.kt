@@ -10,7 +10,6 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -21,6 +20,15 @@ import com.example.coronawatch_mobile.R
 import com.facebook.AccessToken
 import com.facebook.login.LoginManager
 import kotlinx.android.synthetic.main.activity_main.*
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.FragmentActivity
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import kotlinx.android.synthetic.main.map_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -46,8 +54,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         //request for permission
+        setContentView(R.layout.activity_main)
         ActivityCompat.requestPermissions(
             this,
             arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
@@ -88,7 +96,6 @@ class MainActivity : AppCompatActivity() {
                     .setGraph(R.navigation.visitor_mobile_navigation)
             }
         })
-
 
     }
 
@@ -184,5 +191,7 @@ class MainActivity : AppCompatActivity() {
         }
         dialog.show()
     }
+
+
 
 }

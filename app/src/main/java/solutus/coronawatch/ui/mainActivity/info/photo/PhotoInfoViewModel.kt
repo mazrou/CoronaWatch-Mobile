@@ -21,7 +21,7 @@ import solutus.coronawatch.utilities.RealPathUtil
 import java.io.File
 
 import solutus.coronawatch.ui.mainActivity.info.InfoFragmentViewModel
-
+import solutus.coronawatch.ui.mainActivity.info.OnSubmitListener
 
 
 class PhotoInfoViewModel(
@@ -30,9 +30,11 @@ class PhotoInfoViewModel(
     var photoPath: String? = null
     var photoUri: Uri? = null
 
+    var onSubmitListener : OnSubmitListener? = null
+
     fun uploadCase(context: Context, description: String) {
 
-        val case = Case(description, InfoFragmentViewModel.location, photoPath!!, "VIDEO")
+        val case = Case(description, InfoFragmentViewModel.location, photoPath!!, "IMAGE")
 
         try {
             val realPath: String? = RealPathUtil.getRealPath(context, photoUri!!)
@@ -40,32 +42,23 @@ class PhotoInfoViewModel(
             val str = context.contentResolver?.getType(photoUri!!) as String
             val file: RequestBody = RequestBody.create(str.toMediaTypeOrNull(), originalFile)
 
+
             val image: MultipartBody.Part =
-                MultipartBody.Part.createFormData("file", originalFile.name, file)
+                MultipartBody.Part.createFormData("attachment", originalFile.name, file)
+
             var success = false
-            val job = CoroutineScope(Dispatchers.IO).launch {
+          val job = CoroutineScope(Dispatchers.IO).launch {
                 try {
                     println("Debug : Sending the file on the network")
                     repository.reportImage(description, image, case.location)
+                    onSubmitListener?.onSubmit(true)
                     success = true
                 } catch (e: Exception) {
                     println("Debug : ${e.message}")
                     e.printStackTrace()
-                    CoroutineScope(Main).launch {
-                        Toast.makeText(
-                            context,
-                            " لم يتم الابلاغ بنجاح يرجى المحاولة مجددا  ${e.message}",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
+                    onSubmitListener?.onSubmit(false)
                 }
-
             }
-            if (job.isCompleted) {
-                if (success)
-                    Toast.makeText(context, " تم الابلاغ بنجاحا", Toast.LENGTH_LONG).show()
-            }
-
         } catch (e: Exception) {
             println("Debug : ${e.cause}")
             e.printStackTrace()

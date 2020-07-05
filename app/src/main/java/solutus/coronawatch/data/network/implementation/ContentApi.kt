@@ -28,7 +28,6 @@ interface ContentApi : Api {
         @Part("title") title : String,
         @Part("content") content : String,
         @Part file : MultipartBody.Part
-
     )
 
     @PUT("post/delete/{id}")
@@ -66,6 +65,13 @@ interface ContentApi : Api {
         @Path ("id") id : Int,
         @Body deleted : DeleteCommentRequest
     ) : Response<ApiComment>
+
+
+
+    @GET("writer-posts")
+    suspend fun getWriterPosts(
+
+    ): Response<WriterRequest>
 
 
     companion object {

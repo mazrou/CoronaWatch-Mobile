@@ -21,6 +21,7 @@ import com.example.coronawatch_mobile.R
 import kotlinx.android.synthetic.main.user_videos_fragment.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -122,23 +123,18 @@ class UserVideosFragment : Fragment(), KodeinAware {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(true)
         dialog.setContentView(R.layout.costume_dialog_update_delete)
-        val yesBtn = dialog.findViewById(R.id.updateBtn) as Button
-        val noBtn = dialog.findViewById(R.id.deleteBtn) as Button
-        yesBtn.setOnClickListener {
-            dialog.dismiss()
-            Toast.makeText(context, "update", Toast.LENGTH_LONG).show()
-        }
-        noBtn.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                contentRepository.deletePost(token, id)
-                dialog.dismiss()
-                /*  var posts = contentRepository.getUserPosts(activity.token)
-                if (posts != null) {
-                    viewModel.getUserVideos(posts, activity.user)
-                }*/
-            }
-        }
-        dialog.show()
 
-    }
-}
+        val Btn = dialog.findViewById(R.id.deleteBtn) as Button
+
+        Btn.setOnClickListener {
+            CoroutineScope(IO).launch {
+                        contentRepository.deletePost(token, id)
+                        dialog.dismiss()
+                    }
+                }
+                dialog.show()
+
+            }
+
+        }
+

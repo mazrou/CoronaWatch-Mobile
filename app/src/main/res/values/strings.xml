@@ -38,6 +38,14 @@
     <string name="pending">قيد الانتظار</string>
     <string name="accepted">مقبول</string>
     <string name="rejected">مرفوض</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="deaths">الوفاة</string>
+    <string name="recovered">الشفاء</string>
+        <string name="sick">حالة خطيرة</string>
+    <string name="infected">الإصابة</string>
+    <string name="confirm">تأكيد</string>
+    <string name="international">دوليا</string>
+    <string name="national">وطنيا</string>
     <string name="popup_menu">popup_menu</string>
     <string name="photo">صورة</string>
     <string name="video">فيديو</string>

@@ -46,6 +46,7 @@ class InfoFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        deleteProgressBar()
         //set the navigation menu
         navController = activity.let { Navigation.findNavController(it, R.id.nav_info_fragment) }
         info_navigation.setupWithNavController(navController)
@@ -107,6 +108,14 @@ class InfoFragment : Fragment() {
     private fun checkPermission(permission: String): Boolean {
         val check = ContextCompat.checkSelfPermission(requireActivity(), permission)
         return (check == PackageManager.PERMISSION_GRANTED)
+    }
+
+    fun showProgressBar(){
+        progress_report.visibility = View.VISIBLE
+    }
+
+    fun deleteProgressBar(){
+        progress_report.visibility = View.GONE
     }
 
 }

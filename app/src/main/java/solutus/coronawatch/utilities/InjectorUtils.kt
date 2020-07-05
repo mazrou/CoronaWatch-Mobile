@@ -1,6 +1,7 @@
 package solutus.coronawatch.utilities
 
 import solutus.coronawatch.data.network.implementation.ContentApi
+import solutus.coronawatch.data.network.implementation.RobotApi
 import solutus.coronawatch.data.reposetory.implementation.ArticlesRepository
 import solutus.coronawatch.data.reposetory.implementation.ContentRepository
 import solutus.coronawatch.data.reposetory.implementation.VideosYoutubeRepository
@@ -20,20 +21,10 @@ object InjectorUtils {
         )
     }
 
-    fun provideNoveltiesViewModelFactory(): NoveltiesViewModelFactory {
-        val articleRepository =
-            ArticlesRepository(
-                ContentApi()
-            )
-        return NoveltiesViewModelFactory(
-            articleRepository
-        )
-    }
-
     fun provideListVideoYoutubeViewModelFactory(): ListVideosYoutubeViewModelFactory {
         val videosYoutubeRepository =
             VideosYoutubeRepository(
-                ContentApi()
+                RobotApi.invoke()
             )
         return ListVideosYoutubeViewModelFactory(
             videosYoutubeRepository

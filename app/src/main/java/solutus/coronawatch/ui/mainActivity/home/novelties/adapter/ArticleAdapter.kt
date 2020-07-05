@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.coronawatch_mobile.R
 import com.squareup.picasso.Picasso
 import solutus.coronawatch.data.entity.Article
+import solutus.coronawatch.data.entity.WriterPost
 import solutus.coronawatch.service.Browser
 import solutus.coronawatch.service.ChromeClient
 
@@ -34,34 +35,21 @@ class ArticleAdapter(val context: Context) : RecyclerView.Adapter<ArticleAdapter
         //set article title
         holder.articleTitleView.text = currentArticle.title
         //set article content
-        setArticleContent(holder.articleContent, currentArticle.url,holder.progressBar)
+       // setArticleContent(holder.articleContent, currentArticle.url,holder.progressBar)
+        setWebViewContent(holder.articleContent , currentArticle.url , holder.progressBar)
         //set redactor name
         val publisher = "${currentArticle.publisher.firstName} ${currentArticle.publisher.lastName}"
         holder.redactorName.text = publisher
         //set user avatar
-        Picasso.get().load(currentArticle.publisher.image).into(holder.redactorAvatar)
+       Picasso.get().load(currentArticle.publisher.image).into(holder.redactorAvatar)
 
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
-    private fun setArticleContent(webView: WebView, url: String,progressBar: ProgressBar) {
-        webView.webViewClient = object : Browser(){
-            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                super.onPageStarted(view, url, favicon)
-                progressBar.visibility= View.VISIBLE
-            }
-
-            override fun onPageFinished(view: WebView?, url: String?) {
-                super.onPageFinished(view, url)
-                progressBar.visibility = View.GONE
-            }
-        }
-        webView.webChromeClient = ChromeClient(context as Activity)
-        val webSettings = webView.settings
-        webSettings.javaScriptEnabled = true
-        webSettings.allowFileAccess = true
-        webSettings.setAppCacheEnabled(true)
-        webView.loadUrl(url)
+    private fun setWebViewContent(webView: WebView , content : String ,progressBar: ProgressBar){
+         val mimeType = "text/html";
+         val  encoding = "UTF-8";
+        progressBar.visibility = View.GONE
+         webView.loadDataWithBaseURL("",content , mimeType , encoding , "")
     }
 
     override fun getItemCount(): Int {
@@ -69,6 +57,7 @@ class ArticleAdapter(val context: Context) : RecyclerView.Adapter<ArticleAdapter
     }
 
     fun setArticles(articles: List<Article>) {
+        println("Debug : $articles")
         this.articles = articles
         notifyDataSetChanged()
     }
